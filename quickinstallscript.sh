@@ -48,19 +48,20 @@ perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/default
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/default
 clear
 
-#---Editing Nginx Server Block----
+# -- Please chang/remove this section according to your needs --
 echo "Press [ENTER] to Change NGINX.CONF"
 read -t 30 -p ""
 sed -i '43i\\n\t##\n\t# Set Client Body Size\n\t##\n\tclient_body_buffer_size 50M;\n\tclient_max_body_size 50M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;' /etc/nginx/nginx.conf
 clear
+#----------------------------------------------------------------
+
 service nginx restart
 service php7.2-fpm restart
+clear
 echo "Nginx has been installed."
 echo
 echo "Press [ENTER] to install: mariadb-client mariadb-server expect"
 read -t 30 -p "EXPECT is required for auto answering the database set up questions."
-clear
-
 apt install mariadb-client mariadb-server expect -y
 CURRENT_MYSQL_PASSWORD=''
 NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
@@ -95,12 +96,11 @@ echo "CREATE DATABASE $dbname;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$userpass';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "FLUSH PRIVILEGES;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
+clear
 echo "WordPress MySQL database successfully created!"
 echo
-
 #Install WordPress
 read -t 30 -p "Press [ENTER] to remove EXPECT and install WordPress!"
-clear
 apt purge expect -y
 apt autoremove -y
 apt autoclean -y
@@ -120,9 +120,11 @@ clear
 
 #Change wp-config.php data
 read -t 30 -p  "Press [ENTER] to make the necessary changes to the /var/www/html/wp-config.php file."
+# -- Please chang/remove this section according to your needs --
 sed -i '20i#Define Memory Limit' /var/www/html/wp-config.php
 sed -i '21idefine('\'WP_MEMORY_LIMIT\'', '\'200M\'');' /var/www/html/wp-config.php
 sed -i '22idefine('\'WP_MAX_MEMORY_LIMIT\'', '\'256M\'');' /var/www/html/wp-config.php
+# -------------------------------------------------------------
 perl -pi -e "s/database_name_here/$dbname/g" /var/www/html/wp-config.php
 perl -pi -e "s/username_here/$dbuser/g" /var/www/html/wp-config.php
 perl -pi -e "s/password_here/$userpass/g" /var/www/html/wp-config.php
@@ -143,8 +145,9 @@ echo
 echo
 read -p "Press [ENTER] to display your WordPress MySQL database details!"
 echo
-echo
 echo "Database Name: $dbname"
 echo "Username: $dbuser"
 echo "Password: $userpass"
 echo "Your MySQL ROOT Password is: $NEW_MYSQL_PASSWORD"
+echo
+echo
