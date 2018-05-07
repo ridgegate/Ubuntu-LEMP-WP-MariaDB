@@ -9,6 +9,6 @@ for a quick installation script to automate WordPress installation with Nginx, M
 <strong>Instructions</strong></br>
 Run the following commands on your Ubuntu terminal to download the script and start the installation. </br>
 - wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstallscript.sh </br>
-- sudo chmod +x quickinstall.sh </br>
-- sudo ./quickinstall.sh </br>
+- sudo chmod +x quickinstallscript.sh </br>
+- sudo ./quickinstallscript.sh </br>
 
