@@ -36,7 +36,7 @@ perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.2/fpm/php.in
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
 perl -pi -e "s/.*max_execution_time.*/max_execution_time = 120/;" /etc/php/7.2/fpm/php.ini
 perl -pi -e "s/.*max_input_time.*/max_input_time = 120/;" /etc/php/7.2/fpm/php.ini
-perl -pi -e "s/.*post_max_size.*/post_max_size = 50M/;" /etc/php/7.2/fpm/php.ini
+perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.2/fpm/php.ini
 perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 100M/;" /etc/php/7.2/fpm/php.ini
 clear
 #---Editing Nginx Server Block----
@@ -51,7 +51,7 @@ clear
 # -- Please chang/remove this section according to your needs --
 echo "Press [ENTER] to Change NGINX.CONF"
 read -t 30 -p ""
-sed -i '43i\\n\t##\n\t# Set Client Body Size\n\t##\n\tclient_body_buffer_size 50M;\n\tclient_max_body_size 50M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;' /etc/nginx/nginx.conf
+sed -i '43i\\n\t##\n\t# Set Client Body Size\n\t##\n\tclient_body_buffer_size 50M;\n\tclient_max_body_size 100M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;' /etc/nginx/nginx.conf
 clear
 #----------------------------------------------------------------
 
