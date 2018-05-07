@@ -8,8 +8,8 @@
 # 
 # Instruction
 # Run the following commands 
-# sudo chmod +x quickinstall.sh
-# sudo ./quickinstall.sh
+# sudo chmod +x quickinstallscript.sh
+# sudo ./quickinstallscript.sh
 #
 clear
 echo "Please provide your domain name without the www. (e.g. mydomain.com)"
