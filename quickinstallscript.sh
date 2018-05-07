@@ -43,7 +43,7 @@ clear
 echo "Press [ENTER] to download and auto-configure the Nginx server blocks file."
 read -t 30 -p "File name and location will be: /etc/nginx/sites-available/default"
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/nginx-default-block
-mv ./nginx-default /etc/nginx/sites-available/default
+mv ./nginx-default-block /etc/nginx/sites-available/default
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/default
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/default
 clear
