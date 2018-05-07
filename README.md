@@ -6,9 +6,18 @@ for a quick installation script to automate WordPress installation with Nginx, M
 </br>Lee Wayward @ https://gitlab.com/thecloudorguk/server_install/ 
 </br>Jeffrey B. Murphy @ https://www.jbmurphy.com/2015/10/29/bash-script-to-change-the-security-keys-and-salts-in-a-wp-config-php-file/
 
-<strong>Instructions</strong></br>
+## Instructions
 Run the following commands on your Ubuntu terminal to download the script and start the installation. </br>
-- wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstallscript.sh </br>
-- sudo chmod +x quickinstallscript.sh </br>
-- sudo ./quickinstallscript.sh </br>
+* wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstallscript.sh </br>
+* sudo chmod +x quickinstallscript.sh </br>
+* sudo ./quickinstallscript.sh </br>
+
+## Environment
+Tested on Ubuntu 18.04 Bionics (LTS)
+
+## Included Software
+* Nginx 1.14.0 (Ubuntu repository)
+* PHP 7.2 (ppa:ondrej/php)
+* MariaDB 10.1 (Ubuntu repository)
+* WordPress (Wordpress latest)
 
