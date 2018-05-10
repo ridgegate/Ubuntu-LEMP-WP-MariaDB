@@ -30,9 +30,9 @@ sudo apt-get update -y
 apt install nginx -y
 apt install php7.2-fpm php7.2-mysql php7.2-xml php7.2-libsodium php7.2-mbstring php7.2-common php7.2-curl php7.2-gd php7.2-zip php7.2-soap -y
 phpenmod mbstring
-perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.2/fpm/php.ini
 
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
+perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.2/fpm/php.ini
 perl -pi -e "s/.*max_execution_time.*/max_execution_time = 120/;" /etc/php/7.2/fpm/php.ini
 perl -pi -e "s/.*max_input_time.*/max_input_time = 120/;" /etc/php/7.2/fpm/php.ini
 perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.2/fpm/php.ini
@@ -79,7 +79,9 @@ send \"y\r\"
 expect eof
 ")
 echo "${SECURE_MYSQL}"
-
+echo "MySQL Server installed."
+echo
+read -t 30 -p "Press [ENTER] to create the Database for WordPress"
 # Create WordPress MySQL database
 userpass=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
 echo "CREATE DATABASE $dbname;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
