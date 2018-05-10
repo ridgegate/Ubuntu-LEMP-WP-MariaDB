@@ -130,7 +130,7 @@ clear
 echo "WordPress Installed. Please visit your website to continue setup"
 echo
 echo
-read -p "Press [ENTER] to display your WordPress MySQL database details!"
+echo "Here are your WordPress MySQL database details!"
 echo
 echo "Database Name: $dbname"
 echo "Username: $dbuser"
