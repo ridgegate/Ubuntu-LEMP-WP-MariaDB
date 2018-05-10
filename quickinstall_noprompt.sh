@@ -79,9 +79,7 @@ send \"y\r\"
 expect eof
 ")
 echo "${SECURE_MYSQL}"
-echo "MySQL Server installed."
-echo
-read -t 30 -p "Press [ENTER] to create the Database for WordPress"
+
 # Create WordPress MySQL database
 userpass=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
 echo "CREATE DATABASE $dbname;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
