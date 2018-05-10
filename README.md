@@ -12,7 +12,7 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstallscript.sh </br>
   * sudo chmod +x quickinstallscript.sh </br>
   * sudo ./quickinstallscript.sh </br>
-* #### Complete automatic installation
+* #### Complete automatic installation (Will still prompt for url and database name/user)
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstall_noprompt.sh  </br>
   * sudo chmod +x quickinstall_noprompt.sh </br>
   * sudo ./quickinstall_noprompt.sh </br>
