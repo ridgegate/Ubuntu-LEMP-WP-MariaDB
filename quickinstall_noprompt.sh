@@ -21,9 +21,10 @@ read -p "Type your database username, then press [ENTER] : " dbuser
 clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 
-#Add PHP7.2 Repository
+#Update MariaDB Repository to 10.3
 sudo apt-get install -y software-properties-common
-sudo add-apt-repository -y ppa:ondrej/php
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirrors.accretive-networks.net/mariadb/repo/10.3/ubuntu bionic main'
 sudo apt-get update -y
 
 #Install nginx and php7.2
