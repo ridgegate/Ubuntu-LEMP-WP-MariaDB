@@ -41,9 +41,9 @@ perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 100M/;" /etc/php/7.
 clear
 #---Editing Nginx Server Block----
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/nginx-default-block
-mv ./nginx-default-block /etc/nginx/sites-available/default
-perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/default
-perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/default
+mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
+perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
+perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 clear
 
 # -- Please chang/remove this section according to your needs --
