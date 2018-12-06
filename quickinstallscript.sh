@@ -41,12 +41,12 @@ perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.2/fpm/php.in
 perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 100M/;" /etc/php/7.2/fpm/php.ini
 clear
 #---Editing Nginx Server Block----
-echo "Press [ENTER] to download and auto-configure the Nginx server blocks file."
-read -t 30 -p "File name and location will be: /etc/nginx/sites-available/default"
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/nginx-default-block
 mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
+sudo ln -s /etc/nginx/sites-available/$MY_DOMAIN /etc/nginx/sites-enabled/
+sudo unlink /etc/nginx/sites-enabled/default
 clear
 
 # -- Please chang/remove this section according to your needs --
