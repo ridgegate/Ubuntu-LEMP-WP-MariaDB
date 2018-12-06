@@ -12,7 +12,7 @@ echo "Please provide your domain name without the www. (e.g. mydomain.com)"
 read -p "Type your domain name, then press [ENTER] : " MY_DOMAIN
 clear
 echo "Setting up firewall"
-read -t 3
+read -t 2
 #Reset UFW and enable UFW
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
@@ -22,14 +22,15 @@ sudo ufw delete allow 'Nginx HTTP'
 sudo ufw enable
 echo
 echo
-echo "Completed Firewall Setup. Setting up firewall."
-read -t 3
+echo "Completed Firewall Setup. Setting up LetsEncrypt."
+read -t 2
 clear
 #Install LetsEncrypt Certification Bot
 sudo add-apt-repository ppa:certbot/certbot
 sudo apt install -y python-certbot-nginx
 #--Get the certificates---
 sudo certbot --nginx -d $MY_DOMAIN -d www.$MY_DOMAIN
+echo
 echo
 echo
 echo
