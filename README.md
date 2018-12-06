@@ -8,7 +8,7 @@ for a quick installation script to automate WordPress installation with Nginx, M
 </br>DigitalOcean: https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
 
 ## Instructions
-Run the following commands on your Ubuntu terminal to download the script and start the installation. </br>
+Run the following commands on your Ubuntu terminal to download the script and start the installation. When MariaDB ask for root password, please just press [Enter] to continue. Root password will be auto-generated and entered.</br>
 * #### Script with prompts after individual component has been installed.
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstallscript.sh </br>
   * sudo chmod +x quickinstallscript.sh </br>
