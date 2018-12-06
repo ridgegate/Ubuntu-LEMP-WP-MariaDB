@@ -1,10 +1,11 @@
 # Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript
 The following code is a combination of things I have found on the internet and combined them 
-for a quick installation script to automate WordPress installation with Nginx, MariaDB 10.1, PHP7.2 on Ubuntu 18.04 Bionics.
+for a quick installation script to automate WordPress installation with Nginx, MariaDB 10.3, PHP7.2 on Ubuntu 18.04 Bionics. SSL and firewall setup could be completed with the sslsetup.sh script.
 
 <strong>Credit: </strong>
 </br>Lee Wayward @ https://gitlab.com/thecloudorguk/server_install/ 
 </br>Jeffrey B. Murphy @ https://www.jbmurphy.com/2015/10/29/bash-script-to-change-the-security-keys-and-salts-in-a-wp-config-php-file/
+</br>DigitalOcean: https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
 
 ## Instructions
 Run the following commands on your Ubuntu terminal to download the script and start the installation. </br>
