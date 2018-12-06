@@ -29,7 +29,8 @@ sudo apt-get update -y
 
 #Install nginx and php7.2
 apt install nginx -y
-apt install php7.2-fpm php7.2-mysql php7.2-xml php7.2-libsodium php7.2-mbstring php7.2-common php7.2-curl php7.2-gd php7.2-zip php7.2-soap -y
+#apt install php7.2-fpm php7.2-mysql php7.2-xml php7.2-libsodium php7.2-mbstring php7.2-common php7.2-curl php7.2-gd php7.2-zip php7.2-soap -y
+apt install php-fpm php-mysql php-xml php-libsodium php-mbstring php-common php-curl php-gd php-zip php-soap -y
 phpenmod mbstring
 
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
