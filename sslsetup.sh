@@ -11,7 +11,8 @@ clear
 echo "Please provide your domain name without the www. (e.g. mydomain.com)"
 read -p "Type your domain name, then press [ENTER] : " MY_DOMAIN
 clear
-
+echo "Setting up firewall"
+read -t 5
 #Reset UFW and enable UFW
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
@@ -19,15 +20,25 @@ sudo ufw allow ssh
 sudo ufw allow 'Nginx Full'
 sudo ufw delete allow 'Nginx HTTP'
 sudo ufw enable
-
+echo
+echo
+echo "Completed Firewall Setup. Setting up firewall."
+read -t 10 
+clear
 #Install LetsEncrypt Certification Bot
 sudo add-apt-repository ppa:certbot/certbot
-sudo apt install python-certbot-nginx
+sudo apt install -y python-certbot-nginx
 #--Get the certificates---
 sudo certbot --nginx -d $MY_DOMAIN -d www.$MY_DOMAIN
-
+echo
+echo
+echo
+echo "LetsEncrypt is installed and should be successful"
+read -t 30 -p "Please press [ENTER] continue to test auto-renew with --dry-run or [Control]+[C] to cancel"
+clear
 #test to see if auto-renew could be run successfully.
 sudo certbot renew --dry-run
-
-echo "LetsEncrypt has installed successfully if renew--dry-run does not"
-echo "have any errors. All good to go!"
+echo
+echo
+echo
+echo "LetsEncrypt has installed successfully if renew--dry-run does not have any errors. All good to go!"
