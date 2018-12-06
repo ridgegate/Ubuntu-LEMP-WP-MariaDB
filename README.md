@@ -17,9 +17,9 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * sudo chmod +x quickinstall_noprompt.sh </br>
   * sudo ./quickinstall_noprompt.sh </br>
 * #### To install SSL and Firewall 
-  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstallscript.sh </br>
-  * sudo chmod +x quickinstallscript.sh </br>
-  * sudo ./quickinstallscript.sh </br>
+  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/sslsetup.sh </br>
+  * sudo chmod +x sslsetup.sh </br>
+  * sudo ./sslsetup.sh </br>
 
 ## Environment
 Tested on Ubuntu 18.04 Bionics (LTS)
