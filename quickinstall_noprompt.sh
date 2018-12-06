@@ -44,6 +44,8 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpr
 mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
+sudo ln -s /etc/nginx/sites-available/$MY_DOMAIN /etc/nginx/sites-enabled/
+sudo unlink /etc/nginx/sites-enabled/default
 clear
 
 # -- Please chang/remove this section according to your needs --
