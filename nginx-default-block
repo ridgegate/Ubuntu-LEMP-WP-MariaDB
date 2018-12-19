@@ -14,7 +14,7 @@ location ~ \.php$ {
  fastcgi_index index.php;
  include fastcgi.conf;
  }
-location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff)$ {
+location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg)$ {
  access_log off; log_not_found off; expires 30d;
  }
 location = /robots.txt { access_log off; log_not_found off; }
