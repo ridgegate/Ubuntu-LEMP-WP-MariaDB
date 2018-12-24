@@ -17,8 +17,9 @@ sudo apt-get upgrade -y
 sudo apt-get install -y fail2ban sendmail
 # https://www.tricksofthetrades.net/2018/05/18/fail2ban-installing-bionic/
 # https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04
-
-
+echo "Done Fail2Ban"
+read -t 2
+clear
 echo "Setting up firewall"
 read -t 2
 #Reset UFW and enable UFW
