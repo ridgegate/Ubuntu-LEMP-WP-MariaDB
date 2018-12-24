@@ -11,6 +11,14 @@ clear
 echo "Please provide your domain name without the www. (e.g. mydomain.com)"
 read -p "Type your domain name, then press [ENTER] : " MY_DOMAIN
 clear
+echo "Install Fail2Ban"
+sudo apt-get update -y
+sudo apt-get upgrade -y
+sudo apt-get install -y fail2ban sendmail
+# https://www.tricksofthetrades.net/2018/05/18/fail2ban-installing-bionic/
+# https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04
+
+
 echo "Setting up firewall"
 read -t 2
 #Reset UFW and enable UFW
