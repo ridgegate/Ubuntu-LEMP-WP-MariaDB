@@ -15,6 +15,10 @@ server {
    try_files $uri/ /index.php?$args;
   }
   
+  location ~ /.well-known {
+    allow all;
+  }
+  
   location ~ \.php$ {
    try_files $uri =404;
    fastcgi_split_path_info ^(.+\.php)(/.+)$;
