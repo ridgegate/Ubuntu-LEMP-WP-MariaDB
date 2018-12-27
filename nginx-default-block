@@ -1,4 +1,5 @@
 server {
+ server_tokens off;
  listen 80 default_server;
  root /var/www/html;
  index index.php index.html index.htm;
