@@ -9,10 +9,6 @@ for a quick installation script to automate WordPress installation with Nginx, M
 
 ## Instructions
 Run the following commands on your Ubuntu terminal to download the script and start the installation. When MariaDB ask for root password, please just press [Enter] to continue. Root password will be auto-generated and entered.</br>
-* #### Script for debug
-  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstallscript.sh </br>
-  * sudo chmod +x quickinstallscript.sh </br>
-  * sudo ./quickinstallscript.sh </br>
 * #### Complete automatic installation (Will still prompt for url and database name/user)
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstall_noprompt.sh  </br>
   * sudo chmod +x quickinstall_noprompt.sh </br>
