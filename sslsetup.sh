@@ -11,21 +11,22 @@ clear
 echo "Please provide your domain name without the www. (e.g. mydomain.com)"
 read -p "Type your domain name, then press [ENTER] : " MY_DOMAIN
 clear
-echo "Install Fail2Ban"
-sudo apt-get update -y
-sudo apt-get upgrade -y
-sudo apt-get install -y fail2ban sendmail
+#echo "Install Fail2Ban"
+#sudo apt-get update -y
+#sudo apt-get upgrade -y
+#sudo apt-get install -y fail2ban sendmail
 # https://www.tricksofthetrades.net/2018/05/18/fail2ban-installing-bionic/
 # https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04
-echo "Done Fail2Ban"
-read -t 2
-clear
+#echo "Done Fail2Ban"
+#read -t 2
+#clear
 echo "Setting up firewall"
 read -t 2
 #Reset UFW and enable UFW
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow ssh
+sudo ufw allow https
 sudo ufw allow 'Nginx Full'
 sudo ufw delete allow 'Nginx HTTP'
 sudo ufw enable
