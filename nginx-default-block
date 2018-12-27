@@ -34,14 +34,3 @@ server {
   location = /robots.txt { access_log off; log_not_found off; }
   location ~ /\. { deny all; access_log off; log_not_found off; }
 }
-
-#SSL Server Configuration
-server {
-    listen 443 ssl default_server;
-    listen [::]:443 ssl default_server ;
-    server_name domain.com www.domain.com;
-    root /var/www/html;
-
-    include snippets/ssl-www.mysite.com.conf;
-    include snippets/ssl-params.conf;
-}
