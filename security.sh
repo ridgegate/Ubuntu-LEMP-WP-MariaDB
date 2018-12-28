@@ -21,6 +21,7 @@ read -p "Enter destination email, then press [ENTER] : " DEST_EMAIL
 echo "Please provide sender email for Fail2Ban Notification"
 read -p "Enter sender email, then press [ENTER] : " ORG_EMAIL
 clear
+read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 echo "Setting up Fail2Ban, Sendmail and iptables"
 sudo apt-get update -y
 sudo apt-get install -y sendmail iptables-persistent
@@ -49,7 +50,7 @@ mv ./nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
 sudo systemctl service enable fail2ban
 sudo systemctl service start fail2ban
-echo "Done Fail2Ban"
+echo "Fail2Ban installation completed."
 read -t 2
 clear
 #
