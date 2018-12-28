@@ -11,6 +11,10 @@
 # Test
 # ab -c 100 -n 100 http://[your site]/
 #
+# Check Filters for F2B
+# sudo fail2ban-client -d
+#
+#
 clear
 echo "Please provide destination email for Fail2Ban Notification"
 read -p "Enter destination email, then press [ENTER] : " DEST_EMAIL
