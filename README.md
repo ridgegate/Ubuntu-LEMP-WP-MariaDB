@@ -21,7 +21,10 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/sslsetup.sh </br>
   * sudo chmod +x sslsetup.sh </br>
   * sudo ./sslsetup.sh </br>
-
+* #### debug
+ * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/test.sh
+ * sudo chmod +x test.sh </br>
+  * sudo ./test.sh </br>
 
 ## Environment
 Tested on Ubuntu 18.04 Bionics (LTS)
