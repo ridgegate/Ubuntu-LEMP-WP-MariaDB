@@ -45,7 +45,3 @@ rm $CF_TEMP_IP4 $CF_TEMP_IP6
 # Reload the nginx config.
 service nginx reload
 
-# setup cronjob to run periodically
-chmod 700 /root/scripts/auto-cf-ip-update.sh
-(crontab -l && echo "# Update CloudFlare IP Ranges (every Sunday at 04:00)") | crontab -
-(crontab -l && echo "0      4       *       *       sun     /opt/scripts/cloudflare-update-ip-ranges.sh > /dev/null 2>&1") | crontab -
