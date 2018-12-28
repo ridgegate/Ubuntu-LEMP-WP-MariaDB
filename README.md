@@ -8,19 +8,20 @@ for a quick installation script to automate WordPress installation with Nginx, M
 </br>DigitalOcean: https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
 
 ## Instructions
-Run the following commands on your Ubuntu terminal to download the script and start the installation. When MariaDB ask for root password, please just press [Enter] to continue. Root password will be auto-generated and entered.</br>
+Run the following commands on your Ubuntu terminal to download the script and start the installation. When MariaDB ask for root password, please just press [Enter] to continue. Root password will be auto-generated and entered. The following scripts are shown in sequential order to allow a Wordpress site setup. Second and third steps are optional if you are only creating a test site.</br>
 * #### Complete automatic installation (Will still prompt for url and database name/user)
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstall_noprompt.sh  </br>
   * sudo chmod +x quickinstall_noprompt.sh </br>
   * sudo ./quickinstall_noprompt.sh </br>
-* #### To install SSL and Firewall 
-  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/sslsetup.sh </br>
-  * sudo chmod +x sslsetup.sh </br>
-  * sudo ./sslsetup.sh </br>
-* #### To Fail2Ban and UFW
+* #### To Fail2Ban and UFW (Firewall)
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/security.sh </br>
   * sudo chmod +x security.sh </br>
   * sudo ./security.sh </br>
+* #### To install SSL
+  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/sslsetup.sh </br>
+  * sudo chmod +x sslsetup.sh </br>
+  * sudo ./sslsetup.sh </br>
+
 
 ## Environment
 Tested on Ubuntu 18.04 Bionics (LTS)
