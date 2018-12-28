@@ -47,9 +47,9 @@ sed -i "s/f2bdestinationemail/$DEST_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/f2bsenderemail/$ORG_EMAIL/" /etc/fail2ban/jail.local
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-http-auth.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-noscript.conf
-wget https://github.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/blob/master/resources/wordpress.conf
-wget https://github.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/blob/master/resources/nginx-req-limit.conf
-wget https://github.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/blob/master/resources/CloudFlare.conf
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/wordpress.conf
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-req-limit.conf
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlare.conf
 
 mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
@@ -75,5 +75,16 @@ sudo ufw enable
 echo
 echo
 # Modify nginx.conf to include cloudflareip file for the newest ips
-"##".\n. "# Include Cloudflare IP\n##\n" . "include /etc/nginx/cloudflareip;" >> /etc/nginx/nginx.conf
+touch /etc/nginx/cloudflareip
+echo "##".\n. "# Include Cloudflare IP\n##\n" . "include /etc/nginx/cloudflareip;" >> /etc/nginx/nginx.conf
+
+# Get CloudFlare IP and set up cronjob to run automatically
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/auto-cf-ip-update.sh
+mv ./auto-cf-ip-update.sh /root/scripts/auto-cf-ip-update.sh
+sudo /root/scripts/auto-cf-ip-update.sh
+chmod 700 /root/scripts/auto-cf-ip-update.sh
+#--need to check code below
+(crontab -l && echo "# Update CloudFlare IP Ranges (every Sunday at 04:00)") | crontab -
+(crontab -l && echo "0      4       *       *       sun     /opt/scripts/cloudflare-update-ip-ranges.sh > /dev/null 2>&1") | crontab -
+echo
 echo "Done"
