@@ -45,11 +45,15 @@ chmod 640 /etc/fail2ban/jail.local
 ## Configure Filters and Jails
 sed -i "s/f2bdestinationemail/$DEST_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/f2bsenderemail/$ORG_EMAIL/" /etc/fail2ban/jail.local
+sed -i "s/CF_EMAIL/$CF_EMAIL_ADD/" /etc/fail2ban/jail.local
+sed -i "s/CF_KEY/$CF_API_KEY/" /etc/fail2ban/jail.local
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-http-auth.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-noscript.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/wordpress.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-req-limit.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlare.conf
+sed -i "s/CF_TOKEN/$CFTOKEN/" ./CloudFlare.conf
+sed -i "s/CF_USER/$CFUSER/" ./CloudFlare.conf
 
 mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
