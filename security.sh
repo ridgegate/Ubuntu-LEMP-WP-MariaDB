@@ -47,15 +47,15 @@ sudo dpkg-reconfigure iptables-persistent -u
 
 ## Install Fail2Ban
 sudo apt-get install fail2ban -y
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/f2b-conf/jail.local
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/resources/jail.local
 mv ./jail.local /etc/fail2ban/jail.local
 ## Configure Filters and Jails
 sed -i "s/f2bdestinationemail/$DEST_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/f2bsenderemail/$ORG_EMAIL/" /etc/fail2ban/jail.local
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/f2b-conf/nginx-http-auth.conf
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/f2b-conf/nginx-noscript.conf
-wget https://github.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/blob/master/f2b-conf/wordpress.conf
-wget https://github.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/blob/master/f2b-conf/nginx-req-limit.conf
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-http-auth.conf
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-noscript.conf
+wget https://github.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/blob/master/resources/wordpress.conf
+wget https://github.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/blob/master/resources/nginx-req-limit.conf
 mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
 mv ./wordpress.conf /etc/fail2ban/filter.d/wordpress.conf
