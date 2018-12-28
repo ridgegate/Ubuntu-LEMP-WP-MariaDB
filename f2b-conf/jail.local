@@ -32,3 +32,10 @@ port     = ssh
 filter   = sshd
 logpath  = /var/log/auth.log
 maxretry = 6
+
+[nginx-badbots]
+enabled  = true
+port     = http,https
+filter   = nginx-badbots
+logpath  = /var/log/nginx/access.log
+maxretry = 2
