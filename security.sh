@@ -13,14 +13,6 @@
 # https://serverfault.com/questions/928314/nginx-req-limit-not-triggering-fail2ban-event-cloudflare-api
 #
 #
-# Get Real IP
-# --need to pull ip lists from cloudflare and add to nginx.conf 
-# ##
-# CloudFlare
-# ##
-# include /etc/nginx/cloudflareip;
-# https://marekbosman.com/site/automatic-update-of-cloudflare-ip-addresses-in-nginx/
-#
 # Test
 # ab -c 100 -n 100 http://[your site]/
 #
@@ -78,4 +70,6 @@ sudo ufw delete allow 'Nginx HTTP'
 sudo ufw enable
 echo
 echo
+# Modify nginx.conf to include cloudflareip file for the newest ips
+"##".\n. "# Include Cloudflare IP\n##\n" . "include /etc/nginx/cloudflareip;" >> /etc/nginx/nginx.conf
 echo "Done"
