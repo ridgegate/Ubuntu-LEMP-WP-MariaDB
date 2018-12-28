@@ -44,3 +44,9 @@ port     = http,https
 filter   = nginx-badbots
 logpath  = /var/log/nginx/access.log
 maxretry = 2
+
+[nginx-req-limit]
+enabled = true
+filter = nginx-req-limit
+action = ufw
+logpath = /var/log/nginx/*error.log
