@@ -14,6 +14,11 @@ mta = sendmail
 # Including relevant log lines of F2B
 action = $(action_mwl)s
 
+# see action.d/ufw.conf
+actionban = ufw.conf
+# see action.d/ufw.conf 
+actionunban = ufw.conf   
+
 [jail_to_enable]
 enabled = true
 
