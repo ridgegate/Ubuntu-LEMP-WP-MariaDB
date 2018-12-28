@@ -32,9 +32,11 @@ perl -pi -e "s/f2bsenderemail/$ORG_EMAIL/g;" /etc/fail2ban/jail.local
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/f2b-conf/nginx-http-auth.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/f2b-conf/nginx-noscript.conf
 wget https://github.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/blob/master/f2b-conf/wordpress.conf
+wget https://github.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/blob/master/f2b-conf/nginx-req-limit.conf
 mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
 mv ./wordpress.conf /etc/fail2ban/filter.d/wordpress.conf
+mv ./nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
 sudo systemctl service enable fail2ban
 sudo systemctl service start fail2ban
