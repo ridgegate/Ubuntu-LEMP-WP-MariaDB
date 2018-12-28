@@ -10,7 +10,10 @@
 #
 # Cloudflare API integration with Fail2Ban
 # https://guides.wp-bullet.com/integrate-fail2ban-cloudflare-api-v4-guide/
+# https://serverfault.com/questions/928314/nginx-req-limit-not-triggering-fail2ban-event-cloudflare-api
 #
+# Auto Update Cloudflare IPs
+# https://marekbosman.com/site/automatic-update-of-cloudflare-ip-addresses-in-nginx/
 # Test
 # ab -c 100 -n 100 http://[your site]/
 #
