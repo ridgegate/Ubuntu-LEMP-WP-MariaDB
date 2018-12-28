@@ -14,6 +14,13 @@ mta = sendmail
 # Including relevant log lines of F2B
 action = $(action_mwl)s
 
+# See info from Cloudflare
+action = %(action_cf_mwl)s
+# # Your CF account e-mail
+cfemail  = CF_EMAIL
+# # Your CF API Key
+cfapikey = CF_KEY
+
 # see action.d/ufw.conf
 actionban = ufw.conf
 # see action.d/ufw.conf 
