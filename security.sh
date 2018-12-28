@@ -5,6 +5,10 @@
 # https://www.digitalocean.com/community/tutorials/how-to-protect-an-nginx-server-with-fail2ban-on-ubuntu-14-04
 # https://www.tricksofthetrades.net/2018/05/18/fail2ban-installing-bionic/
 # https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04
+# http://johnny.chadda.se/using-fail2ban-with-nginx-and-ufw/   
+#
+# Test
+# ab -c 100 -n 100 http://[your site]/
 #
 clear
 echo "Please provide destination email for Fail2Ban Notification"
