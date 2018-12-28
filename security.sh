@@ -14,7 +14,11 @@
 #
 #
 # Get Real IP
-# --need to pull ip lists from cloudflare and add to nginx.conf -> http or server block in /etc/nginx
+# --need to pull ip lists from cloudflare and add to nginx.conf 
+# ##
+# CloudFlare
+# ##
+# include /etc/nginx/cloudflareip;
 # https://marekbosman.com/site/automatic-update-of-cloudflare-ip-addresses-in-nginx/
 #
 # Test
