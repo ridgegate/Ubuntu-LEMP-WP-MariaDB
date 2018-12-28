@@ -7,6 +7,9 @@
 #    2. An A record with "www.my_domain.com" pointing to your server's public IP address.
 #
 #
+# Credit:
+# https://www.digitalocean.com/community/tutorials/how-to-protect-an-nginx-server-with-fail2ban-on-ubuntu-14-04
+#
 clear
 echo "Please provide your domain name without the www. (e.g. mydomain.com)"
 read -p "Type your domain name, then press [ENTER] : " MY_DOMAIN
