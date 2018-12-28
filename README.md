@@ -22,7 +22,7 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * sudo chmod +x sslsetup.sh </br>
   * sudo ./sslsetup.sh </br>
 * #### debug
-  * wget -q -o https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/test.sh
+  * wget -q https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/test.sh
   * sudo chmod +x test.sh </br>
   * sudo ./test.sh </br>
 
