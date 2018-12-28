@@ -6,6 +6,7 @@
 # https://www.tricksofthetrades.net/2018/05/18/fail2ban-installing-bionic/
 # https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04
 # http://johnny.chadda.se/using-fail2ban-with-nginx-and-ufw/   
+# https://gist.github.com/JulienBlancher/48852f9d0b0ef7fd64c3  - check for additional jails
 #
 # Test
 # ab -c 100 -n 100 http://[your site]/
