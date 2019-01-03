@@ -14,13 +14,6 @@ mta = sendmail
 # Including relevant log lines of F2B
 action = $(action_mwl)s
 
-# See info from Cloudflare
-action = %(action_cf_mwl)s
-# # Your CF account e-mail
-cfemail  = CF_EMAIL
-# # Your CF API Key
-cfapikey = CF_KEY
-
 # see action.d/ufw.conf
 actionban = ufw.conf
 # see action.d/ufw.conf 
@@ -56,7 +49,7 @@ maxretry = 2
 enabled = true
 filter = nginx-limit-req
 action = iptables-multiport
-         cloudflare
+         cloudflarv4
 port = http,https
 logpath = /var/log/nginx/*error*.log
 findtime = 10
