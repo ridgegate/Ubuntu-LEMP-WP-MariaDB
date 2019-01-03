@@ -51,7 +51,8 @@ sudo apt-get install fail2ban -y
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/resources/jail.local
 mv ./jail.local /etc/fail2ban/jail.local
 chmod 640 /etc/fail2ban/jail.local
-## Configure Filters and Jails
+
+## -- Configure Filters and Jails
 sed -i "s/f2bdestinationemail/$F2B_DEST/" /etc/fail2ban/jail.local
 sed -i "s/f2bsenderemail/$F2B_SENDER/" /etc/fail2ban/jail.local
 sed -i "s/CF_EMAIL/$CF_EMAIL/" /etc/fail2ban/jail.local
