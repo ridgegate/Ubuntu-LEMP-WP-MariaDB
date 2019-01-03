@@ -25,6 +25,12 @@ echo "Please provide destination email for Fail2Ban Notification"
 read -p "Enter destination email, then press [ENTER] : " DEST_EMAIL
 echo "Please provide sender email for Fail2Ban Notification"
 read -p "Enter sender email, then press [ENTER] : " ORG_EMAIL
+echo "Please provide CloudFlare Email Address"
+read -p "Enter CloudFlare Email Address [ENTER] : " CF_EMAIL_ADD
+echo "Please provide CloudFlare API Key"
+read -p "Enter CloudFlare API Key: " CF_API_KEY
+echo "Please provide CloudFlare Token"
+read -p "Enter CloudFlare Token: " CFTOKEN
 clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 echo "Setting up Fail2Ban, Sendmail and iptables"
@@ -53,7 +59,7 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpres
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-req-limit.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlare.conf
 sed -i "s/CF_TOKEN/$CFTOKEN/" ./CloudFlare.conf
-sed -i "s/CF_USER/$CFUSER/" ./CloudFlare.conf
+sed -i "s/CF_USER/$CF_EMAIL_ADD/" ./CloudFlare.conf
 
 mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
