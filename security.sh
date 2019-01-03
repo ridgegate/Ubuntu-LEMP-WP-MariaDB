@@ -86,15 +86,20 @@ echo
 echo
 # Modify nginx.conf to include cloudflareip file for the newest ips
 touch /etc/nginx/cloudflareip
-echo "##".\n. "# Include Cloudflare IP\n##\n" . "include /etc/nginx/cloudflareip;" >> /etc/nginx/nginx.conf
+sed -i '5i\' /etc/nginx/nginx.conf
+sed -i '6i## Include Cloudflare IP ##' /etc/nginx/nginx.conf
+sed -i '7iinclude /etc/nginx/cloudflareip;' /etc/nginx/nginx.conf
+sed -i '8i\' /etc/nginx/nginx.conf
+echo "## Include Cloudflare IP ##" >> /etc/nginx/nginx.conf
+echo "include /etc/nginx/cloudflareip;" >> /etc/nginx/nginx.conf
 
 # Get CloudFlare IP and set up cronjob to run automatically
+mkdir /root/scripts
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/auto-cf-ip-update.sh
 mv ./auto-cf-ip-update.sh /root/scripts/auto-cf-ip-update.sh
-sudo /root/scripts/auto-cf-ip-update.sh
-chmod 700 /root/scripts/auto-cf-ip-update.sh
+chmod 755 /root/scripts/auto-cf-ip-update.sh
 #--need to check code below
 (crontab -l && echo "# Update CloudFlare IP Ranges (every Sunday at 04:00)") | crontab -
-(crontab -l && echo "0      4       *       *       sun     /opt/scripts/cloudflare-update-ip-ranges.sh > /dev/null 2>&1") | crontab -
+(crontab -l && echo "0      4       *       *       sun     /root/scripts/auto-cf-ip-update.sh") | crontab -
 echo
 echo "Done"
