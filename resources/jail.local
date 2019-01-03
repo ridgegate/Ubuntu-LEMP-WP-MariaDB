@@ -6,9 +6,9 @@ bantime  = 10m
 maxretry = 5	
 
 # Email Settings
-destemail = f2bdestinationemail
+destemail = F2B_DEST
 sendername = Fail2BanAlert
-sender = f2bsenderemail
+sender = F2B_SENDER
 mta = sendmail
 
 # Including relevant log lines of F2B
