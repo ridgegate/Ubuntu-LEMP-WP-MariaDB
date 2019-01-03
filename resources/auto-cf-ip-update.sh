@@ -23,6 +23,9 @@ if [ -f $CF_TEMP_IP4 ] && [ -f $CF_TEMP_IP6 ]
 
     if [ "$last_ip4checksum" = "$ip4checksum" ] && [ "$last_ip6checksum" = "$ip6checksum" ] 
     then
+      echo 
+      echo "No CloudFlare IP update needed"
+      echo
       exit 1
     fi
 fi
