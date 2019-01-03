@@ -1,5 +1,7 @@
 #!/bin/bash
-#/scripts/cloudflare-update-ip-ranges.sh
+#/scripts/auto-cf-ip-update.sh
+# Credit
+# https://marekbosman.com/site/automatic-update-of-cloudflare-ip-addresses-in-nginx/
 
 # Location of the nginx config file that contains the CloudFlare IP addresses.
 CF_NGINX_CONFIG_FILE="/etc/nginx/cloudflareip"
