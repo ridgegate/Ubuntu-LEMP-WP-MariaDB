@@ -14,10 +14,12 @@ mta = sendmail
 # Including relevant log lines of F2B
 action = $(action_mwl)s
 
-# see action.d/ufw.conf
-actionban = ufw.conf
-# see action.d/ufw.conf 
-actionunban = ufw.conf   
+# To receive notification of ip banned on CloudFlare
+action = %(action_cf_mwl)s
+# # Your CF account e-mail
+cfemail  = CF_EMAIL
+# # Your CF API Key
+cfapikey = CF_API_KEY
 
 [jail_to_enable]
 enabled = true
@@ -49,7 +51,7 @@ maxretry = 2
 enabled = true
 filter = nginx-limit-req
 action = iptables-multiport
-         cloudflarv4
+         cloudflare
 port = http,https
 logpath = /var/log/nginx/*error*.log
 findtime = 10
