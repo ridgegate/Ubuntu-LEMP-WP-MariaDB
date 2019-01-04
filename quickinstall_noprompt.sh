@@ -64,33 +64,37 @@ sudo debconf-set-selections <<< "mariadb-server mysql-server/root_password passw
 sudo debconf-set-selections <<< "mariadb-server mysql-server/root_password_again password $NEW_MYSQL_PASSWORD" 
 
 apt install mariadb-client mariadb-server expect -y
-CURRENT_MYSQL_PASSWORD=''
-SECURE_MYSQL=$(sudo expect -c "
-set timeout 3
-spawn mysql_secure_installation
-expect \"Enter current password for root (enter for none):\"
-send \"$CURRENT_MYSQL_PASSWORD\r\"
-expect \"root password?\"
-send \"y\r\"
-expect \"New password:\"
-send \"$NEW_MYSQL_PASSWORD\r\"
-expect \"Re-enter new password:\"
-send \"$NEW_MYSQL_PASSWORD\r\"
-expect \"Remove anonymous users?\"
-send \"y\r\"
-expect \"Disallow root login remotely?\"
-send \"y\r\"
-expect \"Remove test database and access to it?\"
-send \"y\r\"
-expect \"Reload privilege tables now?\"
-send \"y\r\"
-expect eof
-")
-echo "${SECURE_MYSQL}"
+sudo mysql_install_db
+sudo mysql_secure_installation
+#CURRENT_MYSQL_PASSWORD=''
+#NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
+#SECURE_MYSQL=$(sudo expect -c "
+#set timeout 3
+#sudo mysql_secure_installation
+#spawn mysql_secure_installation
+#expect \"Enter current password for root (enter for none):\"
+#send \"$CURRENT_MYSQL_PASSWORD\r\"
+#expect \"root password?\"
+#send \"y\r\"
+#expect \"New password:\"
+#send \"$NEW_MYSQL_PASSWORD\r\"
+#expect \"Re-enter new password:\"
+#send \"$NEW_MYSQL_PASSWORD\r\"
+#expect \"Remove anonymous users?\"
+#send \"y\r\"
+#expect \"Disallow root login remotely?\"
+#send \"y\r\"
+#expect \"Remove test database and access to it?\"
+#send \"y\r\"
+#expect \"Reload privilege tables now?\"
+#send \"y\r\"
+#expect eof
+#")
+#echo "${SECURE_MYSQL}"
 
 # Create WordPress MySQL database
 userpass=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
-echo "CREATE DATABASE $dbname;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
+echo "CREATE DATABASE $dbname;" | sudo mysql -u root -p $NEW_MYSQL_PASSWORD
 echo "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$userpass';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "FLUSH PRIVILEGES;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
