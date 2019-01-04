@@ -86,7 +86,7 @@ echo "${SECURE_MYSQL}"
 
 # Create WordPress MySQL database
 userpass=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
-echo "CREATE DATABASE $dbname;" | sudo mysql -u root -p $NEW_MYSQL_PASSWORD
+echo "CREATE DATABASE $dbname;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$userpass';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "FLUSH PRIVILEGES;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
