@@ -58,9 +58,13 @@ service nginx restart
 service php7.2-fpm restart
 clear
 
+NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
+export DEBIAN_FRONTEND="noninteractive"
+sudo debconf-set-selections <<< "mariadb-server mysql-server/root_password password $NEW_MYSQL_PASSWORD"
+sudo debconf-set-selections <<< "mariadb-server mysql-server/root_password_again password $NEW_MYSQL_PASSWORD" 
+
 apt install mariadb-client mariadb-server expect -y
 CURRENT_MYSQL_PASSWORD=''
-NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
 SECURE_MYSQL=$(sudo expect -c "
 set timeout 3
 spawn mysql_secure_installation
