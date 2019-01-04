@@ -64,7 +64,7 @@ sudo debconf-set-selections <<< "mariadb-server mysql-server/root_password passw
 sudo debconf-set-selections <<< "mariadb-server mysql-server/root_password_again password $NEW_MYSQL_PASSWORD" 
 
 apt install mariadb-client mariadb-server expect -y
-sudo mysql_install_db
+#sudo mysql_install_db
 sudo mysql_secure_installation
 #CURRENT_MYSQL_PASSWORD=''
 #NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
