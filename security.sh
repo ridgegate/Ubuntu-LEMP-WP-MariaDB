@@ -10,7 +10,7 @@
 # Cloudflare API integration with Fail2Ban
 # https://guides.wp-bullet.com/integrate-fail2ban-cloudflare-api-v4-guide/
 # https://serverfault.com/questions/928314/nginx-req-limit-not-triggering-fail2ban-event-cloudflare-api
-# https://www.sys-dev.cat/blog/5/  -another version of auto obtain ip
+# 
 #
 # Test
 # ab -c 100 -n 100 http://[your site]/
@@ -69,10 +69,10 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpres
 sed -i "s/CF_TOKEN/$CF_TOKEN/" ./CloudFlareMod.conf
 sed -i "s/CF_USER/$CF_EMAIL/" ./CloudFlareMod.conf
 if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]] then
-    CF_ZONEID = user/$CF_ZONEID
-    sed -i "s//CF_ZONE/$CF_ZONEID/" ./CloudFlareMod.conf
+    CF_ZONEID="zones/$CF_ZONEID"
+    sed -i "s|CF_ZONE|$CF_ZONEID|g" ./CloudFlareMod.conf
 elif then
-    sed -i "s//CF_ZONE/user/" ./CloudFlareMod.conf
+    sed -i "s|CF_ZONE|user|g" ./CloudFlareMod.conf
 fi
 
 mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
