@@ -30,6 +30,10 @@ echo "Please provide CloudFlare API Key"
 read -p "Enter CloudFlare API Key: " CF_API_KEY
 echo "Please provide CloudFlare Global Token"
 read -p "Enter CloudFlare Token: " CF_TOKEN
+read -p "Do you have multiple URL on the same Cloudflare account? (Y/n):" ZONE_EXIST
+if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]] then
+    read -p "Enter CloudFlare ZONEID: " CF_ZONEID
+fi
 clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 echo "Setting up Fail2Ban, Sendmail and iptables"
@@ -61,9 +65,15 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpres
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-noscript.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/wordpress.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-req-limit.conf
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlare.conf
-sed -i "s/CF_TOKEN/$CF_TOKEN/" ./CloudFlare.conf
-sed -i "s/CF_USER/$CF_EMAIL/" ./CloudFlare.conf
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlareMod.conf
+sed -i "s/CF_TOKEN/$CF_TOKEN/" ./CloudFlareMod.conf
+sed -i "s/CF_USER/$CF_EMAIL/" ./CloudFlareMod.conf
+if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]] then
+    CF_ZONEID = user/$CF_ZONEID
+    sed -i "s//CF_ZONE/$CF_ZONEID/" ./CloudFlareMod.conf
+elif then
+    sed -i "s//CF_ZONE/user/" ./CloudFlareMod.conf
+fi
 
 mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
