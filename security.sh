@@ -81,7 +81,7 @@ mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
 mv ./wordpress.conf /etc/fail2ban/filter.d/wordpress.conf
 mv ./nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
-cp -f ./CloudFlare.conf /etc/fail2ban/filter.d/CloudFlare.conf
+cp -f ./CloudFlareMod.conf /etc/fail2ban/filter.d/CloudFlare.conf
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
 sudo systemctl service enable fail2ban
 sudo systemctl service start fail2ban
@@ -108,6 +108,7 @@ sed -i '7iinclude /etc/nginx/cloudflareip;' /etc/nginx/nginx.conf
 sed -i '8i\' /etc/nginx/nginx.conf
 echo "## Include Cloudflare IP ##" >> /etc/nginx/nginx.conf
 echo "include /etc/nginx/cloudflareip;" >> /etc/nginx/nginx.conf
+echo "" >> /etc/nginx/nginx.conf
 
 # Get CloudFlare IP and set up cronjob to run automatically
 mkdir /root/scripts
@@ -115,7 +116,7 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpres
 mv ./auto-cf-ip-update.sh /root/scripts/auto-cf-ip-update.sh
 chmod 700 /root/scripts/auto-cf-ip-update.sh
 bash /root/scripts/auto-cf-ip-update.sh
-#--need to check code below
+# Added Cronjob to autoupdate IP list
 (crontab -l && echo "# Update CloudFlare IP Ranges (every Sunday at 04:00)") | crontab -
 (crontab -l && echo "0      4       *       *       sun     /root/scripts/cloudflare-update-ip-ranges.sh > /dev/null 2>&1") | crontab - 
 echo
