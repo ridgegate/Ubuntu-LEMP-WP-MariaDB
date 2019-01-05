@@ -31,7 +31,7 @@ read -p "Enter CloudFlare API Key: " CF_API_KEY
 echo "Please provide CloudFlare Global Token"
 read -p "Enter CloudFlare Token: " CF_TOKEN
 read -p "Do you have multiple URL on the same Cloudflare account? (Y/n):" ZONE_EXIST
-if [[ $ZONE_EXIST =~ ^[Yy]$ ]]
+if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
     read -p "Enter CloudFlare ZONEID: " CF_ZONEID
 fi
@@ -69,7 +69,8 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpres
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlareMod.conf
 sed -i "s/CF_TOKEN/$CF_TOKEN/" ./CloudFlareMod.conf
 sed -i "s/CF_USER/$CF_EMAIL/" ./CloudFlareMod.conf
-if [[ $ZONE_EXIST =~ ^[Yy]$ ]] then
+if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]]
+then
     CF_ZONEID="zones/$CF_ZONEID"
     sed -i "s|CF_ZONE|$CF_ZONEID|g" ./CloudFlareMod.conf
 else
