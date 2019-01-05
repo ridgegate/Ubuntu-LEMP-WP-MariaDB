@@ -49,7 +49,7 @@ maxretry = 2
 enabled = true
 filter = nginx-limit-req
 action = iptables-multiport
-         cloudflare
+         CloudFlaremod
 port = http,https
 logpath = /var/log/nginx/*error*.log
 findtime = 10
