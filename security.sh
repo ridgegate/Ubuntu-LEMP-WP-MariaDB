@@ -68,7 +68,7 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpres
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-req-limit.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlareMod.conf
 sed -i "s/CF_GLB_KEY/$CF_API_KEY/" ./CloudFlareMod.conf
-sed -i "s/CF_EMAIL/$CF_EMAIL/" ./CloudFlareMod.conf
+sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" ./CloudFlareMod.conf
 if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
     CF_ZONEID="zones/$CF_ZONEID"
