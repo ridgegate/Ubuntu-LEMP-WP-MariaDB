@@ -67,8 +67,8 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpres
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/wordpress.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-req-limit.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlareMod.conf
-sed -i "s/CF_GLB_API/$CF_API_KEY/" ./CloudFlareMod.conf
-sed -i "s/CF_USER/$CF_EMAIL/" ./CloudFlareMod.conf
+sed -i "s/CF_GLB_KEY/$CF_API_KEY/" ./CloudFlareMod.conf
+sed -i "s/CF_EMAIL/$CF_EMAIL/" ./CloudFlareMod.conf
 if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
     CF_ZONEID="zones/$CF_ZONEID"
@@ -81,7 +81,7 @@ mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
 mv ./wordpress.conf /etc/fail2ban/filter.d/wordpress.conf
 mv ./nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
-cp -f ./CloudFlareMod.conf /etc/fail2ban/filter.d/CloudFlare.conf
+cp -f ./CloudFlareMod.conf /etc/fail2ban/filter.d/CloudFlareMod.conf
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
 sudo systemctl service enable fail2ban
 sudo systemctl service start fail2ban
