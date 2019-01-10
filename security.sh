@@ -21,12 +21,12 @@
 #
 clear
 echo "Please provide destination email for Fail2Ban Notification"
-read -p "Enter destination email, then press [ENTER] : " F2B_DEST
+read -p "Enter destination email, then press [ENTER] : " F2B_DEST_EMAIL
 echo "Please provide sender email for Fail2Ban Notification"
-read -p "Enter sender email, then press [ENTER] : " F2B_SENDER
+read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_EMAIL
 echo "Please provide CloudFlare Email Address"
-read -p "Enter CloudFlare Email Address [ENTER] : " CF_EMAIL
-echo "Please provide CloudFlare API Key"
+read -p "Enter CloudFlare Account Email Address [ENTER] : " CF_ACC_EMAIL
+echo "Please provide CloudFlare Global API Key"
 read -p "Enter CloudFlare API Key: " CF_API_KEY
 echo "Please provide CloudFlare Global Token"
 read -p "Enter CloudFlare Token: " CF_TOKEN
@@ -58,16 +58,16 @@ mv ./jail.local /etc/fail2ban/jail.local
 chmod 640 /etc/fail2ban/jail.local
 
 ## -- Configure Filters and Jails
-sed -i "s/f2bdestinationemail/$F2B_DEST/" /etc/fail2ban/jail.local
-sed -i "s/f2bsenderemail/$F2B_SENDER/" /etc/fail2ban/jail.local
-sed -i "s/CF_EMAIL/$CF_EMAIL/" /etc/fail2ban/jail.local
-sed -i "s/CF_KEY/$CF_API_KEY/" /etc/fail2ban/jail.local
+sed -i "s/F2B_DEST/$F2B_DEST_EMAIL/" /etc/fail2ban/jail.local
+sed -i "s/F2B_SENDER/$F2B_SENDER_EMAIL/" /etc/fail2ban/jail.local
+sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" /etc/fail2ban/jail.local
+sed -i "s/CF_GLB_KEY/$CF_API_KEY/" /etc/fail2ban/jail.local
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-http-auth.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-noscript.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/wordpress.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-req-limit.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlareMod.conf
-sed -i "s/CF_TOKEN/$CF_TOKEN/" ./CloudFlareMod.conf
+sed -i "s/CF_TOKEN/$CF_API_KEY/" ./CloudFlareMod.conf
 sed -i "s/CF_USER/$CF_EMAIL/" ./CloudFlareMod.conf
 if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
