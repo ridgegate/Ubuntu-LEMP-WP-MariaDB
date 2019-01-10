@@ -19,9 +19,6 @@ cfemail  = CF_EMAIL
 # # Your CF API Key
 cfapikey = CF_API_KEY
 
-[jail_to_enable]
-enabled = true
-
 [wordpress]
 enabled  = true
 filter   = wordpress
