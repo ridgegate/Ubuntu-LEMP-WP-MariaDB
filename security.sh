@@ -63,8 +63,9 @@ sed -i "s/CF_GLB_KEY/$CF_API_KEY/" /etc/fail2ban/jail.local
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-http-auth.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-noscript.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/wordpress.conf
-touch /var/www/html/logs/access.log
-chmod 666 /var/www/html/logs/access.log
+mkdir /var/log/wordpress
+touch /var/log/wordpress/access.log
+chmod 666 /var/log/wordpress/access.log
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlareMod.conf
 sed -i "s/CF_GLB_KEY/$CF_API_KEY/" ./CloudFlareMod.conf
 sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" ./CloudFlareMod.conf
