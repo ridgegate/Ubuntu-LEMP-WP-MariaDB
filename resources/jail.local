@@ -22,7 +22,7 @@ cfapikey = CF_API_KEY
 [wordpress]
 enabled  = true
 filter   = wordpress
-logpath  = /var/www/html/logs/access.log
+logpath  = /var/log/wordpress/access.log
 port     = 80,443
 
 [nginx-http-auth]
