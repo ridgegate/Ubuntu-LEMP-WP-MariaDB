@@ -28,8 +28,6 @@ echo "Please provide CloudFlare Email Address"
 read -p "Enter CloudFlare Account Email Address [ENTER] : " CF_ACC_EMAIL
 echo "Please provide CloudFlare Global API Key"
 read -p "Enter CloudFlare API Key: " CF_API_KEY
-echo "Please provide CloudFlare Global Token"
-read -p "Enter CloudFlare Token: " CF_TOKEN
 read -p "Do you have multiple URL on the same Cloudflare account? (Y/n):" ZONE_EXIST
 if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
