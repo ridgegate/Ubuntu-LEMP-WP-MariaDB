@@ -81,7 +81,7 @@ mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
 mv ./wordpress.conf /etc/fail2ban/filter.d/wordpress.conf
 #mv ./nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
-cp -f ./CloudFlareMod.conf /etc/fail2ban/filter.d/CloudFlareMod.conf
+mv ./CloudFlareMod.conf /etc/fail2ban/action.d/CloudFlareMod.conf
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
 sudo systemctl service enable fail2ban
 sudo systemctl service start fail2ban
