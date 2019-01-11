@@ -10,7 +10,7 @@ destemail = F2B_DEST
 sendername = Fail2BanAlert
 sender = F2B_SENDER
 mta = sendmail
-action = $(action_mwl)s  # Including relevant log lines of F2B
+#action = $(action_mwl)s  # Including relevant log lines of F2B
 
 # To receive notification of ip banned on CloudFlare
 action = %(action_cf_mwl)s
