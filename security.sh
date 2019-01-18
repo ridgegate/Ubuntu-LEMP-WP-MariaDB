@@ -102,13 +102,10 @@ echo
 echo
 # Modify nginx.conf to include cloudflareip file for the newest ips
 touch /etc/nginx/cloudflareip
-sed -i '5i\' /etc/nginx/nginx.conf
-sed -i '6i## Include Cloudflare IP ##' /etc/nginx/nginx.conf
-sed -i '7iinclude /etc/nginx/cloudflareip;' /etc/nginx/nginx.conf
-sed -i '8i\' /etc/nginx/nginx.conf
-echo "## Include Cloudflare IP ##" >> /etc/nginx/nginx.conf
-echo "include /etc/nginx/cloudflareip;" >> /etc/nginx/nginx.conf
-echo "" >> /etc/nginx/nginx.conf
+sed -i '/http/a\       include /etc/nginx/cloudflareip;' /etc/nginx/nginx.conf
+sed -i '/http/a\       ## Include Cloudflare IP ##' /etc/nginx/nginx.conf
+sed -i '/http/a\  ' /etc/nginx/nginx.conf #add newline
+sed -i '/http/a\  ' /etc/nginx/nginx.conf #add newline
 
 # Get CloudFlare IP and set up cronjob to run automatically
 mkdir /root/scripts
