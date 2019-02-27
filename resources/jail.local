@@ -10,10 +10,11 @@ destemail = F2B_DEST
 sendername = Fail2BanAlert
 sender = F2B_SENDER
 mta = sendmail
-#action = $(action_mwl)s  # Including relevant log lines of F2B
 
 # To receive notification of ip banned on CloudFlare
-action = %(action_cf_mwl)s
+#action = %(action_cf_mwl)s
+action = $(action_mwl)s  # Including relevant log lines of F2B
+
 # # Your CF account e-mail
 cfemail  = CF_EMAIL
 # # Your CF API Key
@@ -22,25 +23,24 @@ cfapikey = CF_API_KEY
 [wordpress]
 enabled  = true
 filter   = wordpress
-logpath  = /var/log/wordpress/access.log
+logpath  = /var/log/wordpressaccess.log
 port     = 80,443
 
 [nginx-http-auth]
 enabled = true
+logpath  = /var/log/nginxhttpauth.log
 
 [ssh]
 enabled  = true
 port     = ssh
 filter   = sshd
-logpath  = /var/log/auth.log
-maxretry = 6
+logpath  = /var/log/sshauth.log
 
 [nginx-badbots]
 enabled  = true
 port     = http,https
 filter   = nginx-badbots
-logpath  = /var/log/nginx/access.log
-maxretry = 2
+logpath  = /var/log/nginxaccess.log
 
 [nginx-limit-req]
 enabled = true
@@ -48,7 +48,6 @@ filter = nginx-limit-req
 action = iptables-multiport
          CloudFlareMod
 port = http,https
-logpath = /var/log/nginx/*error*.log
+logpath = /var/log/nginxlimiterror.log
 findtime = 10
 bantime = 6000
-maxretry = 3
