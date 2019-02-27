@@ -86,20 +86,24 @@ chmod 666 /var/log/sshauth.log
 touch /var/log/nginxhttpauth.log
 chmod 666 /var/log/nginxhttpauth.log
 
-
+# Move filter to proper location
 mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
 mv ./wordpress.conf /etc/fail2ban/filter.d/wordpress.conf
 mv ./nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
-mv ./CloudFlareMod.conf /etc/fail2ban/action.d/CloudFlareMod.conf
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
+
+# Move CloudFlare Action
+mv ./CloudFlareMod.conf /etc/fail2ban/action.d/CloudFlareMod.conf
+
+# Activate Fail2Ban
 sudo systemctl service enable fail2ban
 sudo systemctl service start fail2ban
 echo "Fail2Ban installation completed."
 read -t 2
 clear
-#
-echo "Setting up firewall"
+
+# echo "Setting up firewall"
 read -t 2
 #Reset UFW and enable UFW
 sudo ufw default deny incoming
@@ -110,6 +114,7 @@ sudo ufw delete allow 'Nginx HTTP'
 sudo ufw enable
 echo
 echo
+
 # Modify nginx.conf to include cloudflareip file for the newest ips
 touch /etc/nginx/cloudflareip
 sed -i '/http {/a\  ' /etc/nginx/nginx.conf #add newline
