@@ -24,6 +24,8 @@ enabled  = true
 filter   = wordpress
 logpath  = /var/log/wordpress/access.log
 port     = 80,443
+action = iptables-multiport
+         CloudFlareMod
 
 [nginx-http-auth]
 enabled = true
