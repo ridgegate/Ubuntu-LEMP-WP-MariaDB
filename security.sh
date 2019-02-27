@@ -63,9 +63,6 @@ sed -i "s/CF_GLB_KEY/$CF_API_KEY/" /etc/fail2ban/jail.local
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-http-auth.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-noscript.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/wordpress.conf
-mkdir /var/log/wordpress
-touch /var/log/wordpress/access.log
-chmod 666 /var/log/wordpress/access.log
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlareMod.conf
 sed -i "s/CF_GLB_KEY/$CF_API_KEY/" ./CloudFlareMod.conf
 sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" ./CloudFlareMod.conf
@@ -77,10 +74,23 @@ else
     sed -i "s|CF_ZONE|user|g" ./CloudFlareMod.conf
 fi
 
+#Setting up log files for Fail2Ban Filters
+touch /var/log/wordpressaccess.log
+chmod 666 /var/log/wordpressaccess.log
+touch /var/log/nginxlimiterror.log
+chmod 666 /var/log/nginxlimiterror.log
+touch /var/log/nginxaccess.log
+chmod 666 /var/log/nginxaccess.log
+touch /var/log/sshauth.log
+chmod 666 /var/log/sshauth.log
+touch /var/log/nginxhttpauth.log
+chmod 666 /var/log/nginxhttpauth.log
+
+
 mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
 mv ./wordpress.conf /etc/fail2ban/filter.d/wordpress.conf
-#mv ./nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
+mv ./nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
 mv ./CloudFlareMod.conf /etc/fail2ban/action.d/CloudFlareMod.conf
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
 sudo systemctl service enable fail2ban
