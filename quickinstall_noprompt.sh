@@ -131,6 +131,10 @@ service php7.2-fpm restart
 service mysql restart
 clear
 
+# ClearUP
+sudo rm -rf /root/wordpress
+sudo rm -f latest.tar.gz
+
 echo "WordPress Installed. Please visit your website to continue setup"
 echo
 echo
