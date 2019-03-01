@@ -32,9 +32,6 @@ apt install nginx nginx-extras -y
 apt install php-fpm php-mysql php-xml php-libsodium php-mbstring php-common php-curl php-gd php-zip php-soap -y
 phpenmod mbstring 
 
-#These are for SuiteCRM
-apt install php-pear php-cgi php-gettext php-bcmath php-imap php-json -y
-
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
 perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.2/fpm/php.ini
 perl -pi -e "s/.*max_execution_time.*/max_execution_time = 120/;" /etc/php/7.2/fpm/php.ini
