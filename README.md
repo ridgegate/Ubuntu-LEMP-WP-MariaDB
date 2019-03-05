@@ -21,9 +21,10 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/sslsetup.sh </br>
   * sudo chmod +x sslsetup.sh </br>
   * sudo ./sslsetup.sh </br>
-  
-  #### Note for CloudFlare:
-  * Set up your NS to Cloudflare NS if you use CloudFlare
+
+## Note:
+  * Please make sure you have the correct NS record in your DNS records in your domain registrar.
+  * For example, if you use CloudFlare, all records A/AAA/TXT/MX/ should be set up in CloudFlare
 
 ## Environment
 Tested on Ubuntu 18.04 Bionics (LTS)
