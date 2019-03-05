@@ -136,7 +136,7 @@ sudo ufw default allow outgoing
 sudo ufw allow ssh
 sudo ufw allow 'Nginx Full'
 sudo ufw delete allow 'Nginx HTTP'
-sudo ufw enable
+sudo ufw --force enable
 clear
 
 # Clean UP Unnecessary WordPress Files
