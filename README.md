@@ -24,11 +24,12 @@ Run the following commands on your Ubuntu terminal to download the script and st
 
 ## DNS Setting
   * Please make sure you have the correct NS record in your DNS records in your domain registrar.
-    * NS record should have the proper NS domain of the hosting company or, if using CloudFlare, CloudFlare's NS name server
+    * NS record should have the proper NS domain of the hosting company or, if using CloudFlare, CloudFlare's NS nameserver
   * <strong>For example</strong></br>
-    * Digital Ocean/GoDaddy/other hosting without CloudFlare
-      * DNS Records -> NS   example.com   Value: ns1.digitalocean.com   TTL: 1800
+    * Digital Ocean/GoDaddy/other hosting <strong>without</strong> CloudFlare
+      * DNS Records -> NS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;example.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value: ns1.digitalocean.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TTL: 1800
     * CloudFlare User
+      * DNS record in your domain registrar should be pointed to CloudFlare's NS nameserver 
       * All records A/AAA/TXT/MX/ should be set up in CloudFlare even if your server is hosted by other service such as Digital Oceans/GoDaddy.
 
 ## Environment
