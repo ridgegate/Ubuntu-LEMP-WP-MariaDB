@@ -128,9 +128,18 @@ done <<< "$SALTS"
 service nginx restart
 service php7.2-fpm restart
 service mysql restart
+
+# Setting up Firewall
+# Reset UFW and enable UFW
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw allow 'Nginx Full'
+sudo ufw delete allow 'Nginx HTTP'
+sudo ufw enable
 clear
 
-# ClearUP
+# Clean UP Unnecessary WordPress Files
 sudo rm -rf /root/wordpress
 sudo rm -f latest.tar.gz
 
