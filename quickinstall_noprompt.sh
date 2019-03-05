@@ -23,10 +23,10 @@ read -p "Choose your MariaDB Version [ENTER] : " MDB_VERSION
 clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 
-#Update MariaDB Repository to 10.3
+#Add MariaDB Repository
 sudo apt-get install -y software-properties-common
 sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirrors.accretive-networks.net/mariadb/repo/$MDB_VERSION/ubuntu bionic main'
+sudo echo "deb [arch=amd64,arm64,ppc64el] http://mirrors.accretive-networks.net/mariadb/repo/$MDB_VERSION/ubuntu bionic main"  | sudo tee -a /etc/apt/sources.list
 sudo apt-get update -y
 
 #Install nginx and php7.2
