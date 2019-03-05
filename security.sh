@@ -125,18 +125,6 @@ echo "Fail2Ban installation completed."
 read -t 2
 clear
 
-# echo "Setting up firewall"
-read -t 2
-#Reset UFW and enable UFW
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-sudo ufw allow ssh
-sudo ufw allow 'Nginx Full'
-sudo ufw delete allow 'Nginx HTTP'
-sudo ufw enable
-echo
-echo
-
 # Modify nginx.conf to include cloudflareip file for the newest ips
 touch /etc/nginx/cloudflareip
 sed -i '/http {/a\  ' /etc/nginx/nginx.conf #add newline
