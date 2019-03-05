@@ -22,9 +22,14 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * sudo chmod +x sslsetup.sh </br>
   * sudo ./sslsetup.sh </br>
 
-## Note:
+## DNS Setting
   * Please make sure you have the correct NS record in your DNS records in your domain registrar.
-  * For example, if you use CloudFlare, all records A/AAA/TXT/MX/ should be set up in CloudFlare
+    * NS record should have the proper NS domain of the hosting company or, if using CloudFlare, CloudFlare's NS name server
+  * <strong>For example</strong></br>
+    * Digital Ocean/GoDaddy/other hosting without CloudFlare
+      * DNS Records -> NS   example.com   Value: ns1.digitalocean.com   TTL: 1800
+    * CloudFlare User
+      * All records A/AAA/TXT/MX/ should be set up in CloudFlare even if your server is hosted by other service such as Digital Oceans/GoDaddy.
 
 ## Environment
 Tested on Ubuntu 18.04 Bionics (LTS)
