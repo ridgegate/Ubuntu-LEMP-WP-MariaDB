@@ -71,6 +71,8 @@ set timeout 3
 spawn mysql_secure_installation
 expect \"Enter current password for root (enter for none):\"
 send \"$CURRENT_MYSQL_PASSWORD\r\"
+expect \"Switch to unix_socket authentication \"
+send \"n\r\"
 expect \"root password?\"
 send \"y\r\"
 expect \"New password:\"
@@ -95,6 +97,7 @@ echo "CREATE DATABASE $dbname;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$userpass';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "FLUSH PRIVILEGES;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
+echo "delete from mysql.user where user='mysql';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 clear
 
 #Install WordPress
