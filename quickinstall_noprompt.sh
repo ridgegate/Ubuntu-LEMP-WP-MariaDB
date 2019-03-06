@@ -94,7 +94,7 @@ then
     ")
   clear
   echo "${SECURE_MYSQL}"
-else
+else 
     SECURE_MYSQL=$(sudo expect -c "
     set timeout 3
     spawn mysql_secure_installation
@@ -119,7 +119,7 @@ else
     expect eof
     ")
   clear
-  echo "${SECURE_MYSQL}
+  echo "${SECURE_MYSQL}"
 fi
 
 
