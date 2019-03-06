@@ -60,36 +60,68 @@ service php7.2-fpm restart
 clear
 
 export DEBIAN_FRONTEND=noninteractive
-sudo debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password PASS'
-sudo debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password PASS'
+TEMP="mariadb-server-$MDB_VERSION mysql-server/root_password password PASS"
+sudo debconf-set-selections <<< $TEMP
+TEMP="mariadb-server-$MDB_VERSION mysql-server/root_password_again password PASS"
+sudo debconf-set-selections <<< $TEMP
 
 apt install mariadb-client mariadb-server expect -y
 CURRENT_MYSQL_PASSWORD='PASS'
 NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
-SECURE_MYSQL=$(sudo expect -c "
-set timeout 3
-spawn mysql_secure_installation
-expect \"Enter current password for root (enter for none):\"
-send \"$CURRENT_MYSQL_PASSWORD\r\"
-expect \"root password?\"
-send \"y\r\"
-expect \"New password:\"
-send \"$NEW_MYSQL_PASSWORD\r\"
-expect \"Re-enter new password:\"
-send \"$NEW_MYSQL_PASSWORD\r\"
-expect \"Switch to unix_socket authentication \"
-send \"n\r\"
-expect \"Remove anonymous users?\"
-send \"y\r\"
-expect \"Disallow root login remotely?\"
-send \"y\r\"
-expect \"Remove test database and access to it?\"
-send \"y\r\"
-expect \"Reload privilege tables now?\"
-send \"y\r\"
-expect eof
-")
-echo "${SECURE_MYSQL}"
+
+if [[ "$MDB_VERSION" >= "10.4" ]]
+then
+    SECURE_MYSQL=$(sudo expect -c "
+    set timeout 3
+    spawn mysql_secure_installation
+    expect \"Enter current password for root (enter for none):\"
+    send \"$CURRENT_MYSQL_PASSWORD\r\"
+    expect \"Switch to unix_socket authentication \"
+    send \"n\r\"
+    expect \"root password?\"
+    send \"y\r\"
+    expect \"New password:\"
+    send \"$NEW_MYSQL_PASSWORD\r\"
+    expect \"Re-enter new password:\"
+    send \"$NEW_MYSQL_PASSWORD\r\"
+    expect \"Remove anonymous users?\"
+    send \"y\r\"
+    expect \"Disallow root login remotely?\"
+    send \"y\r\"
+    expect \"Remove test database and access to it?\"
+    send \"y\r\"
+    expect \"Reload privilege tables now?\"
+    send \"y\r\"
+    expect eof
+    ")
+  clear
+  echo "${SECURE_MYSQL}"
+else
+    SECURE_MYSQL=$(sudo expect -c "
+    set timeout 3
+    spawn mysql_secure_installation
+    expect \"Enter current password for root (enter for none):\"
+    send \"$CURRENT_MYSQL_PASSWORD\r\"
+    expect \"root password?\"
+    send \"y\r\"
+    expect \"New password:\"
+    send \"$NEW_MYSQL_PASSWORD\r\"
+    expect \"Re-enter new password:\"
+    send \"$NEW_MYSQL_PASSWORD\r\"
+    expect \"Remove anonymous users?\"
+    send \"y\r\"
+    expect \"Disallow root login remotely?\"
+    send \"y\r\"
+    expect \"Remove test database and access to it?\"
+    send \"y\r\"
+    expect \"Reload privilege tables now?\"
+    send \"y\r\"
+    expect eof
+    ")
+  clear
+  echo "${SECURE_MYSQL}"
+fi
+read -t 30
 
 # Create WordPress MySQL database
 userpass=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
