@@ -69,15 +69,13 @@ apt install mariadb-client mariadb-server expect -y
 CURRENT_MYSQL_PASSWORD='PASS'
 NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
 
-if [[ "$MDB_VERSION" >= "10.4" ]]
+if [[ "$MDB_VERSION" < "10.4" ]]
 then
     SECURE_MYSQL=$(sudo expect -c "
     set timeout 3
     spawn mysql_secure_installation
     expect \"Enter current password for root (enter for none):\"
     send \"$CURRENT_MYSQL_PASSWORD\r\"
-    expect \"Switch to unix_socket authentication \"
-    send \"n\r\"
     expect \"root password?\"
     send \"y\r\"
     expect \"New password:\"
@@ -102,6 +100,8 @@ else
     spawn mysql_secure_installation
     expect \"Enter current password for root (enter for none):\"
     send \"$CURRENT_MYSQL_PASSWORD\r\"
+    expect \"Switch to unix_socket authentication \"
+    send \"n\r\"
     expect \"root password?\"
     send \"y\r\"
     expect \"New password:\"
@@ -119,7 +119,7 @@ else
     expect eof
     ")
   clear
-  echo "${SECURE_MYSQL}"
+  echo "${SECURE_MYSQL}
 fi
 read -t 30
 
