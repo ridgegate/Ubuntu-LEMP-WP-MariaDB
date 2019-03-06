@@ -55,10 +55,34 @@ sudo postmap /etc/postfix/sasl/sasl_passwd
 sudo chown root:root /etc/postfix/sasl/sasl_passwd.db
 sudo chmod 0600 /etc/postfix/sasl/sasl_passwd.db
 rm /etc/postfix/sasl/sasl_passwd #remove plain text user & password
+
+# Configure POSTFIX
 sudo postconf -e 'relayhost = [smtp.gmail.com]:587'
-perl -pi -e "s,.*smtpd_tls_cert_file.*,smtpd_tls_cert_file = /etc/letsencrypt/live/$FQDN_NAME/fullchain.pem,;" /etc/postfix/main.cf
-perl -pi -e "s,.*smtpd_tls_key_file.*,smtpd_tls_key_file = /etc/letsencrypt/live/$FQDN_NAME/privkey.pem,;" /etc/postfix/main.cf
-perl -pi -e "s,.*smtp_tls_CAfile.*,smtp_tls_CAfile = /etc/letsencrypt/live/$FQDN_NAME/chain.pem,;" /etc/postfix/main.cf
+# Enable SASL authentication
+sudo postconf -e 'smtp_sasl_auth_enable = yes'
+sudo postconf -e 'smtp_sasl_security_options = noanonymous'
+sudo postconf -e 'smtp_sasl_password_maps = hash:/etc/postfix/sasl/sasl_passwd'
+
+sudo postconf -e 'smtpd_tls_loglevel = 1'
+sudo postconf -e 'smtpd_use_tls=yes'
+sudo postconf -e 'smtpd_tls_cert_file = /etc/letsencrypt/live/$myhostname/fullchain.pem'
+sudo postconf -e 'smtpd_tls_key_file = /etc/letsencrypt/live/$myhostname/privkey.pem'
+sudo postconf -e 'smtpd_tls_protocols = !SSLv2, !SSLv3'
+sudo postconf -e 'smtpd_tls_ciphers = high'
+sudo postconf -e 'smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache'
+
+sudo postconf -e 'smtp_tls_CAfile = /etc/letsencrypt/live/$myhostname/fullchain.pem'
+sudo postconf -e 'smtp_tls_security_level = encrypt'
+sudo postconf -e 'smtp_tls_protocols = !SSLv2, !SSLv3'
+sudo postconf -e 'smtp_tls_ciphers = high'
+sudo postconf -e 'smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache'
+sudo postconf -e 'smtp_tls_wrappermode = yes'
+
+
+
+#perl -pi -e "s,.*smtpd_tls_cert_file.*,smtpd_tls_cert_file = /etc/letsencrypt/live/$FQDN_NAME/fullchain.pem,;" /etc/postfix/main.cf
+#perl -pi -e "s,.*smtpd_tls_key_file.*,smtpd_tls_key_file = /etc/letsencrypt/live/$FQDN_NAME/privkey.pem,;" /etc/postfix/main.cf
+#perl -pi -e "s,.*smtp_tls_CAfile.*,smtp_tls_CAfile = /etc/letsencrypt/live/$FQDN_NAME/chain.pem,;" /etc/postfix/main.cf
 
 #******Configure Sendmail and clean up plain text authentification
 #sudo apt-get install -y sendmail mailutils sendmail-bin
