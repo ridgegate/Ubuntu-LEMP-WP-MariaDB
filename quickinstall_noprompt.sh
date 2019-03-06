@@ -121,7 +121,7 @@ else
   clear
   echo "${SECURE_MYSQL}
 fi
-read -t 30
+
 
 # Create WordPress MySQL database
 userpass=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
