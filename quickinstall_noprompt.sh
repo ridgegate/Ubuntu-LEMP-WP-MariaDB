@@ -60,10 +60,8 @@ service php7.2-fpm restart
 clear
 
 export DEBIAN_FRONTEND=noninteractive
-TEMP="mariadb-server-$MDB_VERSION mysql-server/root_password password PASS"
-sudo debconf-set-selections <<< $TEMP
-TEMP="mariadb-server-$MDB_VERSION mysql-server/root_password_again password PASS"
-sudo debconf-set-selections <<< $TEMP
+sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password password PASS"
+sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password_again password PASS"
 
 apt install mariadb-client mariadb-server expect -y
 CURRENT_MYSQL_PASSWORD='PASS'
