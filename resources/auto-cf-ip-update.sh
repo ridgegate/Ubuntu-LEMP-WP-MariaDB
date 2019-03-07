@@ -75,9 +75,9 @@ echo -e $NGINX_CONFIG_CONTENT > $CF_NGINX_CONFIG_FILE
 ( $(sudo /usr/sbin/nginx -t) ) > /dev/null 2>&1
 if [ $? ]
   then
-    echo "$(date) $0: CloudFlare IP's have been updated @ $CF_NGINX_CONFIG_FILE" >> $LOG_FILE
-# Reload the nginx config.
-( $(service nginx reload) ) > /dev/null 2>&1
+    echo "$(date) $0: CloudFlare IP updated and NGINX restarted" >> $LOG_FILE
+    # Reload the nginx config.
+    ( $(service nginx reload) ) > /dev/null 2>&1
 else
   echo "$(date) $0: The configuration file $CF_NGINX_CONFIG_FILE (OR /etc/nginx/nginx.conf) syntax is NOT valid, please check. DO NOT restart of nginx until you correct issues identified with nginx -t." >> $LOG_FILE
 fi
