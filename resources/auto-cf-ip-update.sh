@@ -8,7 +8,6 @@
 # CF_URL_IP6
 #
 
-
 # Location of the nginx config file that contains the CloudFlare IP addresses.
 CF_NGINX_CONFIG_FILE="/etc/nginx/cloudflareip"
 LOG_FILE="/var/log/cloudflareip_update.log"
@@ -75,6 +74,8 @@ echo -e $NGINX_CONFIG_CONTENT > $CF_NGINX_CONFIG_FILE
 ( $(sudo /usr/sbin/nginx -t) ) > /dev/null 2>&1
 if [ $? ]
   then
+    echo
+    echo "****CloudFlare IP updated and NGINX restarted****" 
     echo "$(date) $0: CloudFlare IP updated and NGINX restarted" >> $LOG_FILE
     # Reload the nginx config.
     ( $(service nginx reload) ) > /dev/null 2>&1
