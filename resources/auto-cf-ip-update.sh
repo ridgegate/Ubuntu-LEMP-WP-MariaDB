@@ -5,7 +5,7 @@
 
 # Location of the nginx config file that contains the CloudFlare IP addresses.
 CF_NGINX_CONFIG_FILE="/etc/nginx/cloudflareip"
-LOG_FILE="/var/log/messages"
+LOG_FILE="/var/log/cloudflareip_update_log"
 
 # The URLs with the actual IP addresses used by CloudFlare.
 CF_URL_IP4="https://www.cloudflare.com/ips-v4"
@@ -27,6 +27,7 @@ if [ -f $CF_TEMP_IP4 ] && [ -f $CF_TEMP_IP6 ]
     then
       echo 
       echo "***No CloudFlare IP update needed***"
+      echo "$(date) $0: No CloudFlare IP update needed" >> $LOG_FILE
       echo
       exit 1
     fi
@@ -72,5 +73,5 @@ if [ $? ]
 # Reload the nginx config.
 ( $(service nginx reload) ) > /dev/null 2>&1
 else
-  echo "$(date) $0: The configuration file $CF_NGINX_CONFIG_FILE (OR /etc/nginx/nginx.conf) syntax is NOT valid, please check. NO restart of nginx." >> $LOG_FILE
+  echo "$(date) $0: The configuration file $CF_NGINX_CONFIG_FILE (OR /etc/nginx/nginx.conf) syntax is NOT valid, please check. DO NOT restart of nginx until you correct issues identified with nginx -t." >> $LOG_FILE
 fi
