@@ -76,7 +76,7 @@ if [ $? ]
   then
     echo
     echo "****CloudFlare IP updated and NGINX restarted****" 
-    echo "$(date) $0: CloudFlare IP updated and NGINX restarted" >> $LOG_FILE
+    echo "$(date) $0: CloudFlare IP updated @ $LOG_FILE and NGINX restarted" >> $LOG_FILE
     # Reload the nginx config.
     ( $(service nginx reload) ) > /dev/null 2>&1
 else
