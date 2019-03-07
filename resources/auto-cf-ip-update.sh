@@ -2,6 +2,12 @@
 #/scripts/auto-cf-ip-update.sh
 # Credit
 # https://marekbosman.com/site/automatic-update-of-cloudflare-ip-addresses-in-nginx/
+#
+# Please make sure the variables used to point to CloudFlare URLs are correct
+# CF_URL_IP4
+# CF_URL_IP6
+#
+
 
 # Location of the nginx config file that contains the CloudFlare IP addresses.
 CF_NGINX_CONFIG_FILE="/etc/nginx/cloudflareip"
