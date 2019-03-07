@@ -5,7 +5,7 @@
 
 # Location of the nginx config file that contains the CloudFlare IP addresses.
 CF_NGINX_CONFIG_FILE="/etc/nginx/cloudflareip"
-LOG_FILE="/var/log/cloudflareip_update_log"
+LOG_FILE="/var/log/cloudflareip_update.log"
 
 # The URLs with the actual IP addresses used by CloudFlare.
 CF_URL_IP4="https://www.cloudflare.com/ips-v4"
