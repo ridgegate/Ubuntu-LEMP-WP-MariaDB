@@ -9,13 +9,13 @@ maxretry = 5
 destemail = F2B_DEST
 sendername = Fail2BanAlert
 sender = F2B_SENDER
-mta = sendmail
+mta = postfix
 
 # To receive notification of ip banned on CloudFlare
 # Please use your CF Account and API Key
 action = %(action_cf_mwl)s
 cfemail  = CF_EMAIL
-cfapikey = CF_API_KEY
+cfapikey = CF_GLB_KEY
 
 [wordpress]
 enabled  = true
