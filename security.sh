@@ -159,6 +159,6 @@ sudo chmod +x /root/scripts/auto-cf-ip-update.sh
 ./root/scripts/auto-cf-ip-update.sh
 # Added Cronjob to autoupdate IP list
 (crontab -l && echo "# Update CloudFlare IP Ranges (every Sunday at 04:00)") | crontab -
-(crontab -l && echo "0      4       *       *       sun     /bin/bash /root/scripts/auto-cf-ip-update.sh") | crontab - 
+(crontab -l && echo "* 4 * * 0 /bin/bash /root/scripts/auto-cf-ip-update.sh >/dev/null 2>&1") | crontab - 
 echo
 echo "Done"
