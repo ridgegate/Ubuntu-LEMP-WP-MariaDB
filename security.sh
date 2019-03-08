@@ -155,10 +155,10 @@ sed -i '/http {/a\  ' /etc/nginx/nginx.conf #add newline
 mkdir /root/scripts
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/auto-cf-ip-update.sh
 mv ./auto-cf-ip-update.sh /root/scripts/auto-cf-ip-update.sh
-chmod 700 /root/scripts/auto-cf-ip-update.sh
-bash /root/scripts/auto-cf-ip-update.sh
+sudo chmod +x /root/scripts/auto-cf-ip-update.sh
+./root/scripts/auto-cf-ip-update.sh
 # Added Cronjob to autoupdate IP list
 (crontab -l && echo "# Update CloudFlare IP Ranges (every Sunday at 04:00)") | crontab -
-(crontab -l && echo "0      4       *       *       sun     /root/scripts/cloudflare-update-ip-ranges.sh > /dev/null 2>&1") | crontab - 
+(crontab -l && echo "0      4       *       *       sun     /bin/bash /root/scripts/auto-cf-ip-update.sh") | crontab - 
 echo
 echo "Done"
