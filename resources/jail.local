@@ -20,14 +20,14 @@ cfapikey = CF_GLB_KEY
 [wordpress]
 enabled  = true
 filter   = wordpress
-action = iptables-multiport
+actions = iptables-multiport
          CloudFlareMod
 logpath  = /var/log/wordpressaccess.log
 port     = 80,443
 
 [nginx-http-auth]
 enabled = true
-action = iptables-multiport
+actions = iptables-multiport
          CloudFlareMod
 logpath  = /var/log/nginxhttpauth.log
 
@@ -35,7 +35,7 @@ logpath  = /var/log/nginxhttpauth.log
 enabled  = true
 port     = ssh
 filter   = sshd
-action = iptables-multiport
+actions = iptables-multiport
          CloudFlareMod
 logpath  = /var/log/sshauth.log
 
@@ -43,16 +43,17 @@ logpath  = /var/log/sshauth.log
 enabled  = true
 port     = http,https
 filter   = nginx-badbots
-action = iptables-multiport
+actions = iptables-multiport
          CloudFlareMod
 logpath  = /var/log/nginxaccess.log
 
 [nginx-limit-req]
 enabled = true
 filter = nginx-limit-req
-action = iptables-multiport
+actions = iptables-multiport
          CloudFlareMod
 port = http,https
 logpath = /var/log/nginxlimiterror.log
 findtime = 10
 bantime = 6000
+maxretry = 3
