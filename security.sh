@@ -100,41 +100,25 @@ sed -i "s/F2B_DEST/$F2B_DEST_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/F2B_SENDER/$F2B_SENDER_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/CF_GLB_KEY/$CF_API_KEY/" /etc/fail2ban/jail.local
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-http-auth.conf
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/nginx-noscript.conf
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/wordpress.conf
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/CloudFlareMod.conf
-sed -i "s/CF_GLB_KEY/$CF_API_KEY/" ./CloudFlareMod.conf
-sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" ./CloudFlareMod.conf
+#sed -i "s/CF_GLB_KEY/$CF_API_KEY/" ./cloudflare-restv4.conf
+#sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" ./cloudflare-restv4.conf
 if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
     CF_ZONEID="zones/$CF_ZONEID"
-    sed -i "s|CF_ZONE|$CF_ZONEID|g" ./CloudFlareMod.conf
+    sed -i "s|CF_ZONE|$CF_ZONEID|g" ./cloudflare-restv4.conf
 else
-    sed -i "s|CF_ZONE|user|g" ./CloudFlareMod.conf
+    sed -i "s|CF_ZONE|user|g" ./cloudflare-restv4.conf
 fi
 
-#Setting up log files for Fail2Ban Filters
-touch /var/log/wordpressaccess.log
-chmod 666 /var/log/wordpressaccess.log
-touch /var/log/nginxlimiterror.log
-chmod 666 /var/log/nginxlimiterror.log
-touch /var/log/nginxaccess.log
-chmod 666 /var/log/nginxaccess.log
-touch /var/log/sshauth.log
-chmod 666 /var/log/sshauth.log
-touch /var/log/nginxhttpauth.log
-chmod 666 /var/log/nginxhttpauth.log
-
-# Move filter to proper location
-mv ./nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
-mv ./nginx-noscript.conf /etc/fail2ban/filter.d/nginx-noscript.conf
-mv ./wordpress.conf /etc/fail2ban/filter.d/wordpress.conf
-mv ./nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
+# Move/download filter to proper location
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/cloudflare-restv4.conf
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
+sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-hard.conf > /etc/fail2ban/filter.d/wordpress-hard.conf
+sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-soft.conf > /etc/fail2ban/filter.d/wordpress-soft.conf
+sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-extra.conf > /etc/fail2ban/filter.d/wordpress-extra.conf
 
 # Move CloudFlare Action
-mv ./CloudFlareMod.conf /etc/fail2ban/action.d/CloudFlareMod.conf
+mv ./cloudflare-restv4.conf /etc/fail2ban/action.d/cloudflare-restv4.conf
 
 # Activate Fail2Ban
 sudo systemctl service enable fail2ban
