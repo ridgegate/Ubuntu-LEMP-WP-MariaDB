@@ -33,6 +33,12 @@ filter   = wordpress-soft
 logpath  = /var/log/auth.log
 port     = 80,443
 
+[wordpress-extra]
+enabled  = true
+filter   = wordpress-extra
+logpath  = /var/log/auth.log
+port     = 80,443
+
 [ssh]
 enabled  = true
 port     = ssh
