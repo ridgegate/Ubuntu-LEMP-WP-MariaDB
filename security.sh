@@ -156,7 +156,7 @@ mkdir /root/scripts
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/auto-cf-ip-update.sh
 mv ./auto-cf-ip-update.sh /root/scripts/auto-cf-ip-update.sh
 sudo chmod +x /root/scripts/auto-cf-ip-update.sh
-./root/scripts/auto-cf-ip-update.sh
+/bin/bash /root/scripts/auto-cf-ip-update.sh
 # Added Cronjob to autoupdate IP list
 (crontab -l && echo "# Update CloudFlare IP Ranges (every Sunday at 04:00)") | crontab -
 (crontab -l && echo "* 4 * * 0 /bin/bash /root/scripts/auto-cf-ip-update.sh >/dev/null 2>&1") | crontab - 
