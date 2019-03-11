@@ -48,3 +48,12 @@ filter   = sshd
 enabled  = true
 port     = http,https
 filter   = nginx-badbots
+
+[nginx-limit-req]
+enabled = true
+filter = nginx-limit-req
+port = http,https
+logpath = /var/log/nginx/*error*.log
+findtime = 10
+bantime = 6000
+maxretry = 5
