@@ -1,22 +1,27 @@
 #!/bin/bash
-# This script Setup Fail2Ban with SendMail
+# This script Setup Fail2Ban with PostFix
+# This requires WP Fail2Ban Plugin
+#   https://en-ca.wordpress.org/plugins/wp-fail2ban/
 #
 # Credit:
 # https://www.digitalocean.com/community/tutorials/how-to-protect-an-nginx-server-with-fail2ban-on-ubuntu-14-04
-# https://www.tricksofthetrades.net/2018/05/18/fail2ban-installing-bionic/
-# http://johnny.chadda.se/using-fail2ban-with-nginx-and-ufw/   
-# https://gist.github.com/JulienBlancher/48852f9d0b0ef7fd64c3  - check for additional jails
+# https://bjornjohansen.no/using-fail2ban-with-wordpress
+# https://www.kazimer.com/fail2ban-action-for-cloudflare-rest-api-v4/
 #
 # Cloudflare API integration with Fail2Ban
 # https://guides.wp-bullet.com/integrate-fail2ban-cloudflare-api-v4-guide/
-# https://serverfault.com/questions/928314/nginx-req-limit-not-triggering-fail2ban-event-cloudflare-api
 # 
+# Basic Fail2Ban Commands
+# service fail2ban stop
+# service fail2ban start
+# 
+# fail2ban-client set <jail name> banip <ip>
+# fail2ban-client set <jail name> unbanip <ip>
 #
-# Test
+# sudo fail2ban-client status <jail name>
+#
+# NGINX LIMIT Test
 # ab -c 100 -n 100 http://[your site]/
-#
-# Check Filters for F2B
-# sudo fail2ban-client -d
 #
 #
 clear
