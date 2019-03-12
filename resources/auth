@@ -1,5 +1,8 @@
 /var/log/auth.log {
-    size 35k
-    create 0600 root root
+    su root root
+    copytruncate
     rotate 4
+    postrotate
+	    service rsyslog restart
+    endscript
 }
