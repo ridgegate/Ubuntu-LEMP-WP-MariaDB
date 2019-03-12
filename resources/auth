@@ -1,0 +1,5 @@
+/var/log/auth.log {
+    size 30k
+    create 0600 root root
+    rotate 4
+}
