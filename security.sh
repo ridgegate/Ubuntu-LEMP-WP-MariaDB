@@ -115,16 +115,13 @@ else
     sed -i "s|CF_ZONE|user|g" ./cloudflare-restv4.conf
 fi
 
-# Move/download filter to proper location
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/cloudflare-restv4.conf
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/resources/auth
+# Move/download filter/action to proper location
+sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/cloudflare-restv4.conf > /etc/fail2ban/action.d/cloudflare-restv4.conf
+sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/resources/auth > /etc/logrotate.d/auth
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-hard.conf > /etc/fail2ban/filter.d/wordpress-hard.conf
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-soft.conf > /etc/fail2ban/filter.d/wordpress-soft.conf
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-extra.conf > /etc/fail2ban/filter.d/wordpress-extra.conf
-
-# Move CloudFlare Action
-mv ./cloudflare-restv4.conf /etc/fail2ban/action.d/cloudflare-restv4.conf
 
 # Activate Fail2Ban
 sudo systemctl service enable fail2ban
