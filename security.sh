@@ -121,9 +121,10 @@ sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpres
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-soft.conf > /etc/fail2ban/filter.d/wordpress-soft.conf
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-extra.conf > /etc/fail2ban/filter.d/wordpress-extra.conf
 
-# Activate Fail2Ban
+# Activate Fail2Ban and restart syslog
 sudo systemctl service enable fail2ban
 sudo systemctl service start fail2ban
+sudo service rsyslog restart
 echo "Fail2Ban installation completed."
 read -t 2
 clear
