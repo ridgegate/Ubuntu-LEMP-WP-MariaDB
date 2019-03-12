@@ -105,8 +105,6 @@ sed -i "s/F2B_DEST/$F2B_DEST_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/F2B_SENDER/$F2B_SENDER_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/CF_GLB_KEY/$CF_API_KEY/" /etc/fail2ban/jail.local
-#sed -i "s/CF_GLB_KEY/$CF_API_KEY/" ./cloudflare-restv4.conf
-#sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" ./cloudflare-restv4.conf
 if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
     CF_ZONEID="zones/$CF_ZONEID"
