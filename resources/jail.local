@@ -54,6 +54,4 @@ enabled = true
 filter = nginx-limit-req
 port = http,https
 logpath = /var/log/nginx/*error*.log
-findtime = 10
-bantime = 6000
-maxretry = 5
+
