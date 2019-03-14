@@ -13,13 +13,16 @@ mta = sendmail
 
 # To receive notification of ip banned on CloudFlare
 # Please use your CF Account and API Key
-action = %(action_cf_v4)s
 cfemail  = CF_EMAIL
 cfapikey = CF_GLB_KEY
+banaction = iptables-multiport
 
 #Define the action "action_cf_v4"
 action_cf_v4 = cloudflare-restv4[cfuser="%(cfemail)s", cfkey="%(cfapikey)s"]
-               %(mta)s-whois-lines[name=%(__name__)s, sender="%(sender)s", dest="%(destemail)s", logpath=%(logpath)s, chain="%(chain)s"]
+		%(mta)s-whois-lines[name=%(__name__)s, sender="%(sender)s", dest="%(destemail)s", logpath=%(logpath)s, chain="%(chain)s"]
+		%(banaction)s[name=%(__name__)s, port="%(port)s", protocol="%(protocol)s", chain="%(chain)s"]
+
+action = %(action_cf_v4)s
 
 [wordpress-hard]
 enabled  = true
