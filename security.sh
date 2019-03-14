@@ -20,8 +20,7 @@
 #
 # sudo fail2ban-client status <jail name>
 #
-# NGINX LIMIT Test
-# ab -c 100 -n 100 http://[your site]/
+# sudo iptables -S
 #
 #
 clear
