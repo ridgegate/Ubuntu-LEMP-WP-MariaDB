@@ -150,10 +150,15 @@ clear
 
 #Change wp-config.php data
 # -- Please chang/remove this section according to your needs --
-sed -i '20i#Define Memory Limit' /var/www/html/wp-config.php
+sed -i '20i//Define Memory Limit' /var/www/html/wp-config.php
 sed -i '21idefine('\'WP_MEMORY_LIMIT\'', '\'200M\'');' /var/www/html/wp-config.php
 sed -i '22idefine('\'WP_MAX_MEMORY_LIMIT\'', '\'256M\'');' /var/www/html/wp-config.php
+
+sed -i '23i//Disable Theme Editor' /var/www/html/wp-config.php
+sed -i '24idefine('\'DISALLOW_FILE_EDIT\'', '\'true\'');' /var/www/html/wp-config.php
 # -------------------------------------------------------------
+TAB_PREF=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 5 | head -n 1)_ #randomize wordpress table prefix
+perl -pi -e "s/wp_/$TAB_PREF/g" /var/www/html/wp-config.php
 perl -pi -e "s/database_name_here/$dbname/g" /var/www/html/wp-config.php
 perl -pi -e "s/username_here/$dbuser/g" /var/www/html/wp-config.php
 perl -pi -e "s/password_here/$userpass/g" /var/www/html/wp-config.php
