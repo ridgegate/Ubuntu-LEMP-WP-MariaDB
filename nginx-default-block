@@ -6,7 +6,7 @@ more_clear_headers Server;
 
 server {
   listen 80 default_server;
-  root /var/www/html/FQDN_NAME;
+  root /var/www/html/domain_directory;
   index index.php index.html index.htm;
   server_name domain.com www.domain.com;
   charset UTF-8;
