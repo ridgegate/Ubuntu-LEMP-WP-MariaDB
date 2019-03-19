@@ -169,6 +169,10 @@ REPLACE=$(echo "$SALT" | cut -d "'" -f 4)
 echo "Replacing: $SEARCH"
 sed -i "/^$SEARCH/s/put your unique phrase here/$(echo $REPLACE | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')/" /var/www/html/wp-config.php
 done <<< "$SALTS"
+
+# Install Basic Plugins
+sudo -u www-data wp plugin install --path='/var/www/html' woocommerce two-factor-authentication limit-login-attempts-reloaded wps-hide-login onesignal-free-web-push-notifications wordpress-seo fb-messenger-live-chat
+
 service nginx restart
 service php7.2-fpm restart
 service mysql restart
