@@ -174,7 +174,7 @@ done <<< "$SALTS"
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
-sudo -u www-data wp plugin install --path='/var/www/html' woocommerce two-factor-authentication limit-login-attempts-reloaded wps-hide-login onesignal-free-web-push-notifications wordpress-seo fb-messenger-live-chat
+sudo -u www-data wp plugin install --path='/var/www/html' woocommerce two-factor-authentication limit-login-attempts-reloaded wps-hide-login onesignal-free-web-push-notifications wordpress-seo
 
 service nginx restart
 service php7.2-fpm restart
