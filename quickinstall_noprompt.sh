@@ -46,6 +46,7 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpr
 mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
+perl -pi -e "s/domain_directory/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 sudo ln -s /etc/nginx/sites-available/$MY_DOMAIN /etc/nginx/sites-enabled/
 sudo unlink /etc/nginx/sites-enabled/default
 clear
@@ -140,28 +141,30 @@ cp ./wordpress/wp-config-sample.php ./wordpress/wp-config.php
 touch ./wordpress/.htaccess
 chmod 660 ./wordpress/.htaccess
 mkdir ./wordpress/wp-content/upgrade
-cp -a ./wordpress/. /var/www/html
-chown -R www-data /var/www/html
-find /var/www/html -type d -exec chmod g+s {} \;
-chmod g+w /var/www/html/wp-content
-chmod -R g+w /var/www/html/wp-content/themes
-chmod -R g+w /var/www/html/wp-content/plugins
+mkdir /var/www/html/$domain_directory
+cp -a ./wordpress/. /var/www/html/$domain_directory
+chown -R www-data /var/www/html/$domain_directory
+
+find /var/www/html/$domain_directory -type d -exec chmod g+s {} \;
+chmod g+w /var/www/html/$domain_directory/wp-content
+chmod -R g+w /var/www/html/$domain_directory/wp-content/themes
+chmod -R g+w /var/www/html/$domain_directory/wp-content/plugins
 clear
 
 #Change wp-config.php data
 # -- Please chang/remove this section according to your needs --
-sed -i '20i//Define Memory Limit' /var/www/html/wp-config.php
-sed -i '21idefine('\'WP_MEMORY_LIMIT\'', '\'200M\'');' /var/www/html/wp-config.php
-sed -i '22idefine('\'WP_MAX_MEMORY_LIMIT\'', '\'256M\'');' /var/www/html/wp-config.php
+sed -i '20i//Define Memory Limit' /var/www/html/$domain_directory/wp-config.php
+sed -i '21idefine('\'WP_MEMORY_LIMIT\'', '\'200M\'');' /var/www/html/$domain_directory/wp-config.php
+sed -i '22idefine('\'WP_MAX_MEMORY_LIMIT\'', '\'256M\'');' /var/www/html/$domain_directory/wp-config.php
 
-sed -i '23i//Disable Theme Editor' /var/www/html/wp-config.php
-sed -i '24idefine('\'DISALLOW_FILE_EDIT\'', '\'true\'');' /var/www/html/wp-config.php
+sed -i '23i//Disable Theme Editor' /var/www/html/$domain_directory/wp-config.php
+sed -i '24idefine('\'DISALLOW_FILE_EDIT\'', '\'true\'');' /var/www/html/$domain_directory/wp-config.php
 # -------------------------------------------------------------
 TAB_PREF=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 5 | head -n 1)_ #randomize wordpress table prefix
-perl -pi -e "s/wp_/$TAB_PREF/g" /var/www/html/wp-config.php
-perl -pi -e "s/database_name_here/$dbname/g" /var/www/html/wp-config.php
-perl -pi -e "s/username_here/$dbuser/g" /var/www/html/wp-config.php
-perl -pi -e "s/password_here/$userpass/g" /var/www/html/wp-config.php
+perl -pi -e "s/wp_/$TAB_PREF/g" /var/www/html/$domain_directory/wp-config.php
+perl -pi -e "s/database_name_here/$dbname/g" /var/www/html/$domain_directory/wp-config.php
+perl -pi -e "s/username_here/$dbuser/g" /var/www/html/$domain_directory/wp-config.php
+perl -pi -e "s/password_here/$userpass/g" /var/www/html/$domain_directory/wp-config.php
 SALTS=$(curl -s https://api.wordpress.org/secret-key/1.1/salt/)
 while read -r SALT; do
 SEARCH="define( '$(echo "$SALT" | cut -d "'" -f 2)"
@@ -174,7 +177,7 @@ done <<< "$SALTS"
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
-sudo -u www-data wp plugin install --path='/var/www/html' woocommerce two-factor-authentication limit-login-attempts-reloaded wps-hide-login onesignal-free-web-push-notifications wordpress-seo
+sudo -u www-data wp plugin install --path="/var/www/html/$domain_directory" woocommerce two-factor-authentication limit-login-attempts-reloaded wps-hide-login onesignal-free-web-push-notifications wordpress-seo
 
 service nginx restart
 service php7.2-fpm restart
