@@ -1,8 +1,5 @@
 server_tokens off;
 more_clear_headers Server; 
-#add_header X-Frame-Options SAMEORIGIN;
-#add_header X-Content-Type-Options nosniff;
-
 
 server {
   listen 80 default_server;
