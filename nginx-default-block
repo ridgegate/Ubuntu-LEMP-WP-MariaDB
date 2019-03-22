@@ -1,8 +1,21 @@
+#don't send the nginx version number in error pages and Server header
 server_tokens off;
-more_clear_headers Server; 
+ 
+# config to don't allow the browser to render the page inside an frame or iframe
+# and avoid clickjacking
+add_header X-Frame-Options SAMEORIGIN;
+ 
+# when serving user-supplied content, include a X-Content-Type-Options: nosniff header along with the Content-Type: header,
+# to disable content-type sniffing on some browsers.
+add_header X-Content-Type-Options nosniff;
+
+# This header enables the Cross-site scripting (XSS) filter built into most recent web browsers.
+add_header X-XSS-Protection "1; mode=block";
+
+
 
 server {
-  listen 80 default_server;
+  listen 80;
   root /var/www/html/domain_directory;
   index index.php index.html index.htm;
   server_name domain.com www.domain.com;
@@ -30,4 +43,12 @@ server {
   
   location = /robots.txt { access_log off; log_not_found off; }
   location ~ /\. { deny all; access_log off; log_not_found off; }
+  
+  # Common deny or internal locations, to help prevent access to not-public areas
+  location ~* wp-admin/includes { deny all; }
+  location ~* wp-includes/theme-compat/ { deny all; }
+  location ~* wp-includes/js/tinymce/langs/.*\.php { deny all; }
+  location /wp-content/ { internal; }
+  location /wp-includes/ { internal; }
+  location ~* wp-config.php { deny all; }
 }
