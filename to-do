@@ -47,3 +47,16 @@ add_filter('the_generator', 'wpversion_remove_version');
 
 Remove readme.html in root
 #--------
+
+#--------Change folder permissions---
+https://kinsta.com/wp-content/uploads/2016/10/wordpress-file-permissions-1024x764.png
+#--------
+
+#----- Prevent Hot Linking in Nginx Server Block
+location ~ .(gif|png|jpe?g)$ {
+valid_referers none blocked ~.google. ~.bing. ~.yahoo yourdomain.com *.yourdomain.com;
+if ($invalid_referer) {
+return 403;
+}
+}
+
