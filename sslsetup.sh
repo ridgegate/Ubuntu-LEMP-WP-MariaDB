@@ -46,7 +46,7 @@ fi
 
 #--Get the certificates---
 sudo certbot --nginx -d $MY_DOMAIN -d www.$MY_DOMAIN
---dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare.ini -d example.com,*.example.com --preferred-challenges dns-01
+--dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare.ini -d $MY_DOMAIN,*.$MY_DOMAIN --preferred-challenges dns-01
 echo
 echo
 echo
