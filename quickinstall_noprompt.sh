@@ -170,7 +170,7 @@ while read -r SALT; do
 SEARCH="define( '$(echo "$SALT" | cut -d "'" -f 2)"
 REPLACE=$(echo "$SALT" | cut -d "'" -f 4)
 echo "Replacing: $SEARCH"
-sed -i "/^$SEARCH/s/put your unique phrase here/$(echo $REPLACE | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')/" /var/www/html/wp-config.php
+sed -i "/^$SEARCH/s/put your unique phrase here/$(echo $REPLACE | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')/" /var/www/html/$MY_DOMAIN/wp-config.php
 done <<< "$SALTS"
 
 # Install WP CLI and Basic Plugins
