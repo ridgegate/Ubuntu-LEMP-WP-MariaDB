@@ -21,7 +21,7 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/security.sh </br>
   * sudo chmod +x security.sh </br>
   * sudo ./security.sh </br>
-* #### Complete automatic installation (Will still prompt for url and database name/user)
+* #### Duplicator Setup
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/duplicator.sh  </br>
   * sudo chmod +x duplicator.sh </br>
   * sudo ./duplicator.sh </br>      
