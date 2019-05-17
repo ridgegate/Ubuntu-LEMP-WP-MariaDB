@@ -131,6 +131,12 @@ echo "FLUSH PRIVILEGES;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "delete from mysql.user where user='mysql';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 clear
 
+# Set up the install directory
+mkdir /var/www/html/$MY_DOMAIN
+touch /var/www/html/$MY_DOMAIN/.htaccess
+chmod 660 /var/www/html/$MY_DOMAIN/.htaccess
+chown -R www-data /var/www/html/$MY_DOMAIN
+
 #Install WordPress
 # apt purge expect -y
 # apt autoremove -y
