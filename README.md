@@ -21,6 +21,10 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/security.sh </br>
   * sudo chmod +x security.sh </br>
   * sudo ./security.sh </br>
+* #### Complete automatic installation (Will still prompt for url and database name/user)
+  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/duplicator.sh  </br>
+  * sudo chmod +x duplicator.sh </br>
+  * sudo ./duplicator.sh </br>      
 ## DNS Setting
   * Please make sure you have the correct NS record in your DNS records in your domain registrar.
     * NS record should have the proper NS domain of the hosting company or, if using CloudFlare, CloudFlare's NS nameserver
