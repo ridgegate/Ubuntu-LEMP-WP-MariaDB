@@ -14,6 +14,13 @@
 clear
 echo "Please provide your domain name without the www. (e.g. mydomain.com)"
 read -p "Type your domain name, then press [ENTER] : " MY_DOMAIN
+echo "Please provide a user name for the system. This prevent brute for ROOT login attempt"
+read -p "Type your system user name, then press [ENTER] : " sshuser
+echo "Password for user options:"
+echo "  * Generate Password [G]"
+echo "  * Enter own password [E]"
+echo "  * No password required [N]"
+read -p "Choose password options : " sshuserpwd
 echo "Please provide a name for the DATABASE"
 read -p "Type your database name, then press [ENTER] : " dbname
 echo "Please provide a DATABASE username"
@@ -22,6 +29,16 @@ echo "Please provide a MariaDB version (eg: 10.3 or 10.4)"
 read -p "Choose your MariaDB Version [ENTER] : " MDB_VERSION
 clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
+
+if [[ "$sshuserpwd" = "G/g" ]]
+then
+NEW_USERPWD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-10)
+useradd -m -s /bin/bash $sshuser
+echo "$sshuser:$NEW_USERPWD"|chpasswd
+usermod -aG sudo $sshuser
+else if
+else
+fi
 
 #Add MariaDB Repository
 sudo apt-get install -y software-properties-common
