@@ -212,7 +212,7 @@ service nginx restart
 service php7.2-fpm restart
 service mysql restart
 
-# Setting up Firewall
+# Securing System & wp-config
 # Reset UFW and enable UFW
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
