@@ -231,8 +231,13 @@ echo
 echo "Here are your WordPress MySQL database details!"
 echo
 echo "Database Name: $dbname"
-echo "Username: $dbuser"
-echo "Password: $userpass"
+echo "Database Username: $dbuser"
+echo "Database User Password: $userpass"
 echo "Your MySQL ROOT Password is: $NEW_MYSQL_PASSWORD"
 echo
 echo
+echo "Here are System Login Detail"
+echo
+echo "System Username: $sshuser"
+echo "System User Password: $sshuserpwd"
+echo "Root login has beeen disabled."
