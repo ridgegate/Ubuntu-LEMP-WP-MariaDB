@@ -1,4 +1,6 @@
-# sudo ./user.sh
+#!/bin/bash
+# The default value for PS3 is set to #?.
+# Change it i.e. Set PS3 prompt
 #
 clear
 echo "Please provide a user name for the system. This prevent brute for ROOT login attempt"
