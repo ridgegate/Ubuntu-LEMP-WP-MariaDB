@@ -1,8 +1,6 @@
 # sudo ./user.sh
 #
 clear
-echo "Please provide your domain name without the www. (e.g. mydomain.com)"
-read -p "Type your domain name, then press [ENTER] : " MY_DOMAIN
 echo "Please provide a user name for the system. This prevent brute for ROOT login attempt"
 read -p "Type your system user name, then press [ENTER] : " sshuser
 echo "Password for user options:"
@@ -14,8 +12,8 @@ read -p "Choose password options : " pwdoption
 useradd -m -s /bin/bash $sshuser
 usermod -aG sudo $sshuser
 if [[ "$pwdoption" =~ ^([gG])+$ ]] then
-  NEW_USERPWD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-10)
-  echo "$sshuser:$NEW_USERPWD"|chpasswd
+  sshuserpwd=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-10)
+  echo "$sshuser:$sshuserpwd"|chpasswd
 elif [[ "$pwdoption" =~ ^([eE])+$ ]] then
   echo "Please enter your password"
   read -p "Please enter your password : " sshuserpwd
@@ -23,3 +21,10 @@ elif [[ "$pwdoption" =~ ^([eE])+$ ]] then
 else
   adduser --disabled-password --shell /bin/bash --gecos "User" $sshuser
 fi
+
+echo "Username entered"
+echo $sshuser
+echo "PWD OPTION SELECTED"
+echo $pwdoption
+echo "PWD CREATED"
+echo $sshuserpwd
