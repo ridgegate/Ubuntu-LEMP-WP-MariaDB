@@ -37,7 +37,7 @@ do
       break
 			;;		
 		*)		
-			echo "Error: Please try again (select 1..4)!"
+			echo "Error: Please try again (select 1..3)!"
 			;;		
 	esac
 done
