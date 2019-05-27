@@ -225,6 +225,14 @@ clear
 sudo rm -rf /root/wordpress
 sudo rm -f latest.tar.gz
 
+#Disable Root Login
+perl -pi -e "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
+mkdir -p /home/$sshuser/.ssh 
+cp /root/.ssh/authorized_keys /home/$sshuser/.ssh/authorized_keys
+chown $sshuser:$sshuser /home/$sshuser/.ssh/authorized_keys
+chown $sshuser:$sshuser /home/$sshuser/.ssh
+chmod 700 /home/$sshuser/.ssh && chmod 600 /home/$sshuser/.ssh/authorized_keys
+
 echo "WordPress Installed. Please visit your website to continue setup"
 echo
 echo
@@ -240,4 +248,4 @@ echo "Here are System Login Detail"
 echo
 echo "System Username: $sshuser"
 echo "System User Password: $sshuserpwd"
-echo "Root login has beeen disabled."
+echo "Root login has beeen disabled. Please reconnect with the System user and password."
