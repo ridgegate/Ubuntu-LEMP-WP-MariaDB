@@ -20,7 +20,23 @@ echo "Password for user options:"
 echo "  * Generate Password [G]"
 echo "  * Enter own password [E]"
 echo "  * No password required [N]"
-read -p "Choose password options : " sshuserpwd
+read -p "Choose password options : " pwdoption
+
+useradd -m -s /bin/bash $sshuser
+usermod -aG sudo $sshuser
+if [[ "$pwdoption" =~ ^([gG])+$ ]] then
+  NEW_USERPWD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-10)
+  echo "$sshuser:$NEW_USERPWD"|chpasswd
+elif [[ "$pwdoption" =~ ^([eE])+$ ]] then
+  echo "Please enter your password"
+  read -p "Please enter your password : " sshuserpwd
+  echo "$sshuser:$sshuserpwd"|chpasswd
+else
+  adduser --disabled-password --shell /bin/bash --gecos "User" $sshuser
+fi
+
+
+
 echo "Please provide a name for the DATABASE"
 read -p "Type your database name, then press [ENTER] : " dbname
 echo "Please provide a DATABASE username"
@@ -30,15 +46,7 @@ read -p "Choose your MariaDB Version [ENTER] : " MDB_VERSION
 clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 
-if [[ "$sshuserpwd" = "G/g" ]]
-then
-NEW_USERPWD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-10)
-useradd -m -s /bin/bash $sshuser
-echo "$sshuser:$NEW_USERPWD"|chpasswd
-usermod -aG sudo $sshuser
-else if
-else
-fi
+
 
 #Add MariaDB Repository
 sudo apt-get install -y software-properties-common
