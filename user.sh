@@ -11,10 +11,12 @@ read -p "Choose password options : " pwdoption
 
 useradd -m -s /bin/bash $sshuser
 usermod -aG sudo $sshuser
-if [[ "$pwdoption" =~ ^([gG])+$ ]] then
+if [[ "$pwdoption" =~ ^([gG])+$ ]] 
+then
   sshuserpwd=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-10)
   echo "$sshuser:$sshuserpwd"|chpasswd
-elif [[ "$pwdoption" =~ ^([eE])+$ ]] then
+elif [[ "$pwdoption" =~ ^([eE])+$ ]] 
+then
   echo "Please enter your password"
   read -p "Please enter your password : " sshuserpwd
   echo "$sshuser:$sshuserpwd"|chpasswd
