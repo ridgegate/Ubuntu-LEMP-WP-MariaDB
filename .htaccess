@@ -1,0 +1,31 @@
+#------htaccess protect files----#
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+<files wp-config.php>
+order allow,deny
+deny from all
+</files>
+
+# directory browsing
+Options All -Indexes
+
+#htaccess itself
+<files ~ "^.*\.([Hh][Tt][Aa])">
+order allow,deny
+deny from all
+satisfy all
+</files>
+
+#Hot Linking
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?$MY_DOMAIN [NC]
+RewriteRule \.(jpg|jpeg|png|gif)$ - [NC,F,L]
+#-------------------END----#
