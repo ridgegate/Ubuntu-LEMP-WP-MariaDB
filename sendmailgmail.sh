@@ -1,21 +1,20 @@
 #!/bin/bash
 #
 # Sendmail with gmail
-
+#
+#
+clear
+echo "Please provide sender email for Fail2Ban Notification"
+read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_EMAIL
+echo "Please provide sender email password"
+read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_PASS
+echo
 apt-get install sendmail mailutils
-
 mkdir /etc/mail/authinfo
 chmod 700 /etc/mail/authinfo
 touch /etc/mail/authinfo/smtprelay
-echo "AuthInfo: "U:F2BAlert" "I:$F2B_SENDER_EMAIL" "P:F2B_SENDER_PASS"" > /etc/mail/authinfo/smtprelay
-
-makemap hash smtprelay < smtprelay
+echo "AuthInfo: \"U:F2BAlert\" \"I:$F2B_SENDER_EMAIL\" \"P:$F2B_SENDER_PASS\"" > /etc/mail/authinfo/smtprelay
+makemap hash  /etc/mail/authinfo/smtprelay <  /etc/mail/authinfo/smtprelay
 yes | sendmailconfig
 
-# Set up Postfix
-echo "[smtp.gmail.com]:465 $F2B_SENDER_EMAIL:$F2B_SENDER_PASS" > /etc/mail/authinfo
-
-export DEBIAN_FRONTEND=noninteractive
-debconf-set-selections <<< "postfix postfix/mailname string $FQDN_NAME"
-debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
-
+echo "Completed sendmail
