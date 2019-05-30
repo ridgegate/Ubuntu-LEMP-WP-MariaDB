@@ -20,4 +20,4 @@ echo "AuthInfo: \"U:F2BAlert\" \"I:$F2B_SENDER_EMAIL\" \"P:$F2B_SENDER_PASS\"" >
 makemap hash  /etc/mail/authinfo/smtprelay <  /etc/mail/authinfo/smtprelay
 #yes | sendmailconfig
 
-echo "Completed sendmail
+echo "Completed sendmail"
