@@ -14,33 +14,6 @@
 clear
 echo "Please provide your domain name without the www. (e.g. mydomain.com)"
 read -p "Type your domain name, then press [ENTER] : " MY_DOMAIN
-echo "Please provide a user name for the system. This prevent brute for ROOT login attempt"
-read -p "Type your system user name, then press [ENTER] : " sshuser
-useradd -m -s /bin/bash $sshuser
-usermod -aG sudo $sshuser
-
-PS3="Choose password options : "
-select optpwd in "Generate Password" "Enter Password" "No Password" 
-do
-	case $optpwd in
-		"Generate Password")
-      sshuserpwd=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-10)
-      echo "$sshuser:$sshuserpwd"|chpasswd
-      break
-			;;
-		"Enter Password")
-			read -p "Please enter your password : " sshuserpwd
-      break
-			;;
-		"No Password") 
-			adduser --disabled-password --shell /bin/bash --gecos "User" $sshuser
-      break
-			;;		
-		*)		
-			echo "Error: Please try again (select 1..3)!"
-			;;		
-	esac
-done
 echo "Please provide a name for the DATABASE"
 read -p "Type your database name, then press [ENTER] : " dbname
 echo "Please provide a DATABASE username"
@@ -225,13 +198,6 @@ clear
 sudo rm -rf /root/wordpress
 sudo rm -f latest.tar.gz
 
-#Disable Root Login
-perl -pi -e "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
-mkdir -p /home/$sshuser/.ssh 
-cp /root/.ssh/authorized_keys /home/$sshuser/.ssh/authorized_keys
-chown $sshuser:$sshuser /home/$sshuser/.ssh/authorized_keys
-chown $sshuser:$sshuser /home/$sshuser/.ssh
-chmod 700 /home/$sshuser/.ssh && chmod 600 /home/$sshuser/.ssh/authorized_keys
 
 echo "WordPress Installed. Please visit your website to continue setup"
 echo
@@ -244,8 +210,4 @@ echo "Database User Password: $userpass"
 echo "Your MySQL ROOT Password is: $NEW_MYSQL_PASSWORD"
 echo
 echo
-echo "Here are System Login Detail"
-echo
-echo "System Username: $sshuser"
-echo "System User Password: $sshuserpwd"
-echo "Root login has beeen disabled. Please reconnect with the System user and password."
+
