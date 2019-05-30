@@ -3,13 +3,16 @@
 # Sendmail with gmail
 #
 #
+
+
 clear
 echo "Please provide sender email for Fail2Ban Notification"
 read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_EMAIL
 echo "Please provide sender email password"
 read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_PASS
 echo
-apt-get install sendmail mailutils
+apt-get update -y
+apt-get install -y sendmail mailutils sendmail-bin
 mkdir /etc/mail/authinfo
 chmod 700 /etc/mail/authinfo
 touch /etc/mail/authinfo/smtprelay
