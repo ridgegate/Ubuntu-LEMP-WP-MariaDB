@@ -18,6 +18,14 @@ chmod 700 /etc/mail/authinfo
 touch /etc/mail/authinfo/smtprelay
 echo "AuthInfo: \"U:F2BAlert\" \"I:$F2B_SENDER_EMAIL\" \"P:$F2B_SENDER_PASS\"" > /etc/mail/authinfo/smtprelay
 makemap hash  /etc/mail/authinfo/smtprelay <  /etc/mail/authinfo/smtprelay
+
+# Modify /etc/host to speed up sending
+HOSTNAMEVAR=$(</etc/hostname)
+perl -pi -e "s/127.0.0.1/127.0.0.1 localhost.localdomain $HOSTNAMEVAR $HOSTNAMEVAR.com/g" /etc/hosts
+
+
+
+
 #yes | sendmailconfig
 
 echo "Completed sendmail"
