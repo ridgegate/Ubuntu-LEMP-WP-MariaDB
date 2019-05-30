@@ -15,6 +15,6 @@ chmod 700 /etc/mail/authinfo
 touch /etc/mail/authinfo/smtprelay
 echo "AuthInfo: \"U:F2BAlert\" \"I:$F2B_SENDER_EMAIL\" \"P:$F2B_SENDER_PASS\"" > /etc/mail/authinfo/smtprelay
 makemap hash  /etc/mail/authinfo/smtprelay <  /etc/mail/authinfo/smtprelay
-yes | sendmailconfig
+#yes | sendmailconfig
 
 echo "Completed sendmail
