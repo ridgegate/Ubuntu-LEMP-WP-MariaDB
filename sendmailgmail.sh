@@ -22,7 +22,7 @@ rm -f /etc/mail/authinfo/smtpacct
 
 # Modify /etc/host to speed up sending
 HOSTNAMEVAR=$(</etc/hostname)
-perl -pi -e "s/127.0.0.1/127.0.0.1 localhost.localdomain $HOSTNAMEVAR $HOSTNAMEVAR.com/g" /etc/hosts
+perl -pi -e "s/127.0.0.1 localhost/127.0.0.1 localhost localhost.localdomain $HOSTNAMEVAR $HOSTNAMEVAR.com/g" /etc/hosts
 perl -pi -e "s/HOSTNAME/$HOSTNAMEVAR/g" ~/smtprelayinfo
 sed -i '/MAILER_DEFINITIONS/r smtprelayinfo' /etc/mail/sendmail.mc
 
