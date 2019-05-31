@@ -54,14 +54,14 @@ debconf-set-selections <<< "postfix postfix/mailname string $FQDN_NAME"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 
 sudo apt-get install libsasl2-modules postfix -y
-echo "[smtp.gmail.com]:465 $F2B_SENDER_EMAIL:$F2B_SENDER_PASS" > /etc/postfix/sasl/sasl_passwd
+echo "[smtp.gmail.com]:587 $F2B_SENDER_EMAIL:$F2B_SENDER_PASS" > /etc/postfix/sasl/sasl_passwd
 sudo postmap /etc/postfix/sasl/sasl_passwd
 sudo chown root:root /etc/postfix/sasl/sasl_passwd.db
 sudo chmod 0600 /etc/postfix/sasl/sasl_passwd.db
 rm /etc/postfix/sasl/sasl_passwd #remove plain text user & password
 
 # Configure POSTFIX
-sudo postconf -e "relayhost = [smtp.gmail.com]:465"
+sudo postconf -e "relayhost = [smtp.gmail.com]:587"
 # Enable SASL authentication
 sudo postconf -e "smtp_sasl_auth_enable = yes"
 sudo postconf -e "smtp_sasl_security_options = noanonymous"
