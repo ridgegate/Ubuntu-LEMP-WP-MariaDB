@@ -23,10 +23,13 @@ rm -f /etc/mail/authinfo/smtpacct
 # Modify /etc/host to speed up sending
 HOSTNAMEVAR=$(</etc/hostname)
 perl -pi -e "s/127.0.0.1 localhost/127.0.0.1 localhost localhost.localdomain $HOSTNAMEVAR $HOSTNAMEVAR.com/g" /etc/hosts
-perl -pi -e "s/HOSTNAME/$HOSTNAMEVAR/g" ~/smtprelayinfo
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/smtprelayinfo
+#perl -pi -e "s/HOSTNAME/$HOSTNAMEVAR/g" ~/smtprelayinfo
 sed -i '/MAILER_DEFINITIONS/r smtprelayinfo' /etc/mail/sendmail.mc
 
-
+cd /etc/mail
+make
+/etc/init.d/sendmail reload
 yes | sendmailconfig
 
 echo "Completed sendmail"
