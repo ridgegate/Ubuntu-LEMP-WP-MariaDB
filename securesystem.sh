@@ -34,6 +34,7 @@ do
     "No Password") 
       # U6aMy0wojraho = hash for empty string
       echo "$sshuser:U6aMy0wojraho" | sudo chpasswd -e
+      sudo echo "$sshuser ALL=(ALL) NOPASSWD:ALL" >> sudo visudo
       break ;;		
     *)		
       echo "Error: Please try again (select 1..3)!"
