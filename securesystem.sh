@@ -23,7 +23,7 @@ do
       echo "$sshuser:$sshuserpwd"|chpasswd
       break ;;
     "No Password") 
-      echo test-user-0:U6aMy0wojraho | sudo chpasswd -e
+      echo "$sshuser:U6aMy0wojraho" | sudo chpasswd -e
       break ;;		
     *)		
       echo "Error: Please try again (select 1..3)!"
