@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# Install WP CLI and Basic Plugins
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x wp-cli.phar
+sudo mv wp-cli.phar /usr/local/bin/wp
+sudo -u www-data wp plugin install --path="/var/www/html/$MY_DOMAIN" woocommerce two-factor-authentication limit-login-attempts-reloaded wps-hide-login onesignal-free-web-push-notifications wordpress-seo
