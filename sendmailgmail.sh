@@ -8,6 +8,8 @@ echo "Please provide sender email for Fail2Ban Notification"
 read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_EMAIL
 echo "Please provide sender email password"
 read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_PASS
+echo "Please provide test mail recipient address"
+read -p "Enter reci, then press [ENTER] : " TEST_RCPT
 echo
 
 apt-get update -y
@@ -24,5 +26,11 @@ sed -i '/MAILER_DEFINITIONS/r smtprelayinfo' /etc/mail/sendmail.mc
 make -C /etc/mail
 /etc/init.d/sendmail reload
 
-
-echo "Completed sendmail"
+echo "Sendmail Setup Completed on $(date)" | mail -s "Sendmail Setup Completed" $TEST_RCPT
+echo
+echo
+echo "Completed Sendmail Setup"
+echo
+echo
+echo
+echo
