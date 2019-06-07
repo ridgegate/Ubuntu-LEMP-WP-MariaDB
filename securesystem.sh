@@ -7,10 +7,19 @@ echo "Please provide a user name for the system. This prevent brute for ROOT log
 read -p "Type your system user name, then press [ENTER] : " sshuser
 useradd -m -s /bin/bash $sshuser
 usermod -aG sudo $sshuser
-
-
-
-PS3="Choose password options : "
+echo
+echo
+echo "Please choose user password options:"
+echo
+echo "*************************WARNING*************************"
+echo "*"
+echo "* If \"Option 3 - No Password\" is chosen,"
+echo "* SUDO privilege could be invoked with empty password!"
+echo "*"
+echo "*************************WARNING*************************"
+echo
+echo
+PS3="Enter Password options :"
 select optpwd in "Generate Password" "Enter Password" "No Password" 
 do
   case $optpwd in
@@ -23,6 +32,7 @@ do
       echo "$sshuser:$sshuserpwd"|chpasswd
       break ;;
     "No Password") 
+      # U6aMy0wojraho = hash for empty string
       echo "$sshuser:U6aMy0wojraho" | sudo chpasswd -e
       break ;;		
     *)		
