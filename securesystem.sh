@@ -14,7 +14,7 @@ echo
 echo "*************************WARNING*************************"
 echo "*"
 echo "* If \"Option 3 - No Password\" is chosen,"
-echo "* SUDO privilege could be invoked with empty password!"
+echo "* SUDO privilege could be invoked without password!"
 echo "*"
 echo "*************************WARNING*************************"
 echo
