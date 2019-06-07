@@ -10,24 +10,22 @@ usermod -aG sudo $sshuser
 PS3="Choose password options : "
 select optpwd in "Generate Password" "Enter Password" "No Password" 
 do
-	case $optpwd in
-		"Generate Password")
+  case $optpwd in
+    "Generate Password")
       sshuserpwd=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-10)
       echo "$sshuser:$sshuserpwd"|chpasswd
-      break
-			;;
-		"Enter Password")
-			read -p "Please enter your password : " sshuserpwd
-      break
-			;;
-		"No Password") 
-			adduser --disabled-password --shell /bin/bash --gecos "User" $sshuser
-      break
-			;;		
-		*)		
-			echo "Error: Please try again (select 1..3)!"
-			;;		
-	esac
+      break ;;
+    "Enter Password")
+      read -p "Please enter your password : " sshuserpwd
+      echo "$sshuser:$sshuserpwd"|chpasswd
+      break ;;
+    "No Password") 
+      adduser --disabled-password --shell /bin/bash --gecos "User" $sshuser
+      break ;;		
+    *)		
+      echo "Error: Please try again (select 1..3)!"
+      ;;		
+  esac
 done
 
 #Disable Root Login
