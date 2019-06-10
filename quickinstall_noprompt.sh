@@ -141,9 +141,9 @@ wget https://wordpress.org/latest.tar.gz
 tar xzvf latest.tar.gz
 cp ./wordpress/wp-config-sample.php ./wordpress/wp-config.php
 
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/.htaccess
-mv .htaccess ./wordpress/.htaccess
-#touch ./wordpress/.htaccess
+#wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/.htaccess
+#mv .htaccess ./wordpress/.htaccess
+touch ./wordpress/.htaccess
 chmod 660 ./wordpress/.htaccess
 mkdir ./wordpress/wp-content/upgrade
 mkdir /var/www/html/$MY_DOMAIN
