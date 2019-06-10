@@ -12,8 +12,6 @@ add_header X-Content-Type-Options nosniff;
 # This header enables the Cross-site scripting (XSS) filter built into most recent web browsers.
 add_header X-XSS-Protection "1; mode=block";
 
-
-
 server {
   listen 80;
   root /var/www/html/domain_directory;
@@ -38,7 +36,11 @@ server {
   }
   
   location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg)$ {
-   access_log off; log_not_found off; expires 30d;
+   valid_referers none blocked ~.google. ~.bing. ~.yahoo yourdomain.com *.yourdomain.com;
+   access_log off; 
+   log_not_found off; 
+   expires 30d;
+   if ($invalid_referer) { return 403; }
   }
   
   location = /robots.txt { access_log off; log_not_found off; }
