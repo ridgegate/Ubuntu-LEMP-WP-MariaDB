@@ -36,11 +36,11 @@ server {
   }
   
   location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg)$ {
-   #valid_referers none blocked ~.google. ~.bing. ~.yahoo domain.com *.domain.com publicip;
+   valid_referers none blocked ~.google. ~.bing. ~.yahoo domain.com *.domain.com publicip;
    access_log off; 
    log_not_found off; 
    expires 30d;
-   #if ($invalid_referer) { return 403; }
+   if ($invalid_referer) { return 403; }
   }
   
   location = /robots.txt { access_log off; log_not_found off; }
