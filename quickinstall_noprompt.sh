@@ -48,8 +48,8 @@ clear
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/NGINXFiles/nginx-default-block
 mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/NGINXFiles/restrictions.conf
-mkdir /etc/nginx/sites-available/$MY_DOMAIN/global
-mv ./restrictions.conf /etc/nginx/sites-available/$MY_DOMAIN/global
+mkdir /etc/nginx/global
+mv ./restrictions.conf /etc/nginx/global
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/publicip/$SERVERIP/g" /etc/nginx/sites-available/$MY_DOMAIN
