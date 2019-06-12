@@ -35,6 +35,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 apt install nginx nginx-extras -y
 apt install php-fpm php-mysql php-xml php-mbstring php-common php-curl php-gd php-zip php-soap -y
 phpenmod mbstring 
+SERVERIP=$(curl https://ipinfo.io/ip)
 
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
 perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.2/fpm/php.ini
@@ -48,6 +49,7 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpr
 mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
+perl -pi -e "s/publicip/$SERVERIP/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/domain_directory/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 sudo ln -s /etc/nginx/sites-available/$MY_DOMAIN /etc/nginx/sites-enabled/
 sudo unlink /etc/nginx/sites-enabled/default
