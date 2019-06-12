@@ -1,0 +1,48 @@
+#don't send the nginx version number in error pages and Server header
+server_tokens off;
+ 
+# config to don't allow the browser to render the page inside an frame or iframe
+# and avoid clickjacking
+add_header X-Frame-Options SAMEORIGIN;
+ 
+# when serving user-supplied content, include a X-Content-Type-Options: nosniff header along with the Content-Type: header,
+# to disable content-type sniffing on some browsers.
+add_header X-Content-Type-Options nosniff;
+
+# This header enables the Cross-site scripting (XSS) filter built into most recent web browsers.
+add_header X-XSS-Protection "1; mode=block";
+
+server {
+  listen 80;
+  root /var/www/html/domain_directory;
+  index index.php index.html index.htm;
+  server_name domain.com www.domain.com;
+  charset UTF-8;
+  
+  location / {
+    try_files $uri $uri/ /index.php$is_args$args;
+  }
+  
+  location ~ /.well-known {
+    allow all;
+  }
+  
+  location ~ \.php$ {
+   try_files $uri =404;
+   fastcgi_split_path_info ^(.+\.php)(/.+)$;
+   fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+   fastcgi_index index.php;
+   include fastcgi.conf;
+  }
+  
+  location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg)$ {
+   valid_referers none blocked ~.google. ~.bing. ~.yahoo domain.com *.domain.com publicip;
+   access_log off; 
+   log_not_found off; 
+   expires 30d;
+   if ($invalid_referer) { return 404; }
+  }
+  
+  include global/restrictions.conf;
+
+}
