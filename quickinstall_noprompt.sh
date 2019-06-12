@@ -178,7 +178,7 @@ REPLACE=$(echo "$SALT" | cut -d "'" -f 4)
 echo "Replacing: $SEARCH"
 sed -i "/^$SEARCH/s/put your unique phrase here/$(echo $REPLACE | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')/" /var/www/html/$MY_DOMAIN/wp-config.php
 done <<< "$SALTS"
-mv /var/www/html/$MY_DOMAIN/wp-config.php /var/www/html/wp-config.php
+#mv /var/www/html/$MY_DOMAIN/wp-config.php /var/www/html/wp-config.php
 service nginx restart
 service php7.2-fpm restart
 service mysql restart
