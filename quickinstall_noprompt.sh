@@ -145,11 +145,6 @@ apt autoclean -y
 wget https://wordpress.org/latest.tar.gz
 tar xzvf latest.tar.gz
 cp ./wordpress/wp-config-sample.php ./wordpress/wp-config.php
-
-#wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/.htaccess
-#mv .htaccess ./wordpress/.htaccess
-touch ./wordpress/.htaccess
-chmod 660 ./wordpress/.htaccess
 mkdir ./wordpress/wp-content/upgrade
 mkdir /var/www/html/$MY_DOMAIN
 cp -a ./wordpress/. /var/www/html/$MY_DOMAIN
@@ -170,7 +165,8 @@ sed -i '22idefine('\'WP_MAX_MEMORY_LIMIT\'', '\'256M\'');' /var/www/html/$MY_DOM
 sed -i '23i//Disable Theme Editor' /var/www/html/$MY_DOMAIN/wp-config.php
 sed -i '24idefine('\'DISALLOW_FILE_EDIT\'', '\'true\'');' /var/www/html/$MY_DOMAIN/wp-config.php
 # -------------------------------------------------------------
-TAB_PREF=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 5 | head -n 1)_ #randomize wordpress table prefix
+#randomize wordpress table prefix to make hacking harder
+TAB_PREF=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 5 | head -n 1)_ 
 perl -pi -e "s/wp_/$TAB_PREF/g" /var/www/html/$MY_DOMAIN/wp-config.php
 perl -pi -e "s/database_name_here/$dbname/g" /var/www/html/$MY_DOMAIN/wp-config.php
 perl -pi -e "s/username_here/$dbuser/g" /var/www/html/$MY_DOMAIN/wp-config.php
@@ -182,7 +178,7 @@ REPLACE=$(echo "$SALT" | cut -d "'" -f 4)
 echo "Replacing: $SEARCH"
 sed -i "/^$SEARCH/s/put your unique phrase here/$(echo $REPLACE | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')/" /var/www/html/$MY_DOMAIN/wp-config.php
 done <<< "$SALTS"
-
+mv /var/www/html/$MY_DOMAIN/wp-config.php /var/www/html/wp-config.php
 service nginx restart
 service php7.2-fpm restart
 service mysql restart
