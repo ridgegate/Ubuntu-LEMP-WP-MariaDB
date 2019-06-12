@@ -195,7 +195,7 @@ clear
 # Clean UP Unnecessary WordPress Files
 sudo rm -rf /root/wordpress
 sudo rm -f latest.tar.gz
-
+sudo rm -f /etc/nginx/sites-available/default
 
 echo "WordPress Installed. Please visit your website to continue setup"
 echo
