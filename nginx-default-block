@@ -52,5 +52,5 @@ server {
   location ~* wp-includes/js/tinymce/langs/.*\.php { deny all; }
   location /wp-content/ { internal; }
   location /wp-includes/ { internal; }
-  location ~* wp-config.php { deny all; }
+  location ~* /(\.|wp-config\.php|wp-config\.txt|changelog\.txt|readme\.txt|readme\.html|license\.txt) { deny all; }
 }
