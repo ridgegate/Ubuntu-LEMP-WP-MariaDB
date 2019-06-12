@@ -36,7 +36,7 @@ server {
   }
   
   location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg)$ {
-   #valid_referers none blocked ~.google. ~.bing. ~.yahoo yourdomain.com *.yourdomain.com;
+   #valid_referers none blocked ~.google. ~.bing. ~.yahoo domain.com *.domain.com;
    access_log off; 
    log_not_found off; 
    expires 30d;
