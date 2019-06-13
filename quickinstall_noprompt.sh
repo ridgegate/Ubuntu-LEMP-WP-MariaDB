@@ -31,18 +31,21 @@ sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F2
 sudo echo "deb [arch=amd64,arm64,ppc64el] http://mirrors.accretive-networks.net/mariadb/repo/$MDB_VERSION/ubuntu bionic main"  | sudo tee -a /etc/apt/sources.list
 sudo apt-get update && sudo apt-get upgrade -y
 
-#Install nginx and php7.2
+#Add PHP 7.3 Repository
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get install software-properties-common
+
+#Install nginx and php7.3
 apt install nginx nginx-extras -y
-apt install php-fpm php-mysql php-xml php-mbstring php-common php-curl php-gd php-zip php-soap -y
-phpenmod mbstring 
+apt install php7.3-fpm php7.3-mysql php7.3-xml php7.3-mbstring php7.3-common php7.3-curl php7.3-gd php7.3-zip php7.3-soap php7.3-mbstring -y
 SERVERIP=$(curl https://ipinfo.io/ip)
 
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
-perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.2/fpm/php.ini
-perl -pi -e "s/.*max_execution_time.*/max_execution_time = 120/;" /etc/php/7.2/fpm/php.ini
-perl -pi -e "s/.*max_input_time.*/max_input_time = 120/;" /etc/php/7.2/fpm/php.ini
-perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.2/fpm/php.ini
-perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 100M/;" /etc/php/7.2/fpm/php.ini
+perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.3/fpm/php.ini
+perl -pi -e "s/.*max_execution_time.*/max_execution_time = 120/;" /etc/php/7.3/fpm/php.ini
+perl -pi -e "s/.*max_input_time.*/max_input_time = 120/;" /etc/php/7.3/fpm/php.ini
+perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.3/fpm/php.ini
+perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 100M/;" /etc/php/7.3/fpm/php.ini
 clear
 #---Editing Nginx Server Block----
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/NGINXFiles/nginx-default-block
@@ -64,7 +67,7 @@ clear
 #----------------------------------------------------------------
 
 service nginx restart
-service php7.2-fpm restart
+service php7.3-fpm restart
 clear
 
 export DEBIAN_FRONTEND=noninteractive
@@ -178,9 +181,8 @@ REPLACE=$(echo "$SALT" | cut -d "'" -f 4)
 echo "Replacing: $SEARCH"
 sed -i "/^$SEARCH/s/put your unique phrase here/$(echo $REPLACE | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')/" /var/www/html/$MY_DOMAIN/wp-config.php
 done <<< "$SALTS"
-#mv /var/www/html/$MY_DOMAIN/wp-config.php /var/www/html/wp-config.php
 service nginx restart
-service php7.2-fpm restart
+service php7.3-fpm restart
 service mysql restart
 
 # Securing System & wp-config
