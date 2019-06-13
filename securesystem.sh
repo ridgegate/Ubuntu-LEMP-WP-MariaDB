@@ -197,12 +197,12 @@ sudo sed -i '/http {/a\  ' /etc/nginx/nginx.conf #add newline
 ## --Get CloudFlare IP and set up cronjob to run automatically
 mkdir /home/$sshuser/scripts
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/auto-cf-ip-update.sh
-mv ./auto-cf-ip-update.sh /home/$sshuser/auto-cf-ip-update.sh
-sudo chmod +x /home/$sshuser/auto-cf-ip-update.sh
-sudo /bin/bash /home/$sshuser/auto-cf-ip-update.sh
+mv ./auto-cf-ip-update.sh /home/$sshuser/scripts/auto-cf-ip-update.sh
+sudo chmod +x /home/$sshuser/scripts/auto-cf-ip-update.sh
+sudo /bin/bash /home/$sshuser/scripts/auto-cf-ip-update.sh
 # Added Cronjob to autoupdate IP list
 (crontab -l && echo "# Update CloudFlare IP Ranges (every Sunday at 04:00)") | crontab -
-(crontab -l && echo "* 4 * * 0 /bin/bash /home/$sshuser/auto-cf-ip-update.sh >/dev/null 2>&1") | crontab - 
+(crontab -l && echo "* 4 * * 0 /bin/bash /home/$sshuser/scripts/auto-cf-ip-update.sh >/dev/null 2>&1") | crontab - 
 
 #Disable Root Login
 perl -pi -e "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
