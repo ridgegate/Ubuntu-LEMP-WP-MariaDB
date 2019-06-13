@@ -32,27 +32,36 @@
 #
 #
 #
+F2B_DEST_EMAIL="ys.tomliu@gmail.com"
+F2B_SENDER_EMAIL="f2b@ridgegatetools.ca"
+F2B_SENDER_PASS="hiwvbzcghrmkhuyq"
+CF_ACC_EMAIL="wp@ridgegatetools.ca"
+CF_API_KEY="751816f2efcfff1db3679b814c56a3996ca18"
+ZONE_EXIST="y"
+CF_ZONEID="a1c78d1ad2c61b795bdc31070abad32e"
+FQDN_NAME="sprrivets.com"
 
-
-clear
-echo "Please provide destination email for Fail2Ban Notification"
-read -p "Enter destination email, then press [ENTER] : " F2B_DEST_EMAIL
-echo "Please provide sender email for Fail2Ban Notification"
-read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_EMAIL
-echo "Please provide sender email password"
-read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_PASS
-echo "Please provide CloudFlare Email Address"
-read -p "Enter CloudFlare Account Email Address [ENTER] : " CF_ACC_EMAIL
-echo "Please provide CloudFlare Global API Key"
-read -p "Enter CloudFlare API Key: " CF_API_KEY
-read -p "Do you have multiple URL on the same Cloudflare account? (Y/n):" ZONE_EXIST
-if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]]
-then
-    read -p "Enter CloudFlare ZONEID: " CF_ZONEID
-fi
-echo "Please provide the domain name"
-read -p "Enter domain name: " FQDN_NAME
-clear
+# clear
+# echo "Please provide destination email for Fail2Ban Notification"
+# read -p "Enter destination email, then press [ENTER] : " F2B_DEST_EMAIL
+# echo "Please provide sender email for Fail2Ban Notification"
+# read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_EMAIL
+# echo "Please provide sender email password"
+# read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_PASS
+# echo "Please provide CloudFlare Email Address"
+# read -p "Enter CloudFlare Account Email Address [ENTER] : " CF_ACC_EMAIL
+# echo "Please provide CloudFlare Global API Key"
+# read -p "Enter CloudFlare API Key: " CF_API_KEY
+# 
+# read -r -p "Do you have multiple URL on the same Cloudflare account? (Y/n):" ZONE_EXIST
+# case "$ZONE_EXIST" in
+#     [yY][eE][sS]|[yY]) 
+#     read -p "Enter CloudFlare ZONEID: " CF_ZONEID
+#     ;;
+# esac
+# echo "Please provide the domain name"
+# read -p "Enter domain name: " FQDN_NAME
+# clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 echo "Setting up Fail2Ban, Sendmail and iptables"
 
@@ -104,28 +113,29 @@ sed -i "s/F2B_DEST/$F2B_DEST_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/F2B_SENDER/$F2B_SENDER_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/CF_GLB_KEY/$CF_API_KEY/" /etc/fail2ban/jail.local
-if [[ "$ZONE_EXIST" =~ ^([yY][eE][sS]|[yY])+$ ]]
-then
-    CF_ZONEID="zones/$CF_ZONEID"
-    sed -i "s|CF_ZONE|$CF_ZONEID|g" ./cloudflare-restv4.conf
-else
-    sed -i "s|CF_ZONE|user|g" ./cloudflare-restv4.conf
-fi
 
 ## --Move/download filter/action to proper location
-sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/cloudflare-restv4.conf > /etc/fail2ban/action.d/cloudflare-restv4.conf
 sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/resources/auth > /etc/logrotate.d/auth
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-hard.conf > /etc/fail2ban/filter.d/wordpress-hard.conf
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-soft.conf > /etc/fail2ban/filter.d/wordpress-soft.conf
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-extra.conf > /etc/fail2ban/filter.d/wordpress-extra.conf
 
+sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/cloudflare-restv4.conf > /etc/fail2ban/action.d/cloudflare-restv4.conf
+case "$ZONE_EXIST" in
+  [yY][eE][sS]|[yY]) 
+    CF_ZONEID="zones/$CF_ZONEID"
+    sed -i "s|CF_ZONE|$CF_ZONEID|g" ./cloudflare-restv4.conf
+    ;;
+  *)
+    sed -i "s|CF_ZONE|user|g" ./cloudflare-restv4.conf
+    ;;    
+esac
 ## --Activate Fail2Ban and restart syslog
 sudo systemctl service enable fail2ban
 sudo systemctl service start fail2ban
 sudo service rsyslog restart
-echo "Fail2Ban installation completed."
-read -t 2
+read -t 30 -p "Fail2Ban installation completed."
 clear
 #---------Fail2Ban Installation Completed-------#
 
