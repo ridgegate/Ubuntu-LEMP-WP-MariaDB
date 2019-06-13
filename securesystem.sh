@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 # This script install the secure your WordPress Installation with the following modifications
 # 
 #  1) Install Sendmail for sending Fail2Ban Alerts
