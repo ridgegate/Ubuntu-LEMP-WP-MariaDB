@@ -125,10 +125,10 @@ sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wor
 case "$ZONE_EXIST" in
   [yY][eE][sS]|[yY]) 
     CF_ZONEID="zones/$CF_ZONEID"
-    sed -i "s|CF_ZONE|$CF_ZONEID|g" ./cloudflare-restv4.conf
+    sed -i "s|CF_ZONE|$CF_ZONEID|g" /etc/fail2ban/action.d/cloudflare-restv4.conf
     ;;
   *)
-    sed -i "s|CF_ZONE|user|g" ./cloudflare-restv4.conf
+    sed -i "s|CF_ZONE|user|g" /etc/fail2ban/action.d/cloudflare-restv4.conf
     ;;    
 esac
 ## --Activate Fail2Ban and restart syslog
