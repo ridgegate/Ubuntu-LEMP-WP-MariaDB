@@ -125,10 +125,10 @@ sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wor
 case "$ZONE_EXIST" in
   [yY][eE][sS]|[yY]) 
     CF_ZONEID="zones/$CF_ZONEID"
-    sed -i "s|CF_ZONE|$CF_ZONEID|g" /etc/fail2ban/action.d/cloudflare-restv4.conf
+    sed -i "s|CF_ZONE|$CF_ZONEID|g" ./cloudflare-restv4.conf
     ;;
   *)
-    sed -i "s|CF_ZONE|user|g" /etc/fail2ban/action.d/cloudflare-restv4.conf
+    sed -i "s|CF_ZONE|user|g" ./cloudflare-restv4.conf
     ;;    
 esac
 ## --Activate Fail2Ban and restart syslog
@@ -179,27 +179,27 @@ do
   esac
 done
 
-mkdir -p /home/$sshuser/.ssh 
-cp /root/.ssh/authorized_keys /home/$sshuser/.ssh/authorized_keys
-chown $sshuser:$sshuser /home/$sshuser/.ssh/authorized_keys
-chown $sshuser:$sshuser /home/$sshuser/.ssh
-chmod 700 /home/$sshuser/.ssh && chmod 600 /home/$sshuser/.ssh/authorized_keys
+sudo mkdir -p /home/$sshuser/.ssh 
+sudo cp /root/.ssh/authorized_keys /home/$sshuser/.ssh/authorized_keys
+sudo chown $sshuser:$sshuser /home/$sshuser/.ssh/authorized_keys
+sudo chown $sshuser:$sshuser /home/$sshuser/.ssh
+sudo chmod 700 /home/$sshuser/.ssh && chmod 600 /home/$sshuser/.ssh/authorized_keys
 
 
 #------Modify nginx.conf to include cloudflareip file for the newest ips------
-touch /etc/nginx/cloudflareip
-sed -i '/http {/a\  ' /etc/nginx/nginx.conf #add newline
-sed -i '/http {/a\       include /etc/nginx/cloudflareip;' /etc/nginx/nginx.conf
-sed -i '/http {/a\       ## Include Cloudflare IP ##' /etc/nginx/nginx.conf
-sed -i '/http {/a\  ' /etc/nginx/nginx.conf #add newline
-sed -i '/http {/a\  ' /etc/nginx/nginx.conf #add newline
+sudo touch /etc/nginx/cloudflareip
+sudo sed -i '/http {/a\  ' /etc/nginx/nginx.conf #add newline
+sudo sed -i '/http {/a\       include /etc/nginx/cloudflareip;' /etc/nginx/nginx.conf
+sudo sed -i '/http {/a\       ## Include Cloudflare IP ##' /etc/nginx/nginx.conf
+sudo sed -i '/http {/a\  ' /etc/nginx/nginx.conf #add newline
+sudo sed -i '/http {/a\  ' /etc/nginx/nginx.conf #add newline
 
 ## --Get CloudFlare IP and set up cronjob to run automatically
 mkdir /home/$sshuser/scripts
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/auto-cf-ip-update.sh
 mv ./auto-cf-ip-update.sh /home/$sshuser/auto-cf-ip-update.sh
 sudo chmod +x /home/$sshuser/auto-cf-ip-update.sh
-/bin/bash /home/$sshuser/auto-cf-ip-update.sh
+sudo /bin/bash /home/$sshuser/auto-cf-ip-update.sh
 # Added Cronjob to autoupdate IP list
 (crontab -l && echo "# Update CloudFlare IP Ranges (every Sunday at 04:00)") | crontab -
 (crontab -l && echo "* 4 * * 0 /bin/bash /home/$sshuser/auto-cf-ip-update.sh >/dev/null 2>&1") | crontab - 
