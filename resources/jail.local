@@ -24,22 +24,22 @@ action_cf_v4 = cloudflarev4[cfuser="%(cfemail)s", cfkey="%(cfapikey)s"]
 
 action = %(action_cf_v4)s
 
-#[wordpress-hard]
-#enabled  = true
-#filter   = wordpress-hard
-#logpath  = /var/log/auth.log
-#port     = 80,443
+[wordpress-hard]
+enabled  = true
+filter   = wordpress-hard
+logpath  = /var/log/wp_hard.log
+port     = 80,443
 
-#[wordpress-soft]
-#enabled  = true
-#filter   = wordpress-soft
-#logpath  = /var/log/auth.log
-#port     = 80,443
+[wordpress-soft]
+enabled  = true
+filter   = wordpress-soft
+logpath  = /var/log/wp_soft.log
+port     = 80,443
 
 [wordpress-extra]
 enabled  = true
 filter   = wordpress-extra
-logpath  = /var/log/wpauth.log
+logpath  = /var/log/wp_extra.log
 port     = 80,443
 
 [ssh]
