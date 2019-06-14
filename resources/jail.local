@@ -27,19 +27,19 @@ action = %(action_cf_v4)s
 [wordpress-hard]
 enabled  = true
 filter   = wordpress-hard
-logpath  = /var/log/wp_hard.log
+logpath  = /var/log/auth.log
 port     = 80,443
 
 [wordpress-soft]
 enabled  = true
 filter   = wordpress-soft
-logpath  = /var/log/wp_soft.log
+logpath  = /var/log/auth.log
 port     = 80,443
 
 [wordpress-extra]
 enabled  = true
 filter   = wordpress-extra
-logpath  = /var/log/wp_extra.log
+logpath  = /var/log/auth.log
 port     = 80,443
 
 [ssh]
