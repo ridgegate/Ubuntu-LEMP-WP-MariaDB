@@ -13,14 +13,14 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstall_noprompt.sh  </br>
   * sudo chmod +x quickinstall_noprompt.sh </br>
   * sudo ./quickinstall_noprompt.sh </br>
-* #### To install SSL
-  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/sslsetup.sh </br>
+* #### To Secure your system
+  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/securesystem.sh </br>
+  * sudo chmod +x securesystem.sh </br>
+  * sudo ./securesystem.sh </br>
+* #### To setup SSL
+  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/sslsetup.sh</br>
   * sudo chmod +x sslsetup.sh </br>
   * sudo ./sslsetup.sh </br>
-* #### To Fail2Ban and UFW (Firewall)
-  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/security.sh </br>
-  * sudo chmod +x security.sh </br>
-  * sudo ./security.sh </br>
 * #### Duplicator Setup
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/duplicator.sh  </br>
   * sudo chmod +x duplicator.sh </br>
