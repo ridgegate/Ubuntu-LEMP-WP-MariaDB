@@ -1,0 +1,16 @@
+/var/log/f2b/*.log {
+    weekly
+    notifempty
+    copytruncate
+    missingok          
+    rotate 12
+    compress
+    
+    create 0640 www-data www-data  
+    sharedscripts
+    postrotate
+        /usr/bin/fail2ban-client flushlogs >/dev/null || true
+	service rsyslog restart
+	service fail2ban restart
+    endscript    
+}
