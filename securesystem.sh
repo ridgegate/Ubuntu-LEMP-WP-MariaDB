@@ -141,8 +141,8 @@ touch /var/log/nginx_badbot.log
 
 
 ## --Activate Fail2Ban and restart syslog
-sudo systemctl service enable fail2ban
-sudo systemctl service start fail2ban
+sudo systemctl enable fail2ban
+sudo systemctl start fail2ban
 sudo service rsyslog restart
 read -t 30 -p "Fail2Ban installation completed."
 clear
