@@ -131,6 +131,12 @@ case "$ZONE_EXIST" in
     sed -i "s|CF_ZONE|user|g" /etc/fail2ban/action.d/cloudflare-restv4.conf
     ;;    
 esac
+
+#Create log files
+touch /var/log/nginx_badbot.log
+touch /var/log/wpauth.log
+touch /var/log/sshauth.log
+
 ## --Activate Fail2Ban and restart syslog
 sudo systemctl service enable fail2ban
 sudo systemctl service start fail2ban
