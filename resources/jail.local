@@ -18,7 +18,7 @@ cfapikey = CF_GLB_KEY
 banaction = iptables-multiport
 
 #Define the action "action_cf_v4"
-action_cf_v4 = cloudflare-restv4[cfuser="%(cfemail)s", cfkey="%(cfapikey)s"]
+action_cf_v4 = cloudflare[cfuser="%(cfemail)s", cfkey="%(cfapikey)s"]
 		%(mta)s-whois-lines[name=%(__name__)s, sender="%(sender)s", dest="%(destemail)s", logpath=%(logpath)s, chain="%(chain)s"]
 		%(banaction)s[name=%(__name__)s, port="%(port)s", protocol="%(protocol)s", chain="%(chain)s"]
 
@@ -39,22 +39,24 @@ action = %(action_cf_v4)s
 #[wordpress-extra]
 #enabled  = true
 #filter   = wordpress-extra
-#logpath  = /var/log/auth.log
+#logpath  = /var/log/wpauth.log
 #port     = 80,443
 
 [ssh]
 enabled  = true
 port     = ssh
 filter   = sshd
+logpath = /var/log/ssh.log
 
 [nginx-badbots]
 enabled  = true
 port     = http,https
 filter   = nginx-badbots
+logpath = /var/log/nginx_badbots.log
 
 [nginx-limit-req]
 enabled = true
 filter = nginx-limit-req
 port = http,https
-logpath = /var/log/nginx/*error*.log
+logpath = /var/log/nginx_limit.log
 
