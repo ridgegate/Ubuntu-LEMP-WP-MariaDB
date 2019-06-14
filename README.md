@@ -40,7 +40,7 @@ Tested on Ubuntu 18.04 Bionics (LTS)
 
 ## Included Software
 * Nginx 1.14.0 (Ubuntu repository)
-* PHP 7.2 (Ubuntu repository)
-* MariaDB 10.3 (MariaDB repository)
+* PHP 7.3 
+* MariaDB 10.3/10.4 (MariaDB repository)
 * WordPress (Wordpress latest)
 
