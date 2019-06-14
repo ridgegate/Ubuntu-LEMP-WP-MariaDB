@@ -121,21 +121,24 @@ sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpres
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-soft.conf > /etc/fail2ban/filter.d/wordpress-soft.conf
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-extra.conf > /etc/fail2ban/filter.d/wordpress-extra.conf
 
-sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/cloudflare-restv4.conf > /etc/fail2ban/action.d/cloudflare-restv4.conf
+sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/resources/cloudflarev4.conf > /etc/fail2ban/action.d/cloudflarev4.conf
 case "$ZONE_EXIST" in
   [yY][eE][sS]|[yY]) 
     CF_ZONEID="zones/$CF_ZONEID"
-    sed -i "s|CF_ZONE|$CF_ZONEID|g" /etc/fail2ban/action.d/cloudflare-restv4.conf
+    sed -i "s|CF_ZONE|$CF_ZONEID|g" /etc/fail2ban/action.d/cloudflarev4.conf
     ;;
   *)
-    sed -i "s|CF_ZONE|user|g" /etc/fail2ban/action.d/cloudflare-restv4.conf
+    sed -i "s|CF_ZONE|user|g" /etc/fail2ban/action.d/cloudflarev4.conf
     ;;    
 esac
 
 #Create log files
-touch /var/log/nginx_badbot.log
-touch /var/log/wpauth.log
+touch /var/log/wp_hard.log
+touch /var/log/wp_soft.log
+touch /var/log/wp_extra.log
 touch /var/log/sshauth.log
+touch /var/log/nginx_badbot.log
+
 
 ## --Activate Fail2Ban and restart syslog
 sudo systemctl service enable fail2ban
