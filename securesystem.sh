@@ -115,7 +115,7 @@ sed -i "s/CF_EMAIL/$CF_ACC_EMAIL/" /etc/fail2ban/jail.local
 sed -i "s/CF_GLB_KEY/$CF_API_KEY/" /etc/fail2ban/jail.local
 
 ## --Move/download filter/action to proper location
-sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/resources/auth > /etc/logrotate.d/auth
+sudo curl https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/resources/fail2ban_log_rotate > /etc/logrotate.d/fail2ban
 sudo cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf #enable bad-bots
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-hard.conf > /etc/fail2ban/filter.d/wordpress-hard.conf
 sudo curl https://plugins.svn.wordpress.org/wp-fail2ban/trunk/filters.d/wordpress-soft.conf > /etc/fail2ban/filter.d/wordpress-soft.conf
@@ -133,11 +133,11 @@ case "$ZONE_EXIST" in
 esac
 
 #Create log files
-touch /var/log/wp_hard.log
-touch /var/log/wp_soft.log
-touch /var/log/wp_extra.log
-touch /var/log/sshauth.log
-touch /var/log/nginx_badbot.log
+touch /var/log/f2b/wp_hard.log
+touch /var/log/f2b/wp_soft.log
+touch /var/log/f2b/wp_extra.log
+touch /var/log/f2b/sshauth.log
+touch /var/log/f2b/nginx_badbot.log
 
 
 ## --Activate Fail2Ban and restart syslog
