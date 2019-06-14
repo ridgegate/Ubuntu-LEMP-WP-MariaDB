@@ -27,30 +27,30 @@ action = %(action_cf_v4)s
 [wordpress-hard]
 enabled  = true
 filter   = wordpress-hard
-logpath  = /var/log/auth.log
+logpath  = /var/log/f2b/wp_hard.log
 port     = 80,443
 
 [wordpress-soft]
 enabled  = true
 filter   = wordpress-soft
-logpath  = /var/log/auth.log
+logpath  = /var/log/f2b/wp_soft.log
 port     = 80,443
 
 [wordpress-extra]
 enabled  = true
 filter   = wordpress-extra
-logpath  = /var/log/auth.log
+logpath  = /var/log/f2b/wp_extra.log
 port     = 80,443
 
 [ssh]
 enabled  = true
 port     = ssh
 filter   = sshd
-logpath  = /var/log/sshauth.log
+logpath  = /var/log/f2b/sshauth.log
 
 [nginx-badbots]
 enabled  = true
 port     = http,https
 filter   = nginx-badbots
-logpath = /var/log/nginx_badbot.log
+logpath = //var/log/f2b/nginx_badbot.log
 
