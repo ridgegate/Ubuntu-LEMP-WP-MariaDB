@@ -52,5 +52,5 @@ logpath  = /var/log/f2b/sshauth.log
 enabled  = true
 port     = http,https
 filter   = nginx-badbots
-logpath = //var/log/f2b/nginx_badbot.log
+logpath = /var/log/f2b/nginx_badbot.log
 
