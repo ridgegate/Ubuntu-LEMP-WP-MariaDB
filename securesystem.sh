@@ -223,8 +223,8 @@ echo "Here are System Login Detail"
 echo
 echo "System Username: $sshuser"
 echo "System User Password: $sshuserpwd"
-echo "Root login has beeen disabled. Please reconnect with the System user and password."
-echo
+echo "Root login has beeen disabled. Please REBOOT the system in order for this to take effect." 
+echo "PLEASE save the log in detail. It will not be displayed again!"
 echo
 echo
 echo
