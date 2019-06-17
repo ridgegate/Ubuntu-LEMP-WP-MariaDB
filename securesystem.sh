@@ -32,36 +32,27 @@
 #
 #
 #
-F2B_DEST_EMAIL="ys.tomliu@gmail.com"
-F2B_SENDER_EMAIL="f2b@ridgegatetools.ca"
-F2B_SENDER_PASS="hiwvbzcghrmkhuyq"
-CF_ACC_EMAIL="wp@ridgegatetools.ca"
-CF_API_KEY="751816f2efcfff1db3679b814c56a3996ca18"
-ZONE_EXIST="y"
-CF_ZONEID="a1c78d1ad2c61b795bdc31070abad32e"
-FQDN_NAME="sprrivets.com"
 
-# clear
-# echo "Please provide destination email for Fail2Ban Notification"
-# read -p "Enter destination email, then press [ENTER] : " F2B_DEST_EMAIL
-# echo "Please provide sender email for Fail2Ban Notification"
-# read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_EMAIL
-# echo "Please provide sender email password"
-# read -p "Enter sender email, then press [ENTER] : " F2B_SENDER_PASS
-# echo "Please provide CloudFlare Email Address"
-# read -p "Enter CloudFlare Account Email Address [ENTER] : " CF_ACC_EMAIL
-# echo "Please provide CloudFlare Global API Key"
-# read -p "Enter CloudFlare API Key: " CF_API_KEY
-# 
-# read -r -p "Do you have multiple URL on the same Cloudflare account? (Y/n):" ZONE_EXIST
-# case "$ZONE_EXIST" in
-#     [yY][eE][sS]|[yY]) 
-#     read -p "Enter CloudFlare ZONEID: " CF_ZONEID
-#     ;;
-# esac
-# echo "Please provide the domain name"
-# read -p "Enter domain name: " FQDN_NAME
-# clear
+clear
+echo "Please provide destination email for Fa
+read -p "Enter destination email, then press 
+echo "Please provide sender email for Fail2Ba
+read -p "Enter sender email, then press [ENTE
+echo "Please provide sender email password"
+read -p "Enter sender email, then press [ENTE
+echo "Please provide CloudFlare Email Address
+read -p "Enter CloudFlare Account Email Addre
+echo "Please provide CloudFlare Global API Ke
+read -p "Enter CloudFlare API Key: " CF_API_K
+read -r -p "Do you have multiple URL on the s
+case "$ZONE_EXIST" in
+    [yY][eE][sS]|[yY]) 
+    read -p "Enter CloudFlare ZONEID: " CF_ZO
+    ;;
+esac
+echo "Please provide the domain name"
+read -p "Enter domain name: " FQDN_NAME
+clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 echo "Setting up Fail2Ban, Sendmail and iptables"
 
