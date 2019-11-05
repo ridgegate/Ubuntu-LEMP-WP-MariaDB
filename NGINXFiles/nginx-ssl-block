@@ -11,7 +11,7 @@ server {
   listen [::]:443 ssl http2;
   ssl on;
   ssl_certificate /etc/ssl/certs/domain.com.pem;
-  ssl_certificate_key /etc/ssl/private/domain.com.pem;
+  ssl_certificate_key /etc/ssl/private/domain.com-key.pem;
   ssl_client_certificate /etc/ssl/certs/origin-pull-ca.pem;
   ssl_verify_client on;
    
