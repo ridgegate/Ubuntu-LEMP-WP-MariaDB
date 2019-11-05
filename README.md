@@ -13,6 +13,10 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/quickinstall_noprompt.sh  </br>
   * sudo chmod +x quickinstall_noprompt.sh </br>
   * sudo ./quickinstall_noprompt.sh </br>
+* #### To setup SSL with Cloudflare
+  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/cloudflaressl.sh</br>
+  * sudo chmod +x cloudflaressl.sh </br>
+  * sudo ./cloudflaressl.sh </br>
 * #### To Secure your system
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/securesystem.sh </br>
   * sudo chmod +x securesystem.sh </br>
