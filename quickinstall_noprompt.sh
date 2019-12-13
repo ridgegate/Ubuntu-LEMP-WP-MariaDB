@@ -32,7 +32,7 @@ sudo echo "deb [arch=amd64,arm64,ppc64el] http://mirrors.accretive-networks.net/
 sudo apt-get update && sudo apt-get upgrade -y
 
 #Add PHP 7.3 Repository
-sudo add-apt-repository ppa:ondrej/php
+sudo add-apt-repository ppa:ondrej/nginx-mainline
 sudo apt-get install software-properties-common
 
 #Install nginx and php7.3
