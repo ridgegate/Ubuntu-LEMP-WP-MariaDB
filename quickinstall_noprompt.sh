@@ -1,6 +1,6 @@
 #!/bin/bash
 # The following code is a combination of things I have found on the internet and combined them 
-# for a quick installation script to automate WordPress installation with Nginx, MariaDB 10.1, PHP7.2 on Ubuntu 18.04 Bionics.
+# for a quick installation script to automate WordPress installation with Nginx, MariaDB, PHP on Ubuntu 20.04.
 # 
 # Credit: 
 # Lee Wayward @ https://gitlab.com/thecloudorguk/server_install/ 
@@ -31,22 +31,22 @@ sudo add-apt-repository universe
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 #Add PHP 7.3 Repository
-sudo add-apt-repository ppa:ondrej/php
+sudo add-apt-repository ppa:ondrej/nginx-mainline
 sudo apt-get update && sudo apt-get upgrade -y
 
 
 
-#Install nginx and php7.3
+#Install nginx and php7.4 on Ubuntu 20.04 LTS
 apt install nginx nginx-extras -y
-apt install php7.3-fpm php7.3-mysql php7.3-xml php7.3-mbstring php7.3-common php7.3-curl php7.3-gd php7.3-zip php7.3-soap php7.3-mbstring -y
+apt install php-fpm php-mysql php-xml php-mbstring php-common php-curl php-gd php-zip php-soap php-mbstring -y
 SERVERIP=$(curl https://ipinfo.io/ip)
 
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
-perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.3/fpm/php.ini
-perl -pi -e "s/.*max_execution_time.*/max_execution_time = 120/;" /etc/php/7.3/fpm/php.ini
-perl -pi -e "s/.*max_input_time.*/max_input_time = 120/;" /etc/php/7.3/fpm/php.ini
-perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.3/fpm/php.ini
-perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 100M/;" /etc/php/7.3/fpm/php.ini
+perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.4/fpm/php.ini
+perl -pi -e "s/.*max_execution_time.*/max_execution_time = 120/;" /etc/php/7.4/fpm/php.ini
+perl -pi -e "s/.*max_input_time.*/max_input_time = 120/;" /etc/php/7.4/fpm/php.ini
+perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.4/fpm/php.ini
+perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 200M/;" /etc/php/7.4/fpm/php.ini
 clear
 #---Editing Nginx Server Block----
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/NGINXFiles/nginx-default-block
@@ -68,12 +68,12 @@ clear
 #----------------------------------------------------------------
 
 service nginx restart
-service php7.3-fpm restart
+service php-fpm restart
 clear
 
-export DEBIAN_FRONTEND=noninteractive
-sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password password PASS"
-sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password_again password PASS"
+#export DEBIAN_FRONTEND=noninteractive
+#sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password password PASS"
+#sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password_again password PASS"
 
 sudo apt-get install mariadb-server galera-4 mariadb-client libmariadb3 mariadb-backup mariadb-common -y
 
