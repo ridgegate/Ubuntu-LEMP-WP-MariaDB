@@ -30,11 +30,7 @@ sudo add-apt-repository universe
 #Add MariaDB Repository with the latest MariaDB version
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
-#Add PHP 7.3 Repository
-sudo add-apt-repository ppa:ondrej/nginx-mainline
-sudo apt-get update && sudo apt-get upgrade -y
-
-
+DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get upgrade -y
 
 #Install nginx and php7.4 on Ubuntu 20.04 LTS
 apt install nginx nginx-extras -y
