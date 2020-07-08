@@ -23,19 +23,18 @@ read -p "Choose your MariaDB Version [ENTER] : " MDB_VERSION
 clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 
-
-
-#Add MariaDB Repository
-sudo add-apt-repository universe
+#Add repositories
 sudo apt-get install -y software-properties-common
-sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-sudo echo "deb [arch=amd64,arm64,ppc64el] http://mirrors.accretive-networks.net/mariadb/repo/$MDB_VERSION/ubuntu bionic main"  | sudo tee -a /etc/apt/sources.list
-sudo apt-get update && sudo apt-get upgrade -y
+sudo add-apt-repository universe
+
+#Add MariaDB Repository with the latest MariaDB version
+curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 #Add PHP 7.3 Repository
-sudo apt install software-properties-common
 sudo add-apt-repository ppa:ondrej/php
-sudo apt update
+sudo apt-get update && sudo apt-get upgrade -y
+
+
 
 #Install nginx and php7.3
 apt install nginx nginx-extras -y
@@ -76,62 +75,36 @@ export DEBIAN_FRONTEND=noninteractive
 sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password password PASS"
 sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password_again password PASS"
 
-apt install mariadb-client mariadb-server expect -y
+sudo apt-get install mariadb-server galera-4 mariadb-client libmariadb3 mariadb-backup mariadb-common -y
+
+
 CURRENT_MYSQL_PASSWORD='PASS'
 NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
 
-if [[ "$MDB_VERSION" < "10.4" ]]
-then
-    SECURE_MYSQL=$(sudo expect -c "
-    set timeout 3
-    spawn mysql_secure_installation
-    expect \"Enter current password for root (enter for none):\"
-    send \"$CURRENT_MYSQL_PASSWORD\r\"
-    expect \"root password?\"
-    send \"y\r\"
-    expect \"New password:\"
-    send \"$NEW_MYSQL_PASSWORD\r\"
-    expect \"Re-enter new password:\"
-    send \"$NEW_MYSQL_PASSWORD\r\"
-    expect \"Remove anonymous users?\"
-    send \"y\r\"
-    expect \"Disallow root login remotely?\"
-    send \"y\r\"
-    expect \"Remove test database and access to it?\"
-    send \"y\r\"
-    expect \"Reload privilege tables now?\"
-    send \"y\r\"
-    expect eof
-    ")
-  clear
-  echo "${SECURE_MYSQL}"
-else 
-    SECURE_MYSQL=$(sudo expect -c "
-    set timeout 3
-    spawn mysql_secure_installation
-    expect \"Enter current password for root (enter for none):\"
-    send \"$CURRENT_MYSQL_PASSWORD\r\"
-    expect \"Switch to unix_socket authentication \"
-    send \"n\r\"
-    expect \"root password?\"
-    send \"y\r\"
-    expect \"New password:\"
-    send \"$NEW_MYSQL_PASSWORD\r\"
-    expect \"Re-enter new password:\"
-    send \"$NEW_MYSQL_PASSWORD\r\"
-    expect \"Remove anonymous users?\"
-    send \"y\r\"
-    expect \"Disallow root login remotely?\"
-    send \"y\r\"
-    expect \"Remove test database and access to it?\"
-    send \"y\r\"
-    expect \"Reload privilege tables now?\"
-    send \"y\r\"
-    expect eof
-    ")
-  clear
-  echo "${SECURE_MYSQL}"
-fi
+#Secure MariaDB with mysql_secure_installation
+SECURE_MYSQL=$(sudo expect -c "
+set timeout 3
+spawn mysql_secure_installation
+expect \"Enter current password for root (enter for none):\"
+send \"\r\"
+expect \"Switch to unix_socket authentication \"
+send \"n\r\"
+expect \"root password?\"
+send \"y\r\"
+expect \"New password:\"
+send \"$NEW_MYSQL_PASSWORD\r\"
+expect \"Re-enter new password:\"
+send \"$NEW_MYSQL_PASSWORD\r\"
+expect \"Remove anonymous users?\"
+send \"y\r\"
+expect \"Disallow root login remotely?\"
+send \"y\r\"expect \"Remove test database and access to it?\"
+send \"y\r\"
+expect \"Reload privilege tables now?\"
+send \"y\r\"
+expect eof
+")
+echo "${SECURE_MYSQL}"
 
 
 # Create WordPress MySQL database
