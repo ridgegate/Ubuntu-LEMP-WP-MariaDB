@@ -24,6 +24,7 @@ read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to canc
 #Add repositories
 sudo apt-get install -y software-properties-common
 sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot -y
 
 #Add MariaDB Repository with the latest MariaDB version
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
@@ -38,19 +39,24 @@ SERVERIP=$(curl https://ipinfo.io/ip)
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
 perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/.*max_execution_time.*/max_execution_time = 120/;" /etc/php/7.4/fpm/php.ini
-perl -pi -e "s/.*max_input_time.*/max_input_time = 120/;" /etc/php/7.4/fpm/php.ini
+perl -pi -e "s/.*max_input_time.*/max_input_time = 3000/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 200M/;" /etc/php/7.4/fpm/php.ini
+perl -pi -e "s/memory_limit = 128M/memory_limit = 512M/g" /etc/php/7.4/fpm/php.ini
 clear
 
 #---- Wildcard SSL with Cloudflare---#
+#--Create your Cloudflare Credential Files--#
 mkdir -p /root/.secrets/
 printf '%s' 'dns_cloudflare_email = "' $CLOUDFLARE_EMAIL '"'  > /root/.secrets/cloudflare.ini
 printf '%s\n' >> /root/.secrets/cloudflare.ini
 printf '%s' 'dns_cloudflare_api_key = "' $CLOUDFLARE_API '"'  >> /root/.secrets/cloudflare.ini
 sudo chmod 0400 /root/.secrets/cloudflare.ini
-sudo apt-get update && sudo apt-get install software-properties-common && sudo add-apt-repository universe && sudo add-apt-repository ppa:certbot/certbot -y && sudo apt-get update && sudo apt-get install certbot python-certbot-nginx python3-certbot-dns-cloudflare
+#--Install Certbot--#
+sudo apt-get install certbot python-certbot-nginx python3-certbot-dns-cloudflare
 sudo certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare.ini -d $MY_DOMAIN,*.$MY_DOMAIN --preferred-challenges dns-01
+(crontab -l ; echo '14 5 * * * /usr/bin/certbot renew --quiet --post-hook "/usr/sbin/service nginx reload" > /dev/null 2>&1') | crontab -
+
 
 #---Editing Nginx Server Block----
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/nginx-default-block
