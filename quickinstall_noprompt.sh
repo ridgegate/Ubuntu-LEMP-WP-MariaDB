@@ -18,8 +18,6 @@ echo "Please provide a name for the DATABASE"
 read -p "Type your database name, then press [ENTER] : " dbname
 echo "Please provide a DATABASE username"
 read -p "Type your database username, then press [ENTER] : " dbuser
-echo "Please provide a MariaDB version (eg: 10.3 or 10.4)"
-read -p "Choose your MariaDB Version [ENTER] : " MDB_VERSION
 clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 
@@ -30,7 +28,7 @@ sudo add-apt-repository universe
 #Add MariaDB Repository with the latest MariaDB version
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
-DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get upgrade -y
+DEBIAN_FRONTEND=noninteractive sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade && sudo apt autoclean && sudo apt autoremove -y 
 
 #Install nginx and php7.4 on Ubuntu 20.04 LTS
 apt install nginx nginx-extras -y
@@ -94,7 +92,7 @@ expect \"Enter current password for root (enter for none):\"
 send \"\r\"
 expect \"Switch to unix_socket authentication \"
 send \"n\r\"
-expect \"root password?\"
+expect \"Set root password?\"
 send \"y\r\"
 expect \"New password:\"
 send \"$NEW_MYSQL_PASSWORD\r\"
@@ -103,7 +101,8 @@ send \"$NEW_MYSQL_PASSWORD\r\"
 expect \"Remove anonymous users?\"
 send \"y\r\"
 expect \"Disallow root login remotely?\"
-send \"y\r\"expect \"Remove test database and access to it?\"
+send \"y\r\"
+expect \"Remove test database and access to it?\"
 send \"y\r\"
 expect \"Reload privilege tables now?\"
 send \"y\r\"
@@ -173,6 +172,9 @@ sudo ufw allow ssh
 sudo ufw allow 'Nginx Full'
 sudo ufw --force enable
 clear
+
+#Disable Password SSH login
+perl -pi -e "s/PasswordAuthentication yes/PasswordAuthentication no/g" nano /etc/ssh/sshd_config
 
 # Clean UP Unnecessary WordPress Files
 sudo rm -rf /root/wordpress
