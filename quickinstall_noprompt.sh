@@ -44,10 +44,20 @@ perl -pi -e "s/.*max_input_time.*/max_input_time = 120/;" /etc/php/7.4/fpm/php.i
 perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 200M/;" /etc/php/7.4/fpm/php.ini
 clear
+
+#---- Wildcard SSL with Cloudflare---#
+mkdir -p /root/.secrets/
+printf '%s' 'dns_cloudflare_email = "' $CLOUDFLARE_EMAIL '"'  > /root/.secrets/cloudflare.ini
+printf '%s\n' >> /root/.secrets/cloudflare.ini
+printf '%s' 'dns_cloudflare_api_key = "' $CLOUDFLARE_API '"'  >> /root/.secrets/cloudflare.ini
+sudo chmod 0400 /root/.secrets/cloudflare.ini
+sudo apt-get update && sudo apt-get install software-properties-common && sudo add-apt-repository universe && sudo add-apt-repository ppa:certbot/certbot -y && sudo apt-get update && sudo apt-get install certbot python-certbot-nginx python3-certbot-dns-cloudflare
+sudo certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare.ini -d $MY_DOMAIN,*.$MY_DOMAIN --preferred-challenges dns-01
+
 #---Editing Nginx Server Block----
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/NGINXFiles/nginx-default-block
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/nginx-default-block
 mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMariaDBP-Wordpress-SSL-script/master/NGINXFiles/restrictions.conf
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/restrictions.conf
 mkdir /etc/nginx/global
 mv ./restrictions.conf /etc/nginx/global
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
@@ -63,17 +73,16 @@ sed -i '43i\\n\t##\n\t# Set Client Body Size\n\t##\n\tclient_body_buffer_size 10
 clear
 #----------------------------------------------------------------
 
-service nginx restart
-service php-fpm restart
+service nginx restart && systemctl restart php7.4-fpm.service && systemctl restart mysql && apt-get update && apt upgrade -y
 clear
 
 #export DEBIAN_FRONTEND=noninteractive
 #sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password password PASS"
 #sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password_again password PASS"
 
+echo "Installing MariaDB"
+read -t 10 -p "Please press [ENTER] or wait 10 sec"
 sudo apt-get install mariadb-server galera-4 mariadb-client libmariadb3 mariadb-backup mariadb-common -y
-
-
 CURRENT_MYSQL_PASSWORD='PASS'
 NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
 
@@ -153,7 +162,7 @@ echo "Replacing: $SEARCH"
 sed -i "/^$SEARCH/s/put your unique phrase here/$(echo $REPLACE | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')/" /var/www/html/$MY_DOMAIN/wp-config.php
 done <<< "$SALTS"
 service nginx restart
-service php7.3-fpm restart
+service php7.4-fpm restart
 service mysql restart
 
 # Securing System & wp-config
