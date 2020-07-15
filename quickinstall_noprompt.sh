@@ -27,7 +27,7 @@ clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 
 #Add repositories
-sudo apt-get install -y software-properties-common
+sudo apt-get install -y software-properties-common expect
 sudo add-apt-repository universe
 sudo add-apt-repository ppa:certbot/certbot -y
 
