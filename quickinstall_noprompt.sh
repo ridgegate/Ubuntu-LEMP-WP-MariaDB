@@ -19,10 +19,6 @@ echo "Please provide a name for the DATABASE"
 read -p "Type your database name, then press [ENTER] : " dbname
 echo "Please provide a DATABASE username"
 read -p "Type your database username, then press [ENTER] : " dbuser
-echo "Please provide your CloudFlare email"
-read -p "Type your CloudFlare email, then press [ENTER] : " cfemail
-echo "Please provide your CloudFlare Global API Key"
-read -p "Type your CloudFlare Global API Key, then press [ENTER] : " cfapi
 clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 
