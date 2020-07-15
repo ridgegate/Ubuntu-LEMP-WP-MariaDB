@@ -5,7 +5,8 @@
 # Credit: 
 # Lee Wayward @ https://gitlab.com/thecloudorguk/server_install/ 
 # Jeffrey B. Murphy @ https://www.jbmurphy.com/2015/10/29/bash-script-to-change-the-security-keys-and-salts-in-a-wp-config-php-file/
-# 
+# https://gulshankumar.net/install-wordpress-with-lemp-on-ubuntu-18-04/
+#
 # Instruction
 # Run the following commands 
 # sudo chmod +x quickinstallscript.sh
@@ -18,10 +19,10 @@ echo "Please provide a name for the DATABASE"
 read -p "Type your database name, then press [ENTER] : " dbname
 echo "Please provide a DATABASE username"
 read -p "Type your database username, then press [ENTER] : " dbuser
-echo "Please provide a DATABASE username"
-read -p "Please enter your CloudFlare email, then press [ENTER] : " cfemail
-echo "Please provide a DATABASE username"
-read -p "Please enter your CloudFlare global api key, then press [ENTER] : " cfapi
+echo "Please provide your CloudFlare email"
+read -p "Type your CloudFlare email, then press [ENTER] : " cfemail
+echo "Please provide your CloudFlare Global API Key"
+read -p "Type your CloudFlare Global API Key, then press [ENTER] : " cfapi
 clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 
@@ -52,9 +53,9 @@ clear
 #---- Wildcard SSL with Cloudflare---#
 #--Create your Cloudflare Credential Files--#
 mkdir -p /root/.secrets/
-printf '%s' 'dns_cloudflare_email = "' $CLOUDFLARE_EMAIL '"'  > /root/.secrets/cloudflare.ini
+printf '%s' 'dns_cloudflare_email = "' $cfemail '"'  > /root/.secrets/cloudflare.ini
 printf '%s\n' >> /root/.secrets/cloudflare.ini
-printf '%s' 'dns_cloudflare_api_key = "' $CLOUDFLARE_API '"'  >> /root/.secrets/cloudflare.ini
+printf '%s' 'dns_cloudflare_api_key = "' $cfapi '"'  >> /root/.secrets/cloudflare.ini
 sudo chmod 0400 /root/.secrets/cloudflare.ini
 #--Install Certbot--#
 sudo apt-get install certbot python-certbot-nginx python3-certbot-dns-cloudflare
@@ -203,4 +204,3 @@ echo "Database User Password: $userpass"
 echo "Your MySQL ROOT Password is: $NEW_MYSQL_PASSWORD"
 echo
 echo
-
