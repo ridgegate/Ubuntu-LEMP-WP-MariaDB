@@ -44,7 +44,8 @@ perl -pi -e "s/.*max_input_time.*/max_input_time = 3000/;" /etc/php/7.4/fpm/php.
 perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 200M/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/memory_limit = 128M/memory_limit = 512M/g" /etc/php/7.4/fpm/php.ini
-clear
+#clear
+read -t 60 -p "Please press [ENTER] continue or [Control]+[C] to cancel"
 
 
 #---Editing Nginx Server Block----
@@ -59,15 +60,16 @@ perl -pi -e "s/publicip/$SERVERIP/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/domain_directory/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 sudo ln -s /etc/nginx/sites-available/$MY_DOMAIN /etc/nginx/sites-enabled/
 sudo unlink /etc/nginx/sites-enabled/default
-clear
+#clear
+read -t 60 -p "Please press [ENTER] continue or [Control]+[C] to cancel"
 
 # -- Please chang/remove this section according to your needs --
 sed -i '43i\\n\t##\n\t# Set Client Body Size\n\t##\n\tclient_body_buffer_size 100M;\n\tclient_max_body_size 100M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;' /etc/nginx/nginx.conf
-clear
+#clear
 #----------------------------------------------------------------
 
 service nginx restart && systemctl restart php7.4-fpm.service && systemctl restart mysql && apt-get update && apt upgrade -y
-clear
+#clear
 
 #export DEBIAN_FRONTEND=noninteractive
 #sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password password PASS"
@@ -113,7 +115,7 @@ echo "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$userpass';" | sudo mysql
 echo "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "FLUSH PRIVILEGES;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "delete from mysql.user where user='mysql';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
-clear
+#clear
 
 #Install WordPress
 apt purge expect -y
@@ -131,7 +133,7 @@ find /var/www/html/$MY_DOMAIN -type d -exec chmod g+s {} \;
 chmod g+w /var/www/html/$MY_DOMAIN/wp-content
 chmod -R g+w /var/www/html/$MY_DOMAIN/wp-content/themes
 chmod -R g+w /var/www/html/$MY_DOMAIN/wp-content/plugins
-clear
+#clear
 
 #Change wp-config.php data
 # -- Please chang/remove this section according to your needs --
@@ -166,10 +168,10 @@ sudo ufw default allow outgoing
 sudo ufw allow ssh
 sudo ufw allow 'Nginx Full'
 sudo ufw --force enable
-clear
+#clear
 
 #Disable Password SSH login
-perl -pi -e "s/PasswordAuthentication yes/PasswordAuthentication no/g" nano /etc/ssh/sshd_config
+perl -pi -e "s/PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config
 
 # Clean UP Unnecessary WordPress Files
 sudo rm -rf /root/wordpress
