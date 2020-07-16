@@ -68,9 +68,9 @@ perl -pi -e "s/memory_limit = 128M/memory_limit = 512M/g" /etc/php/7.4/fpm/php.i
 #---Editing Nginx Server Block----
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/nginx-default-block
 mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/restrictions.conf
-mkdir /etc/nginx/global
-mv ./restrictions.conf /etc/nginx/global
+#wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/restrictions.conf
+#mkdir /etc/nginx/global
+#mv ./restrictions.conf /etc/nginx/global
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/publicip/$SERVERIP/g" /etc/nginx/sites-available/$MY_DOMAIN
