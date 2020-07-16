@@ -23,14 +23,13 @@ clear
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 
 #Add repositories
+sudo apt-get update
 sudo apt-get install -y software-properties-common expect
 sudo add-apt-repository universe
-sudo add-apt-repository ppa:certbot/certbot -y
-
 #Add MariaDB Repository with the latest MariaDB version
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
-DEBIAN_FRONTEND=noninteractive sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade && sudo apt autoclean && sudo apt autoremove -y 
+DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt upgrade -y && sudo apt dist-upgrade && sudo apt autoclean && sudo apt autoremove -y 
 
 #Install nginx and php7.4 on Ubuntu 20.04 LTS
 apt install nginx nginx-extras -y
@@ -44,7 +43,9 @@ perl -pi -e "s/.*max_input_time.*/max_input_time = 3000/;" /etc/php/7.4/fpm/php.
 perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 200M/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/memory_limit = 128M/memory_limit = 512M/g" /etc/php/7.4/fpm/php.ini
-#clear
+
+
+#--clear--#
 read -t 60 -p "Please press [ENTER] continue or [Control]+[C] to cancel"
 
 
@@ -60,7 +61,9 @@ perl -pi -e "s/publicip/$SERVERIP/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/domain_directory/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 sudo ln -s /etc/nginx/sites-available/$MY_DOMAIN /etc/nginx/sites-enabled/
 sudo unlink /etc/nginx/sites-enabled/default
-#clear
+
+
+#--clear--#
 read -t 60 -p "Please press [ENTER] continue or [Control]+[C] to cancel"
 
 # -- Please chang/remove this section according to your needs --
@@ -68,15 +71,11 @@ sed -i '43i\\n\t##\n\t# Set Client Body Size\n\t##\n\tclient_body_buffer_size 10
 #clear
 #----------------------------------------------------------------
 
-service nginx restart && systemctl restart php7.4-fpm.service && systemctl restart mysql && apt-get update && apt upgrade -y
-#clear
-
-#export DEBIAN_FRONTEND=noninteractive
-#sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password password PASS"
-#sudo debconf-set-selections <<< "mariadb-server-$MDB_VERSION mysql-server/root_password_again password PASS"
+service nginx restart && systemctl restart php7.4-fpm.service && systemctl restart mysql 
+#--clear--#
+read -t 60 -p "Please press [ENTER] continue or [Control]+[C] to cancel"
 
 echo "Installing MariaDB"
-read -t 10 -p "Please press [ENTER] or wait 10 sec"
 sudo apt-get install mariadb-server galera-4 mariadb-client libmariadb3 mariadb-backup mariadb-common -y
 CURRENT_MYSQL_PASSWORD='PASS'
 NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
@@ -106,7 +105,8 @@ send \"y\r\"
 expect eof
 ")
 echo "${SECURE_MYSQL}"
-
+#--clear--#
+read -t 60 -p "Please press [ENTER] continue or [Control]+[C] to cancel"
 
 # Create WordPress MySQL database
 userpass=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
