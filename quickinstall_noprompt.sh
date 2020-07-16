@@ -97,7 +97,7 @@ read -t 60 -p "Please ensure certbot renewal is completed successfully and press
 sed -i '43i\\n\t##\n\t# Set Client Body Size\n\t##\n\tclient_body_buffer_size 100M;\n\tclient_max_body_size 100M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;' /etc/nginx/nginx.conf
 #----------------------------------------------------------------
 
-service nginx restart && systemctl restart php7.4-fpm.service && systemctl restart mysql 
+service nginx restart && systemctl restart php7.4-fpm.service 
 #--clear--#
 read -t 60 -p "Please press [ENTER] continue or [Control]+[C] to cancel"
 
