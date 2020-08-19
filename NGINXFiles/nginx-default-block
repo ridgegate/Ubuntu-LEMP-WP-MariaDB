@@ -1,12 +1,32 @@
 server {
-    root /var/www/html/domain.com;
-    index index.php index.html index.htm;
-    server_name domain.com www.domain.com;
-    
-    listen 80;
-    listen [::]:80;
-    
-    location / {
-            try_files $uri $uri/ /index.php?$args;
-    }
+  listen 80;
+  root /var/www/html/domain.com;
+  index index.php index.html index.htm;
+  server_name domain.com www.domain.com;
+  charset UTF-8;
+  
+  location / {
+    try_files $uri $uri/ /index.php$is_args$args;
+  }
+  
+  location ~ /.well-known {
+    allow all;
+  }
+  
+  location ~ \.php$ {
+   try_files $uri =404;
+   fastcgi_split_path_info ^(.+\.php)(/.+)$;
+   fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+   fastcgi_index index.php;
+   include fastcgi.conf;
+  }
+  
+  location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg)$ {
+   valid_referers none blocked ~.google. ~.bing. ~.yahoo domain.com *.domain.com publicip;
+   access_log off; 
+   log_not_found off; 
+   expires 30d;
+   if ($invalid_referer) { return 404; }
+  }
+  
 }
