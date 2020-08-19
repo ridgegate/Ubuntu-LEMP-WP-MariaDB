@@ -103,8 +103,6 @@ send \"y\r\"
 expect eof
 ")
 echo "${SECURE_MYSQL}"
-#--clear--#
-read -t 60 -p "Please press [ENTER] continue or [Control]+[C] to cancel"
 
 # Create WordPress MySQL database
 userpass=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
@@ -113,7 +111,7 @@ echo "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$userpass';" | sudo mysql
 echo "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "FLUSH PRIVILEGES;" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
 echo "delete from mysql.user where user='mysql';" | sudo mysql -u root -p$NEW_MYSQL_PASSWORD
-#clear
+
 
 #Install WordPress
 apt purge expect -y
@@ -131,7 +129,7 @@ find /var/www/html/$MY_DOMAIN -type d -exec chmod g+s {} \;
 chmod g+w /var/www/html/$MY_DOMAIN/wp-content
 chmod -R g+w /var/www/html/$MY_DOMAIN/wp-content/themes
 chmod -R g+w /var/www/html/$MY_DOMAIN/wp-content/plugins
-#clear
+clear
 
 #Change wp-config.php data
 # -- Please chang/remove this section according to your needs --
@@ -166,7 +164,7 @@ sudo ufw default allow outgoing
 sudo ufw allow ssh
 sudo ufw allow 'Nginx Full'
 sudo ufw --force enable
-#clear
+
 
 #Disable Password SSH login
 perl -pi -e "s/PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config
@@ -175,6 +173,7 @@ perl -pi -e "s/PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/
 sudo rm -rf /root/wordpress
 sudo rm -f latest.tar.gz
 sudo rm -f /etc/nginx/sites-available/default
+clear
 
 echo "WordPress Installed. Please visit your website to continue setup"
 echo
