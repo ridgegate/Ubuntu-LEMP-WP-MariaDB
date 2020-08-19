@@ -52,16 +52,6 @@ server {
             include fastcgi.conf;               
     }
 
-    location = /favicon.ico {
-    log_not_found off;
-    access_log off;
-    }
-
-    location = /robots.txt {
-    log_not_found off;
-    access_log off;
-    allow all;
-    }
 
 
     location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg)$ {
