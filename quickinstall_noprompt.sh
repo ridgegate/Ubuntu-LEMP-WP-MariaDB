@@ -19,28 +19,16 @@ clear
 #read -p "Type your database name, then press [ENTER] : " dbname
 #echo "Please provide a DATABASE username"
 #read -p "Type your database username, then press [ENTER] : " dbuser
-#echo "Please provide your CloudFlare email"
-#read -p "Type your CloudFlare email, then press [ENTER] : " cfemail
-echo "Please provide your CloudFlare Global API Key"
-read -p "Type your CloudFlare Global API Key, then press [ENTER] : " cfapi
+
 
 MY_DOMAIN=sprrivets.com
 dbname=testdb
 dbuser=dbuser
-cfemail=wp@ridgegatetools.com
 
 echo $MY_DOMAIN
 echo $dbname
 echo $dbuser
-echo $cfemail
-echo $cfapi
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
-
-
-
-
-
-
 
 
 #Add repositories
@@ -53,8 +41,8 @@ curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt upgrade -y && sudo apt dist-upgrade && sudo apt autoclean && sudo apt autoremove -y 
 
 #Install nginx and php7.4 on Ubuntu 20.04 LTS
-apt install nginx nginx-extras -y
-apt install php-fpm php-mysql php-xml php-mbstring php-common php-curl php-gd php-zip php-soap php-mbstring -y
+apt install -y nginx nginx-extras 
+apt install -y php-fpm php-mysql php-xml php-mbstring php-common php-curl php-gd php-zip php-soap php-mbstring
 SERVERIP=$(curl https://ipinfo.io/ip)
 
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
@@ -79,29 +67,12 @@ sudo ln -s /etc/nginx/sites-available/$MY_DOMAIN /etc/nginx/sites-enabled/
 sudo unlink /etc/nginx/sites-enabled/default
 
 
-#---- Wildcard SSL with Cloudflare---#
-#--Create your Cloudflare Credential Files--#
-mkdir -p /root/.secrets/
-printf '%s' 'dns_cloudflare_email = "' $cfemail '"'  > /root/.secrets/cloudflare.ini
-printf '%s\n' >> /root/.secrets/cloudflare.ini
-printf '%s' 'dns_cloudflare_api_key = "' $cfapi '"'  >> /root/.secrets/cloudflare.ini
-sudo chmod 0400 /root/.secrets/cloudflare.ini
-#--Install Certbot--#
-sudo apt-get install -y certbot python3-certbot-nginx python3-certbot-dns-cloudflare
-sudo certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare.ini -d $MY_DOMAIN,*.$MY_DOMAIN --preferred-challenges dns-01
-(crontab -l ; echo '14 5 * * * /usr/bin/certbot renew --quiet --post-hook "/usr/sbin/service nginx reload" > /dev/null 2>&1') | crontab -
-certbot renew --dry-run
-read -t 60 -p "Please ensure certbot renewal is completed successfully and press [ENTER] to continue or [Control]+[C] to cancel"
-
 # -- Please chang/remove this section according to your needs --
 sed -i '43i\\n\t##\n\t# Set Client Body Size\n\t##\n\tclient_body_buffer_size 100M;\n\tclient_max_body_size 100M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;' /etc/nginx/nginx.conf
 #----------------------------------------------------------------
-
 service nginx restart && systemctl restart php7.4-fpm.service 
-#--clear--#
-read -t 60 -p "Please press [ENTER] continue or [Control]+[C] to cancel"
 
-echo "Installing MariaDB"
+cho "Installing MariaDB"
 sudo apt-get install mariadb-server galera-4 mariadb-client libmariadb3 mariadb-backup mariadb-common -y
 CURRENT_MYSQL_PASSWORD='PASS'
 NEW_MYSQL_PASSWORD=$(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25)
