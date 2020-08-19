@@ -33,7 +33,7 @@ read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to canc
 
 #Add repositories
 sudo apt-get update
-sudo apt-get install -y software-properties-common expect
+sudo apt-get install -y software-properties-common
 sudo add-apt-repository universe
 #Add MariaDB Repository with the latest MariaDB version
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
@@ -42,7 +42,8 @@ DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt upgrade -y && sud
 
 #Install nginx and php7.4 on Ubuntu 20.04 LTS
 apt install -y nginx nginx-extras 
-apt install -y php-fpm php-mysql php-xml php-mbstring php-common php-curl php-gd php-zip php-soap php-mbstring
+apt install -y php-fpm php-mysql php-intl php-xml php-xmlrpc php-mbstring php-common php-curl php-gd php-zip php-soap php-mbstring
+
 SERVERIP=$(curl https://ipinfo.io/ip)
 
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
