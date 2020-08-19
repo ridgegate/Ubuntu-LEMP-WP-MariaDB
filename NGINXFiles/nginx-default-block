@@ -2,6 +2,7 @@ fastcgi_cache_path /var/www/cache levels=1:2 keys_zone=WORDPRESS:100m inactive=6
 fastcgi_cache_key "$scheme$request_method$host$request_uri";
 fastcgi_cache_use_stale error timeout invalid_header http_500;
 fastcgi_ignore_headers Cache-Control Expires Set-Cookie;
+include /etc/nginx/restriction.conf
 
 server {
     listen 80;
@@ -26,7 +27,7 @@ server {
     ssl_client_certificate /etc/ssl/private/cloudflareoa.crt;
     ssl_verify_client on;
 
-    error_page 404 /404.html;
+    error_page 404 444 /404.html;
     error_page 500 502 503 504 /50x.html;
 
 
