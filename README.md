@@ -17,10 +17,6 @@ Run the following commands on your Ubuntu terminal to download the script and st
   * wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/cloudflaressl.sh</br>
   * sudo chmod +x cloudflaressl.sh </br>
   * sudo ./cloudflaressl.sh </br>
-* #### Duplicator Setup
-  * wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/duplicator.sh  </br>
-  * sudo chmod +x duplicator.sh </br>
-  * sudo ./duplicator.sh </br>      
 ## DNS Setting
   * Please make sure you have the correct NS record in your DNS records in your domain registrar.
     * NS record should have the proper NS domain of the hosting company or, if using CloudFlare, CloudFlare's NS nameserver
