@@ -23,8 +23,8 @@ server {
     ssl_prefer_server_ciphers on;
     ssl_session_timeout 20m;
     ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
-    ssl_certificate         /etc/ssl/private/domain.comcert.pem;
-    ssl_certificate_key     /etc/ssl/private/domain.comkey.pem;
+    ssl_certificate         /etc/ssl/private/domain.com_cert.pem;
+    ssl_certificate_key     /etc/ssl/private/domain.com_key.pem;
     ssl_client_certificate /etc/ssl/private/cloudflareoa.crt;
     ssl_verify_client on;
 
