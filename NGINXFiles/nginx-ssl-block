@@ -111,4 +111,7 @@ server {
      text/vtt
      text/x-component
      text/x-cross-domain-policy;
+     
+     include /etc/nginx/global/restrictions.conf;
+
 }
