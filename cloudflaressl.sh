@@ -22,19 +22,19 @@ echo "            - Certificate Validity - Select any period you like"
 echo " **!!! DO NOT Close the following window with Private KEY until the last step !!!*****"
 echo "Copy the private key and enter below"
 read -p "Paste your private key " MY_DOMAIN_PRV_KEY
-echo $MY_DOMAIN_PRV_KEY > /etc/ssl/private/$MY_DOMAIN-key.pem
+echo $MY_DOMAIN_PRV_KEY > /etc/ssl/private/$MY_DOMAIN_key.pem
 echo 
 echo
 echo "Thank you. Now copy the Origin Certificate section and paste it below"
 read -p "Paste your Origin Certificate key " MY_DOMAIN_ORG_CERT
-echo $MY_DOMAIN_ORG_CERT > /etc/ssl/certs/$MY_DOMAIN.pem
+echo $MY_DOMAIN_ORG_CERT > /etc/ssl/private/$MY_DOMAIN_cert.pem
 echo 
 echo "Thank you. Sit tight while we change things in the background"
 echo
 echo
 SERVERIP=$(curl https://ipinfo.io/ip)
-wget -O /etc/ssl/certs/cloudflare-origin.pem https://support.cloudflare.com/hc/en-us/article_attachments/201243967/origin-pull-ca.pem
-wget https://raw.githubusercontent.com/ridgegate/Ubuntu18.04-LEMP-Mariadb-Wordpress-bashscript/master/NGINXFiles/nginx-ssl-block
+wget -O /etc/ssl/private/cloudflareoa.pem https://support.cloudflare.com/hc/article_attachments/360037898732/origin_ca_ecc_root.pem
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/nginx-ssl-block
 cp -f ./nginx-ssl-block /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
