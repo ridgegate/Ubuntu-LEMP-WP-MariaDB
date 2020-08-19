@@ -1,120 +1,13 @@
-fastcgi_cache_path /var/www/cache levels=1:2 keys_zone=WORDPRESS:100m inactive=6h;
-fastcgi_cache_key "$scheme$request_method$host$request_uri";
-fastcgi_cache_use_stale error timeout invalid_header http_500;
-fastcgi_ignore_headers Cache-Control Expires Set-Cookie;
-include /etc/nginx/restriction.conf
-
-server {
-    listen 80;
-    listen [::]:80;
-    server_name domain.com www.domain.com;
-    return 302 https://$server_name$request_uri;
-}
-
 server {
     root /var/www/html/domain.com;
     index index.php index.html index.htm;
     server_name domain.com www.domain.com;
-
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
-    ssl_prefer_server_ciphers on;
-    ssl_session_timeout 20m;
-    ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
-    ssl_certificate         /etc/ssl/private/domain.comcert.pem;
-    ssl_certificate_key     /etc/ssl/private/domain.comkey.pem;
-    ssl_client_certificate /etc/ssl/private/cloudflareoa.crt;
-    ssl_verify_client on;
-
-    error_page 404 444 /404.html;
-    error_page 500 502 503 504 /50x.html;
-
-
-    set $skip_cache 0;
-    if ($request_method = POST) {set $skip_cache 1;}
-    if ($request_uri ~* "/wp-admin/|/xmlrpc.php|/wp-.*.php|index.php|sitemap(_index)?.xml") {set $skip_cache 1;}
-    if ($http_cookie ~* "comment_author|wordpress_[a-f0-9]+|wp-postpass|wordpress_no_cache|wordpress_logged_in") {set $skip_cache 1;}
-
+    
+    listen 80;
+    listen [::]:80;
+    server_name domain.com www.domain.com;
+    
     location / {
             try_files $uri $uri/ /index.php?$args;
     }
-
-    # Pass all .php files onto a php-fpm or php-cgi server
-    location ~* \.php$ {
-            try_files     $uri =404;
-            include       /etc/nginx/fastcgi_params;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            fastcgi_pass  unix:/run/php/php7.4-fpm.sock;
-            fastcgi_index index.php;
-            fastcgi_cache_bypass $skip_cache;
-            fastcgi_no_cache $skip_cache;
-            fastcgi_cache WORDPRESS;
-            fastcgi_cache_valid 200 301 24h;
-            add_header X-Cache $upstream_cache_status;
-    }
-
-    location = /favicon.ico {
-    log_not_found off;
-    access_log off;
-    }
-
-    location = /robots.txt {
-    log_not_found off;
-    access_log off;
-    allow all;
-    }
-
-
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg)$ {
-       valid_referers none blocked ~.google. ~.bing. ~.yahoo domain.com *.domain.com publicip;
-       access_log off; 
-       log_not_found off; 
-       expires 30d;
-       if ($invalid_referer) { return 404; }
-    }
-
-    # Enable Gzip compression.
-    gzip on;
-
-    # Disable Gzip on IE6.
-    gzip_disable "msie6";
-
-    # Allow proxies to cache both compressed and regular version of file.
-    # Avoids clients that don't support Gzip outputting gibberish.
-    gzip_vary on;
-
-    # Compress data, even when the client connects through a proxy.
-    gzip_proxied any;
-
-    # The level of compression to apply to files. A higher compression level increases
-    # CPU usage. Level 5 is a happy medium resulting in roughly 75% compression.
-    gzip_comp_level 5;
-
-    # Compress the following MIME types.
-    gzip_types
-     application/atom+xml
-     application/javascript
-     application/json
-     application/ld+json
-     appli cation/manifest+json
-     application/rss+xml
-     application/vnd.geo+json
-     application/vnd.ms-fontobject
-     application/x-font-ttf
-     application/x-web-app-manifest+json
-     application/xhtml+xml
-     application/xml
-     font/opentype
-     image/bmp
-     image/svg+xml
-     image/x-icon
-     text/cache-manifest
-     text/css
-     text/plain
-     text/vcard
-     text/vnd.rim.location.xloc
-     text/vtt
-     text/x-component
-     text/x-cross-domain-policy;
 }
