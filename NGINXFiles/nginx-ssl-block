@@ -111,6 +111,6 @@ server {
      text/x-component
      text/x-cross-domain-policy;
      
-     include /etc/nginx/global/restrictions.conf;
+     include /etc/nginx/private/restrictions.conf;
 
 }
