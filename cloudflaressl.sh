@@ -41,7 +41,6 @@ mv ./restrictions.conf /etc/nginx/private/restrictions.conf
 
 SERVERIP=$(curl https://ipinfo.io/ip)
 wget -O /etc/ssl/private/cloudflareoa.pem https://support.cloudflare.com/hc/article_attachments/360037898732/origin_ca_ecc_root.pem
-mv ./origin_ca_ecc_root.pem /etc/ssl/private/cloudflareoa.crt
 
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/nginx-ssl-block
 cp -f ./nginx-ssl-block /etc/nginx/sites-available/$MY_DOMAIN
