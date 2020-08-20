@@ -25,7 +25,7 @@ server {
     ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
     ssl_certificate         /etc/ssl/private/domain.com_cert.pem;
     ssl_certificate_key     /etc/ssl/private/domain.com_key.pem;
-    ssl_client_certificate /etc/ssl/private/cloudflareoa.crt;
+    ssl_client_certificate /etc/ssl/private/cloudflareoa_cert.pem;
     ssl_verify_client on;
 
     error_page 404 444 /404.html;
