@@ -13,21 +13,21 @@
 # sudo ./quickinstallscript.sh
 #
 clear
-#echo "Please provide your domain name without the www. (e.g. mydomain.com)"
-#read -p "Type your domain name, then press [ENTER] : " MY_DOMAIN
-#echo "Please provide a name for the DATABASE"
-#read -p "Type your database name, then press [ENTER] : " dbname
-#echo "Please provide a DATABASE username"
-#read -p "Type your database username, then press [ENTER] : " dbuser
+echo "Please provide your domain name without the www. (e.g. mydomain.com)"
+read -p "Type your domain name, then press [ENTER] : " MY_DOMAIN
+echo "Please provide a name for the DATABASE"
+read -p "Type your database name, then press [ENTER] : " dbname
+echo "Please provide a DATABASE username"
+read -p "Type your database username, then press [ENTER] : " dbuser
 
 
-MY_DOMAIN=sprrivets.com
-dbname=testdb
-dbuser=dbuser
+#MY_DOMAIN=sprrivets.com
+#dbname=testdb
+#dbuser=dbuser
 
-echo $MY_DOMAIN
-echo $dbname
-echo $dbuser
+#echo $MY_DOMAIN
+#echo $dbname
+#echo $dbuser
 read -t 30 -p "Thank you. Please press [ENTER] continue or [Control]+[C] to cancel"
 
 
