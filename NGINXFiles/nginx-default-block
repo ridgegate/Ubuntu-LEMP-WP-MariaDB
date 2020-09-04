@@ -64,11 +64,5 @@ server {
    expires 30d;
    if ($invalid_referer) { return 404; }
   }
-
-  location ~ /. {
-    deny  all; 
-    access_log off;
-    log_not_found off;
-  }
   
 }
