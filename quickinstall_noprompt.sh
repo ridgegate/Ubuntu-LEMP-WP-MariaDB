@@ -69,8 +69,15 @@ sudo unlink /etc/nginx/sites-enabled/default
 
 
 # -- Please chang/remove this section according to your needs --
-sed -i '43i\\n\t##\n\t# Set Client Body Size\n\t##\n\tclient_body_buffer_size 100M;\n\tclient_max_body_size 100M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;' /etc/nginx/nginx.conf
+sed -i '43i\\n\t##\n\t# Client Body Size\n\t##\n\tclient_body_buffer_size 10K;\n\tclient_max_body_size 40M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;\n\n\t##\n\t#Set Header Buffer Size\n\t##\n\tclient_header_buffer_size 1k;\n\tlarge_client_header_buffers 2 1k;\n\n\t##\n\t#Time Outs Settings\n\t##\n\tclient_body_timeout 12;\n\tclient_header_timeout 12;\n\tkeepalive_timeout 15;\n\tsend_timeout 10;' /etc/nginx/nginx.conf
+perl -pi -e "s/# gzip_proxied any/gzip_proxied expired no-cache no-store private auth/g" /etc/nginx/nginx.conf
+perl -pi -e "s/# gzip_proxied any/gzip_proxied expired no-cache no-store private auth/g" /etc/nginx/nginx.conf
+perl -pi -e "s/# gzip_proxied any/gzip_proxied expired no-cache no-store private auth/g" /etc/nginx/nginx.conf
+perl -pi -e "s/# gzip_proxied any/gzip_proxied expired no-cache no-store private auth/g" /etc/nginx/nginx.conf
+perl -pi -e "s/# gzip_proxied any/gzip_proxied expired no-cache no-store private auth/g" /etc/nginx/nginx.conf
+
 #----------------------------------------------------------------
+
 service nginx restart && systemctl restart php7.4-fpm.service 
 
 cho "Installing MariaDB"
@@ -134,11 +141,12 @@ clear
 #Change wp-config.php data
 # -- Please chang/remove this section according to your needs --
 sed -i '20i//Define Memory Limit' /var/www/html/$MY_DOMAIN/wp-config.php
-sed -i '21idefine('\'WP_MEMORY_LIMIT\'', '\'512M\'');' /var/www/html/$MY_DOMAIN/wp-config.php
-sed -i '22idefine('\'WP_MAX_MEMORY_LIMIT\'', '\'760M\'');' /var/www/html/$MY_DOMAIN/wp-config.php
-
+sed -i '21idefine('\'WP_MEMORY_LIMIT\'', '\'256M\'');' /var/www/html/$MY_DOMAIN/wp-config.php
+sed -i '22idefine('\'WP_MAX_MEMORY_LIMIT\'', '\'320M\'');' /var/www/html/$MY_DOMAIN/wp-config.php
 sed -i '23i//Disable Theme Editor' /var/www/html/$MY_DOMAIN/wp-config.php
 sed -i '24idefine('\'DISALLOW_FILE_EDIT\'', '\'true\'');' /var/www/html/$MY_DOMAIN/wp-config.php
+sed -i '23i//Disable Theme Editor' /var/www/html/$MY_DOMAIN/wp-config.php
+sed -i '24idefine('\'WP_POST_REVISIONS\'', '\'5\'');' /var/www/html/$MY_DOMAIN/wp-config.php
 # -------------------------------------------------------------
 #randomize wordpress table prefix to make hacking harder
 TAB_PREF=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 5 | head -n 1)_ 
