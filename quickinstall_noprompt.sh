@@ -74,7 +74,8 @@ perl -pi -e "s/# gzip_proxied any/gzip_proxied expired no-cache no-store private
 perl -pi -e "s/# gzip_comp_level 6/gzip_comp_level 4/g" /etc/nginx/nginx.conf
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/gzipsettings.conf
 mv ./gziptypes.conf /etc/nginx/conf.d
-
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/restrictions.conf
+mv ./restrictions.conf /etc/nginx/conf.d
 #----------------------------------------------------------------
 
 service nginx restart && systemctl restart php7.4-fpm.service 
