@@ -8,7 +8,7 @@ server {
   include /var/www/html/domain.com/nginx.conf;
 
   location / {
-    try_files $uri $uri/ /index.php$is_args$args;
+    try_files $uri $uri/ /index.php?$args;
   }
   
   location ~ /.well-known {
@@ -18,7 +18,7 @@ server {
  location ~ .php$ {
         try_files $uri =404;
         include fastcgi_params;
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_pass unix:/var/run/php7.4-fpm.sock;
 }
   
   location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg|svgz|atom|pdf|doc)$ {
