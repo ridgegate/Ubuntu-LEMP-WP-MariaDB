@@ -62,7 +62,6 @@ mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/restrictions.conf
 mkdir /etc/nginx/restrictions
 mv ./restrictions.conf /etc/nginx/restrictions/serverblock_restrictions.conf
-echo '' > /var/www/html/$MY_DOMAIN/nginx.conf
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/publicip/$SERVERIP/g" /etc/nginx/sites-available/$MY_DOMAIN
@@ -164,6 +163,8 @@ REPLACE=$(echo "$SALT" | cut -d "'" -f 4)
 echo "Replacing: $SEARCH"
 sed -i "/^$SEARCH/s/put your unique phrase here/$(echo $REPLACE | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')/" /var/www/html/$MY_DOMAIN/wp-config.php
 done <<< "$SALTS"
+# Create temp file for server block for W3TC
+echo '' > /var/www/html/$MY_DOMAIN/nginx.conf
 service nginx restart
 service php7.4-fpm restart
 service mysql restart
