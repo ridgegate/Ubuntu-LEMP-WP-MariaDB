@@ -24,8 +24,10 @@ server {
 
 	location ~ \.php$ {
 		try_files $uri =404;
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
 		include fastcgi_params;
-		fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+		fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
 	}
 
 	location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg|svgz|atom|pdf|doc)$ {
