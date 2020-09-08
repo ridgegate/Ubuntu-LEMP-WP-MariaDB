@@ -12,10 +12,11 @@ server {
 	charset UTF-8;
 
 	include /var/www/html/domain.com/nginx.conf;
-	include /var/www/html/domain.com/serverblock_restrictions.conf;
+	include /etc/nginx/restrictions/serverblock_restrictions.conf;
 
 	location / {
-		try_files $uri $uri/ /index.php?$args;
+		#try_files $uri $uri/ /index.php?$args;
+		try_files /wp-content/w3tc/pgcache/$cache_uri/_index.html $uri $uri/ /index.php?q=$uri&$args;
 	}
 
 	location ~ /.well-known {
