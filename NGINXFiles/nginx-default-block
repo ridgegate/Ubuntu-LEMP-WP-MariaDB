@@ -8,7 +8,7 @@ server {
 	listen 80;
 	root /var/www/html/domain.com;
 	index index.php index.html index.htm;
-	server_name domain.com www.domain.com;
+	server_name domain.com www.domain.com publicip;
 	charset UTF-8;
 
 	location = /favicon.ico {
