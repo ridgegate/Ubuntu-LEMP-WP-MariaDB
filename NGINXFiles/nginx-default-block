@@ -11,18 +11,6 @@ server {
 	server_name domain.com www.domain.com publicip;
 	charset UTF-8;
 
-	location = /favicon.ico {
-                log_not_found off;
-                access_log off;
-        }
-
-        location = /robots.txt {
-                allow all;
-                log_not_found off;
-                access_log off;
-        }
-
-
 	include /var/www/html/domain.com/nginx.conf;
 
 	location / {
