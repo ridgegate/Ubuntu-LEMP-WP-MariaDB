@@ -55,6 +55,8 @@ perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 200M/;" /etc/php/7.
 perl -pi -e "s/memory_limit = 128M/memory_limit = 328M/g" /etc/php/7.4/fpm/php.ini
 
 #---Editing Nginx Server Block----
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/fastcgi_params
+mv -f ./fastcgi_params /etc/nginx/fastcgi_params
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/nginx-default-block
 mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/restrictions.conf
