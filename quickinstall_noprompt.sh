@@ -52,15 +52,15 @@ perl -pi -e "s/.*max_execution_time.*/max_execution_time = 120/;" /etc/php/7.4/f
 perl -pi -e "s/.*max_input_time.*/max_input_time = 3000/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 200M/;" /etc/php/7.4/fpm/php.ini
-perl -pi -e "s/memory_limit = 128M/memory_limit = 512M/g" /etc/php/7.4/fpm/php.ini
+perl -pi -e "s/memory_limit = 128M/memory_limit = 328M/g" /etc/php/7.4/fpm/php.ini
 
 #---Editing Nginx Server Block----
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/nginx-default-block
 mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/restrictions.conf
 mkdir /etc/nginx/restrictions
-mv ./restrictions.conf /etc/nginx/restrictions/location_restrictions.conf
-touch /var/www/html/ridgegatetools.com/nginx.conf
+mv ./restrictions.conf /etc/nginx/restrictions/serverblock_restrictions.conf
+touch /var/www/html/$MY_DOMAIN/nginx.conf
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/publicip/$SERVERIP/g" /etc/nginx/sites-available/$MY_DOMAIN
@@ -70,12 +70,12 @@ sudo unlink /etc/nginx/sites-enabled/default
 
 
 # -- Please chang/remove this section according to your needs --
-#sed -i '43i\\n\t##\n\t# Client Body Size\n\t##\n\tclient_body_buffer_size 10K;\n\tclient_max_body_size 40M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;\n\n\t##\n\t#Set Header Buffer Size\n\t##\n\tclient_header_buffer_size 1k;\n\tlarge_client_header_buffers 2 1k;\n\n\t##\n\t#Time Outs Settings\n\t##\n\tclient_body_timeout 12;\n\tclient_header_timeout 12;\n\tsend_timeout 10;' /etc/nginx/nginx.conf
-#perl -pi -e "s/keepalive_timeout 65/keepalive_timeout 15/g" /etc/nginx/nginx.conf
-#perl -pi -e "s/# gzip_proxied any/gzip_proxied expired no-cache no-store private auth/g" /etc/nginx/nginx.conf
-#perl -pi -e "s/# gzip_comp_level 6/gzip_comp_level 4/g" /etc/nginx/nginx.conf
-#wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/gzipsettings.conf
-#mv ./gziptypes.conf /etc/nginx/conf.d
+sed -i '43i\\n\t##\n\t# Client Body Size\n\t##\n\tclient_body_buffer_size 10K;\n\tclient_max_body_size 40M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;\n\n\t##\n\t#Set Header Buffer Size\n\t##\n\tclient_header_buffer_size 1k;\n\tlarge_client_header_buffers 2 1k;\n\n\t##\n\t#Time Outs Settings\n\t##\n\tclient_body_timeout 12;\n\tclient_header_timeout 12;\n\tsend_timeout 10;' /etc/nginx/nginx.conf
+perl -pi -e "s/keepalive_timeout 65/keepalive_timeout 15/g" /etc/nginx/nginx.conf
+perl -pi -e "s/# gzip_proxied any/gzip_proxied expired no-cache no-store private auth/g" /etc/nginx/nginx.conf
+perl -pi -e "s/# gzip_comp_level 6/gzip_comp_level 4/g" /etc/nginx/nginx.conf
+wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/gzipsettings.conf
+mv ./gziptypes.conf /etc/nginx/conf.d
 
 #----------------------------------------------------------------
 
