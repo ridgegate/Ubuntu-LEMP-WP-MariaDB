@@ -59,8 +59,8 @@ wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/N
 mv ./nginx-default-block /etc/nginx/sites-available/$MY_DOMAIN
 wget https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/restrictions.conf
 mkdir /etc/nginx/restrictions
-mv ./restrictions.conf /etc/nginx/restrictions/serverblock_restrictions.conf
-touch /var/www/html/$MY_DOMAIN/nginx.conf
+mv ./restrictions.conf /var/www/html/$MY_DOMAIN/serverblock_restrictions.conf
+echo '' > /var/www/html/$MY_DOMAIN/nginx.conf
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/www.domain.com/www.$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
 perl -pi -e "s/publicip/$SERVERIP/g" /etc/nginx/sites-available/$MY_DOMAIN
