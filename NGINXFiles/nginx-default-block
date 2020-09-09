@@ -28,6 +28,7 @@ server {
 		fastcgi_split_path_info ^(.+\.php)(/.+)$;
 		include fastcgi_params;		
 		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+		fastcgi_read_timeout 300;
 	}
 
 	location ~* \.(js|css|png|jpg|jpeg|gif|ico|eot|otf|ttf|woff|svg|svgz|atom|pdf|doc)$ {
