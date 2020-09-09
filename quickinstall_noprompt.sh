@@ -42,7 +42,7 @@ DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt upgrade -y && sud
 
 #Install nginx and php7.4 on Ubuntu 20.04 LTS
 apt install -y nginx nginx-extras 
-apt install -y php-fpm php-mysql php-intl php-xml php-xmlrpc php-mbstring php-common php-curl php-gd php-zip php-soap php-mbstring
+apt install -y php-fpm php-mysql php-intl php-xml php-xmlrpc php-mbstring php-common php-curl php-pear php-gd php-zip php-dev php-soap php-mbstring libpcre2-dev zlib1g-dev
 
 SERVERIP=$(curl https://ipinfo.io/ip)
 
