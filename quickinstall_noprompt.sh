@@ -71,7 +71,8 @@ sudo unlink /etc/nginx/sites-enabled/default
 
 
 # -- Please chang/remove this section according to your needs --
-sed -i '43i\\n\t##\n\t# Client Body Size\n\t##\n\tclient_body_buffer_size 10K;\n\tclient_max_body_size 40M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;\n\n\t##\n\t#Set Header Buffer Size\n\t##\n\tclient_header_buffer_size 1k;\n\tlarge_client_header_buffers 2 1k;\n\n\t##\n\t#Time Outs Settings\n\t##\n\tclient_body_timeout 12;\n\tclient_header_timeout 12;\n\tsend_timeout 10;' /etc/nginx/nginx.conf
+#sed -i '43i\\n\t##\n\t# Client Body Size\n\t##\n\tclient_body_buffer_size 10K;\n\tclient_max_body_size 40M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 16k;\n\tfastcgi_buffer_size 32k;\n\n\t##\n\t#Set Header Buffer Size\n\t##\n\tclient_header_buffer_size 1k;\n\tlarge_client_header_buffers 2 1k;\n\n\t##\n\t#Time Outs Settings\n\t##\n\tclient_body_timeout 12;\n\tclient_header_timeout 12;\n\tsend_timeout 10;' /etc/nginx/nginx.conf
+sed -i '43i\\n\t##\n\t# Client Body Size\n\t##\n\tclient_body_buffer_size 10K;\n\tclient_max_body_size 40M;\n\n\t##\n\t# Fastcgi Buffer Increase\n\t##\n\tfastcgi_buffers 8 32k;\n\tfastcgi_buffer_size 64k;' /etc/nginx/nginx.conf
 perl -pi -e "s/keepalive_timeout 65/keepalive_timeout 15/g" /etc/nginx/nginx.conf
 perl -pi -e "s/# gzip_proxied any/gzip_proxied expired no-cache no-store private auth/g" /etc/nginx/nginx.conf
 perl -pi -e "s/# gzip_comp_level 6/gzip_comp_level 4/g" /etc/nginx/nginx.conf
