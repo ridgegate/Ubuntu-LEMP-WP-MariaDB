@@ -48,8 +48,8 @@ SERVERIP=$(curl https://ipinfo.io/ip)
 
 #---Following is optional changes to the PHP perimeters that are typically required for WP + Woo themes
 perl -pi -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.4/fpm/php.ini
-perl -pi -e "s/.*max_execution_time.*/max_execution_time = 120/;" /etc/php/7.4/fpm/php.ini
-perl -pi -e "s/.*max_input_time.*/max_input_time = 3000/;" /etc/php/7.4/fpm/php.ini
+perl -pi -e "s/.*max_execution_time.*/max_execution_time = 300/;" /etc/php/7.4/fpm/php.ini
+perl -pi -e "s/.*max_input_time.*/max_input_time = 300/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/.*post_max_size.*/post_max_size = 100M/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/.*upload_max_filesize.*/upload_max_filesize = 200M/;" /etc/php/7.4/fpm/php.ini
 perl -pi -e "s/memory_limit = 128M/memory_limit = 328M/g" /etc/php/7.4/fpm/php.ini
