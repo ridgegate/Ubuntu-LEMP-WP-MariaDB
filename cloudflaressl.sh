@@ -10,7 +10,6 @@
 clear
 # Create Necessary Folders
 mkdir /etc/ssl/private
-mkdir /etc/nginx/private
 #------
 
 echo "This require Cloudflare account"
@@ -41,7 +40,6 @@ echo
 SERVERIP=$(curl https://ipinfo.io/ip)
 
 
-wget -O /etc/nginx/private/restrictions.conf https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/restrictions.conf
 wget -O /etc/ssl/private/cloudflareoa_cert.pem https://support.cloudflare.com/hc/article_attachments/360037898732/origin_ca_ecc_root.pem
 wget -O /etc/nginx/sites-available/$MY_DOMAIN https://raw.githubusercontent.com/ridgegate/Ubuntu-LEMP-WP-MariaDB/master/NGINXFiles/nginx-ssl-block
 perl -pi -e "s/domain.com/$MY_DOMAIN/g" /etc/nginx/sites-available/$MY_DOMAIN
